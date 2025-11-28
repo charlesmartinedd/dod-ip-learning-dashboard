@@ -3,6 +3,9 @@
 **Classification:** UNCLASSIFIED
 **Client:** Eccalon LLC - OSBP & Pentagon
 **Status:** Phase 1 & 2 Complete (Data Analysis + Dashboard Design)
+n🌐 **Live Dashboard:** https://charlesmartinedd.github.io/dod-ip-learning-dashboard/
+📄 **Executive PDF Report:** [Download](DoD_IP_Learning_Resources_Executive_Report.pdf)
+
 
 ## Overview
 
