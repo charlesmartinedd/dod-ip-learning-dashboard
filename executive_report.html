@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Learning Resources Executive Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2.0.1/dist/chartjs-chart-matrix.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: Letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #002147;
+            background: white;
+        }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            page-break-after: always;
+            position: relative;
+            padding: 0.5in;
+            background: white;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Header */
+        .report-header {
+            text-align: center;
+            border-bottom: 3px solid #002147;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .classification {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #0071BC;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .report-title {
+            font-size: 20pt;
+            font-weight: 800;
+            color: #002147;
+            margin-bottom: 5px;
+        }
+
+        .report-subtitle {
+            font-size: 12pt;
+            font-weight: 600;
+            color: #0071BC;
+        }
+
+        .report-date {
+            font-size: 9pt;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Metrics Bar */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-box {
+            background: linear-gradient(135deg, #002147 0%, #0071BC 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 28pt;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 9pt;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: 700;
+            color: #002147;
+            border-bottom: 2px solid #0071BC;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Charts */
+        .chart-container {
+            height: 300px;
+            margin: 15px 0;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        /* Quality Score */
+        .quality-box {
+            background: #F0F8FF;
+            border-left: 4px solid #0071BC;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .quality-title {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #002147;
+            margin-bottom: 8px;
+        }
+
+        .quality-score {
+            font-size: 36pt;
+            font-weight: 800;
+            color: #0071BC;
+            display: inline-block;
+        }
+
+        .quality-dimensions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .dimension {
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .dimension-label {
+            font-size: 9pt;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .dimension-value {
+            font-size: 14pt;
+            font-weight: 700;
+            color: #002147;
+        }
+
+        /* Gaps & Recommendations */
+        .gap-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid;
+            background: #F9F9F9;
+        }
+
+        .gap-item.high {
+            border-left-color: #DC3545;
+            background: #FFF5F5;
+        }
+
+        .gap-item.medium {
+            border-left-color: #FFC107;
+            background: #FFFBF0;
+        }
+
+        .gap-item.low {
+            border-left-color: #28A745;
+            background: #F0FFF4;
+        }
+
+        .gap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .gap-severity {
+            font-size: 9pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .gap-desc {
+            font-size: 10pt;
+            color: #333;
+        }
+
+        /* Strengths */
+        .strength-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: #F0FFF4;
+            border-left: 4px solid #28A745;
+            border-radius: 4px;
+        }
+
+        .strength-text {
+            font-size: 10pt;
+            color: #333;
+        }
+
+        /* Recommendations */
+        .recommendation {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #FFF9F0;
+            border-left: 4px solid #0071BC;
+            border-radius: 4px;
+        }
+
+        .rec-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #002147;
+            margin-bottom: 5px;
+        }
+
+        .rec-desc {
+            font-size: 9pt;
+            color: #555;
+        }
+
+        /* Footer */
+        .report-footer {
+            position: absolute;
+            bottom: 0.5in;
+            left: 0.5in;
+            right: 0.5in;
+            padding-top: 10px;
+            border-top: 2px solid #002147;
+            font-size: 9pt;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .page {
+                page-break-after: always;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PAGE 1: EXECUTIVE SUMMARY -->
+    <div class="page" id="page1">
+        <div class="report-header">
+            <div class="classification">UNCLASSIFIED</div>
+            <h1 class="report-title">Department of Defense</h1>
+            <h2 class="report-subtitle">Intellectual Property Learning Resources - Executive Assessment</h2>
+            <div class="report-date" id="reportDate">November 2025</div>
+        </div>
+
+        <!-- Hero Metrics -->
+        <div class="metrics-bar">
+            <div class="metric-box">
+                <div class="metric-value" id="totalRes">--</div>
+                <div class="metric-label">Total Resources</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value" id="newRes">--</div>
+                <div class="metric-label">New in 2025</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value" id="vidRes">--</div>
+                <div class="metric-label">Video Content</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value" id="qualRes">--/100</div>
+                <div class="metric-label">Quality Score</div>
+            </div>
+        </div>
+
+        <!-- Coverage Heatmap -->
+        <div class="section">
+            <h3 class="section-title">Coverage Analysis: Audience × Topic Matrix</h3>
+            <div class="chart-container">
+                <canvas id="coverageChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Quality Assessment -->
+        <div class="quality-box">
+            <div class="quality-title">Quality Assessment Summary</div>
+            <div class="quality-score" id="overallScore">--</div><span style="font-size: 14pt; color: #666;">/100</span>
+            <div class="quality-dimensions">
+                <div class="dimension">
+                    <div class="dimension-label">Completeness</div>
+                    <div class="dimension-value"><span id="compScore">--</span>/100</div>
+                </div>
+                <div class="dimension">
+                    <div class="dimension-label">Currency</div>
+                    <div class="dimension-value"><span id="currScore">--</span>/100</div>
+                </div>
+                <div class="dimension">
+                    <div class="dimension-label">Diversity</div>
+                    <div class="dimension-value"><span id="divScore">--</span>/100</div>
+                </div>
+                <div class="dimension">
+                    <div class="dimension-label">Coverage</div>
+                    <div class="dimension-value"><span id="covScore">--</span>/100</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Strengths -->
+        <div class="section">
+            <h3 class="section-title">💪 Key Program Strengths</h3>
+            <div id="strengthsList"></div>
+        </div>
+
+        <div class="report-footer">
+            <div><span class="classification">UNCLASSIFIED</span> • Eccalon LLC - OSBP & Pentagon</div>
+            <div>Page 1 of 2</div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: GAPS & RECOMMENDATIONS -->
+    <div class="page" id="page2">
+        <div class="report-header">
+            <div class="classification">UNCLASSIFIED</div>
+            <h1 class="report-title">IP Learning Resources Assessment</h1>
+            <h2 class="report-subtitle">Strategic Gaps & Recommendations</h2>
+        </div>
+
+        <!-- Strategic Gaps -->
+        <div class="section">
+            <h3 class="section-title">⚠️ Identified Strategic Gaps</h3>
+            <div id="gapsList"></div>
+        </div>
+
+        <!-- Strategic Recommendations -->
+        <div class="section">
+            <h3 class="section-title">🎯 Strategic Recommendations</h3>
+            <div id="recommendationsList"></div>
+        </div>
+
+        <!-- Executive Summary Narrative -->
+        <div class="section">
+            <h3 class="section-title">Executive Summary</h3>
+            <p style="font-size: 10pt; line-height: 1.6; color: #333;">
+                The Department of Defense Intellectual Property learning resources program demonstrates strong foundational capabilities
+                with <span id="totalCount">67</span> resources across <span id="audienceCount">7</span> audience types and
+                <span id="topicCount">9</span> topic areas. The program shows positive momentum with
+                <span id="newCount">15</span> new resources added in 2025, representing continued investment in IP education.
+            </p>
+            <p style="font-size: 10pt; line-height: 1.6; color: #333; margin-top: 10px;">
+                Priority areas for improvement include expanding coverage of emerging technologies (AI/ML) and Modular Open Systems
+                Approach (MOSA), increasing interactive learning opportunities, and updating legacy content to reflect current policies.
+                Addressing these strategic gaps will strengthen the program's ability to prepare the acquisition workforce for evolving
+                IP challenges in modern defense systems.
+            </p>
+        </div>
+
+        <div class="report-footer">
+            <div><span class="classification">UNCLASSIFIED</span> • Generated: <span id="genDate">--</span></div>
+            <div>Page 2 of 2</div>
+        </div>
+    </div>
+
+    <script src="report.js"></script>
+</body>
+</html>
