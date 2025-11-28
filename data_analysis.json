@@ -1,0 +1,181 @@
+{
+  "generatedAt": "2025-11-28T05:43:27.292Z",
+  "metrics": {
+    "totalResources": 67,
+    "newIn2025": 15,
+    "videoCount": 23,
+    "documentCount": 17,
+    "webinarCount": 10,
+    "trainingCount": 10,
+    "websiteCount": 23,
+    "missingDates": 28,
+    "missingDescriptions": 1,
+    "percentNew": 22,
+    "percentVideo": 34
+  },
+  "audiences": {
+    "Program Managers": 49,
+    "Contracting Officers": 52,
+    "Engineers": 22,
+    "Legal/IP Attorneys": 46,
+    "Small Business": 14,
+    "Logisticians": 25,
+    "Acquisition Workforce": 51
+  },
+  "topics": {
+    "Fundamentals/Basics": 16,
+    "IP Strategy": 14,
+    "Data Rights": 33,
+    "SBIR/STTR": 15,
+    "MOSA": 4,
+    "Product Support": 17,
+    "AI/Emerging Tech": 3,
+    "Contracting/FAR": 16,
+    "Policy/Guidance": 21
+  },
+  "coverageMatrix": {
+    "Program Managers": {
+      "Fundamentals/Basics": 15,
+      "IP Strategy": 10,
+      "Data Rights": 29,
+      "SBIR/STTR": 11,
+      "MOSA": 3,
+      "Product Support": 9,
+      "AI/Emerging Tech": 3,
+      "Contracting/FAR": 12,
+      "Policy/Guidance": 13
+    },
+    "Contracting Officers": {
+      "Fundamentals/Basics": 15,
+      "IP Strategy": 11,
+      "Data Rights": 32,
+      "SBIR/STTR": 13,
+      "MOSA": 3,
+      "Product Support": 11,
+      "AI/Emerging Tech": 3,
+      "Contracting/FAR": 15,
+      "Policy/Guidance": 13
+    },
+    "Engineers": {
+      "Fundamentals/Basics": 9,
+      "IP Strategy": 8,
+      "Data Rights": 15,
+      "SBIR/STTR": 0,
+      "MOSA": 3,
+      "Product Support": 6,
+      "AI/Emerging Tech": 0,
+      "Contracting/FAR": 7,
+      "Policy/Guidance": 8
+    },
+    "Legal/IP Attorneys": {
+      "Fundamentals/Basics": 14,
+      "IP Strategy": 13,
+      "Data Rights": 30,
+      "SBIR/STTR": 5,
+      "MOSA": 3,
+      "Product Support": 14,
+      "AI/Emerging Tech": 2,
+      "Contracting/FAR": 15,
+      "Policy/Guidance": 15
+    },
+    "Small Business": {
+      "Fundamentals/Basics": 1,
+      "IP Strategy": 0,
+      "Data Rights": 5,
+      "SBIR/STTR": 14,
+      "MOSA": 0,
+      "Product Support": 2,
+      "AI/Emerging Tech": 0,
+      "Contracting/FAR": 3,
+      "Policy/Guidance": 2
+    },
+    "Logisticians": {
+      "Fundamentals/Basics": 10,
+      "IP Strategy": 10,
+      "Data Rights": 16,
+      "SBIR/STTR": 0,
+      "MOSA": 2,
+      "Product Support": 11,
+      "AI/Emerging Tech": 0,
+      "Contracting/FAR": 6,
+      "Policy/Guidance": 9
+    },
+    "Acquisition Workforce": {
+      "Fundamentals/Basics": 9,
+      "IP Strategy": 8,
+      "Data Rights": 22,
+      "SBIR/STTR": 14,
+      "MOSA": 1,
+      "Product Support": 13,
+      "AI/Emerging Tech": 2,
+      "Contracting/FAR": 12,
+      "Policy/Guidance": 16
+    }
+  },
+  "gaps": [
+    {
+      "type": "metadata",
+      "severity": "medium",
+      "description": "28 resources lack publication dates",
+      "count": 28,
+      "recommendation": "Update metadata for all resources to enable accurate currency tracking"
+    },
+    {
+      "type": "metadata",
+      "severity": "low",
+      "description": "1 resources missing descriptions",
+      "count": 1,
+      "recommendation": "Add comprehensive descriptions to improve discoverability and usability"
+    },
+    {
+      "type": "format",
+      "severity": "medium",
+      "description": "Only 4 interactive/hands-on resources available",
+      "count": 1,
+      "recommendation": "Create more workshops, exercises, and practical application opportunities"
+    },
+    {
+      "type": "currency",
+      "severity": "medium",
+      "description": "Only 37% of resources are from 2024-2025",
+      "count": 42,
+      "recommendation": "Update or refresh older content to reflect current policies and practices"
+    },
+    {
+      "type": "topic",
+      "severity": "high",
+      "description": "Insufficient AI/Emerging Tech coverage (3 resources)",
+      "count": 2,
+      "recommendation": "Expand AI/Emerging Tech content library to address growing DoD priorities"
+    },
+    {
+      "type": "topic",
+      "severity": "high",
+      "description": "Insufficient MOSA coverage (4 resources)",
+      "count": 1,
+      "recommendation": "Expand MOSA content library to address growing DoD priorities"
+    }
+  ],
+  "qualityScores": {
+    "completeness": 55,
+    "currency": 37,
+    "diversity": 100,
+    "coverage": 100,
+    "overall": 70
+  },
+  "summary": {
+    "strengths": [
+      "Strong foundational content library (16 basic resources)",
+      "Good video content representation (34%)",
+      "Comprehensive DAU credential program coverage",
+      "Active 2025 content development (15 new resources)"
+    ],
+    "opportunities": [
+      "Expand advanced-level content for experienced practitioners",
+      "Increase interactive/hands-on learning opportunities",
+      "Develop more AI and MOSA-focused materials",
+      "Strengthen coverage for underserved audiences",
+      "Update older content to reflect current policies"
+    ]
+  }
+}

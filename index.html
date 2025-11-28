@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Learning Resources - Executive Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2.0.1/dist/chartjs-chart-matrix.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="classification-banner">UNCLASSIFIED</div>
+                <h1>Department of Defense</h1>
+                <h2>Intellectual Property Learning Resources</h2>
+                <p class="subtitle">Executive Assessment Dashboard</p>
+            </div>
+            <div class="header-meta">
+                <div class="quality-badge">
+                    <span class="quality-label">Overall Quality</span>
+                    <span class="quality-value" id="overallQuality">--</span>
+                </div>
+                <div class="date-badge">November 2025</div>
+            </div>
+        </header>
+
+        <!-- Hero Metrics Section -->
+        <section class="hero-metrics">
+            <div class="metric-card metric-primary">
+                <div class="metric-icon">📚</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="totalResources">--</div>
+                    <div class="metric-label">Total Learning Resources</div>
+                    <div class="metric-sublabel">Comprehensive IP Training Library</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">✨</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="newResources">--</div>
+                    <div class="metric-label">New in 2025</div>
+                    <div class="metric-trend" id="newTrend">--% of total</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">🎥</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="videoCount">--</div>
+                    <div class="metric-label">Video Resources</div>
+                    <div class="metric-trend" id="videoTrend">--% of library</div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">📄</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="documentCount">--</div>
+                    <div class="metric-label">Documents</div>
+                    <div class="metric-sublabel">Guides & References</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Visualization Grid -->
+        <section class="visualization-grid">
+            <!-- Coverage Heatmap -->
+            <div class="viz-card viz-large">
+                <div class="viz-header">
+                    <h3>Coverage Analysis: Audience × Topic Matrix</h3>
+                    <p class="viz-description">Resource density across audiences and subject areas</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="coverageHeatmap"></canvas>
+                </div>
+                <div class="legend-note">
+                    <span class="legend-item"><span class="legend-color low"></span>Low Coverage (0-5)</span>
+                    <span class="legend-item"><span class="legend-color medium"></span>Medium (6-15)</span>
+                    <span class="legend-item"><span class="legend-color high"></span>High (16+)</span>
+                </div>
+            </div>
+
+            <!-- Gap Analysis Radar -->
+            <div class="viz-card">
+                <div class="viz-header">
+                    <h3>Quality Dimensions</h3>
+                    <p class="viz-description">Multi-factor assessment</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="qualityRadar"></canvas>
+                </div>
+            </div>
+
+            <!-- Strategic Gaps -->
+            <div class="viz-card">
+                <div class="viz-header">
+                    <h3>⚠️ Strategic Gaps Identified</h3>
+                    <p class="viz-description"><span id="gapCount">--</span> areas requiring attention</p>
+                </div>
+                <div class="gap-list" id="gapList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Key Strengths -->
+            <div class="viz-card">
+                <div class="viz-header">
+                    <h3>💪 Key Strengths</h3>
+                    <p class="viz-description">Program achievements</p>
+                </div>
+                <div class="strength-list" id="strengthList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <span class="classification-banner">UNCLASSIFIED</span>
+                    <span class="separator">•</span>
+                    <span>Eccalon LLC - OSBP & Pentagon</span>
+                </div>
+                <div class="footer-right">
+                    <span>Generated: <span id="generatedDate">--</span></span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
