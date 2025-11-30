@@ -1119,9 +1119,73 @@
             .stat-grid { grid-template-columns: 1fr 1fr 1fr; }
             .summary-cards { grid-template-columns: 1fr; }
         }
+
+        /* Video Overlay */
+        .video-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-overlay video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay.dismissed {
+            transform: scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sound-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.9);
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sound-indicator.show {
+            opacity: 1;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
+    <div class="video-overlay" id="videoOverlay">
+        <video id="introVideo" autoplay muted loop playsinline>
+            <source src="intro.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <canvas id="particles"></canvas>
 
     <main class="hero">
@@ -1159,6 +1223,84 @@
     </div>
 
     <script>
+        // Video Intro State
+        let videoClickCount = 0;
+        let particlesInitialized = false;
+
+        const videoOverlay = document.getElementById('videoOverlay');
+        const introVideo = document.getElementById('introVideo');
+
+        // Add click hint
+        const clickHint = document.createElement('div');
+        clickHint.className = 'click-hint';
+        clickHint.textContent = 'Click to unmute';
+        videoOverlay.appendChild(clickHint);
+
+        videoOverlay.addEventListener('click', handleVideoClick);
+
+        function handleVideoClick() {
+            videoClickCount++;
+
+            if (videoClickCount === 1) {
+                introVideo.muted = false;
+                clickHint.textContent = 'Click again to enter';
+                showSoundIndicator();
+            } else if (videoClickCount === 2) {
+                dismissVideo();
+            }
+        }
+
+        function showSoundIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'sound-indicator';
+            indicator.textContent = '\uD83D\uDD0A';
+            videoOverlay.appendChild(indicator);
+
+            requestAnimationFrame(() => {
+                indicator.classList.add('show');
+            });
+
+            setTimeout(() => {
+                indicator.classList.remove('show');
+                setTimeout(() => indicator.remove(), 300);
+            }, 1500);
+        }
+
+        function dismissVideo() {
+            introVideo.pause();
+            videoOverlay.classList.add('dismissed');
+            clickHint.remove();
+
+            if (!particlesInitialized) {
+                particlesInitialized = true;
+                initParticles();
+                animateParticles();
+            }
+
+            setTimeout(() => {
+                videoOverlay.remove();
+            }, 700);
+        }
+
+        // Video error handler - auto dismiss if video fails
+        introVideo.addEventListener('error', () => {
+            dismissVideo();
+        });
+
+        // Video ended handler (if loop is removed)
+        introVideo.addEventListener('ended', () => {
+            if (videoClickCount >= 1) {
+                dismissVideo();
+            }
+        });
+
+        // Escape key to dismiss immediately
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoOverlay && !videoOverlay.classList.contains('dismissed')) {
+                dismissVideo();
+            }
+        });
+
         const RESOURCES = [
   {"id":1,"title":"Foundational IP Credential CACQ 008A","summary":"Online suite of IP and Data Rights learning assets for strategic thinking.","description":"Scenario-based training teaching DoD acquisition workforce to think strategically about IP.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, IP Attorneys","date":"2025-10-03","url":"https://www.dau.edu/credentials/cacq-008a","videoLength":null},
   {"id":2,"title":"ACQ 0710 Foundations of Data","summary":"Introductory course to IP and Data Rights series covering foundational concepts.","description":"Foundational understanding of data, technical data and computer software per DODI 5010.44.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, IP Attorneys","date":"2024-10-09","url":"https://www.dau.edu/courses/acq-0710","videoLength":null},
@@ -1333,8 +1475,14 @@
         }
 
         document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
-        resizeCanvas(); initParticles(); animateParticles();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            if (particlesInitialized) {
+                initParticles();
+            }
+        });
+        resizeCanvas();
+        // Particles will be initialized when video is dismissed
 
         // Number animation
         function animateNumber(element, target, duration = 800) {
