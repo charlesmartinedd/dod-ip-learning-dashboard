@@ -18,6 +18,9 @@
             --warm-50: #fefdfb;
             --accent: #2563eb;
             --accent-subtle: #dbeafe;
+            --green: #10b981;
+            --yellow: #f59e0b;
+            --red: #dc2626;
         }
 
         * {
@@ -37,7 +40,6 @@
             min-height: 100vh;
         }
 
-        /* Particle Canvas */
         #particles {
             position: fixed;
             top: 0;
@@ -48,11 +50,8 @@
             transition: opacity 0.3s ease;
         }
 
-        #particles.dimmed {
-            opacity: 0.15;
-        }
+        #particles.dimmed { opacity: 0.15; }
 
-        /* Hero Section - Left Aligned */
         .hero {
             position: relative;
             z-index: 1;
@@ -111,13 +110,8 @@
             box-shadow: 0 4px 12px rgba(15,23,42,0.15);
         }
 
-        .btn.primary {
-            background: var(--accent);
-        }
-
-        .btn.primary:hover {
-            background: #1d4ed8;
-        }
+        .btn.primary { background: var(--accent); }
+        .btn.primary:hover { background: #1d4ed8; }
 
         .footer-stats {
             position: absolute;
@@ -129,7 +123,7 @@
             text-transform: uppercase;
         }
 
-        /* Modal Overlay */
+        /* Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -212,7 +206,7 @@
             flex-direction: column;
         }
 
-        /* Explore Resources - Table + Panel Layout */
+        /* Explore Resources Layout */
         .explore-container {
             display: flex;
             height: 100%;
@@ -339,16 +333,13 @@
             max-width: 320px;
         }
 
-        .resource-row td:nth-child(2) {
+        .resource-row td:nth-child(2),
+        .resource-row td:nth-child(3) {
             color: var(--slate-500);
             font-size: 0.8125rem;
         }
 
-        .resource-row td:nth-child(3) {
-            color: var(--slate-500);
-            font-size: 0.8125rem;
-            white-space: nowrap;
-        }
+        .resource-row td:nth-child(3) { white-space: nowrap; }
 
         /* Detail Panel */
         .detail-panel {
@@ -466,9 +457,7 @@
             cursor: not-allowed;
         }
 
-        .open-resource-btn.disabled:hover {
-            transform: none;
-        }
+        .open-resource-btn.disabled:hover { transform: none; }
 
         /* Analytics */
         .analytics-content {
@@ -478,7 +467,7 @@
 
         .analytics-tabs {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.375rem;
             margin-bottom: 1.5rem;
             border-bottom: 1px solid var(--slate-200);
             padding-bottom: 0.75rem;
@@ -487,8 +476,8 @@
         .analytics-tabs button {
             background: none;
             border: none;
-            padding: 0.625rem 1.25rem;
-            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
             color: var(--slate-500);
             cursor: pointer;
             border-radius: 6px;
@@ -506,10 +495,175 @@
             background: var(--slate-100);
         }
 
+        /* Stat Cards */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--slate-100);
+            padding: 1.25rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--navy-900);
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-number.accent { color: var(--accent); }
+
+        .stat-label {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            font-weight: 500;
+        }
+
+        /* Mini Format Distribution */
+        .format-dist {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .format-dist-title {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .format-bars {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-end;
+            height: 60px;
+        }
+
+        .format-bar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .format-bar-fill {
+            width: 100%;
+            background: var(--navy-700);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.6s ease-out;
+            position: relative;
+        }
+
+        .format-bar-fill.highlight { background: var(--accent); }
+
+        .format-bar-label {
+            font-size: 0.625rem;
+            color: var(--slate-500);
+            text-transform: uppercase;
+        }
+
+        .format-bar-count {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--navy-900);
+        }
+
+        /* Resource highlight cards */
+        .resource-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-card {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .highlight-card-title {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-card-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .highlight-card-sub {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+        }
+
+        /* Momentum bar */
+        .momentum-section {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .momentum-title {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .momentum-bar {
+            height: 10px;
+            background: var(--slate-200);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .momentum-fill {
+            height: 100%;
+            background: var(--green);
+            border-radius: 5px;
+            transition: width 0.8s ease-out;
+        }
+
+        .momentum-text {
+            font-size: 0.8125rem;
+            color: var(--navy-700);
+        }
+
+        .momentum-text strong { color: var(--green); }
+
+        /* Bar Charts */
         .bar-chart {
             display: flex;
             flex-direction: column;
-            gap: 0.875rem;
+            gap: 0.75rem;
         }
 
         .bar-row {
@@ -519,7 +673,7 @@
         }
 
         .bar-label {
-            width: 140px;
+            width: 120px;
             font-size: 0.8125rem;
             color: var(--slate-500);
             text-align: right;
@@ -532,11 +686,12 @@
             background: var(--slate-100);
             border-radius: 4px;
             overflow: hidden;
+            position: relative;
         }
 
         .bar-fill {
             height: 100%;
-            background: var(--navy-700);
+            background: linear-gradient(90deg, var(--navy-700) 0%, var(--accent) 100%);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -547,19 +702,49 @@
             font-weight: 600;
             transition: width 0.8s ease;
             width: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 1.5s ease-out forwards;
+        }
+
+        @keyframes shimmer {
+            to { left: 100%; }
         }
 
         .bar-fill.highlight {
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--accent) 0%, #1d4ed8 100%);
         }
 
         .bar-fill.animate {
             width: var(--target-width);
         }
 
+        /* Insight callout */
+        .insight-callout {
+            background: var(--accent-subtle);
+            border-left: 3px solid var(--accent);
+            padding: 0.875rem 1rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.8125rem;
+            color: var(--navy-700);
+            margin-top: 1.25rem;
+        }
+
+        .insight-callout strong { color: var(--accent); }
+
         .chart-note {
             margin-top: 1rem;
-            font-size: 0.8125rem;
+            font-size: 0.75rem;
             color: var(--slate-500);
             font-style: italic;
         }
@@ -570,131 +755,186 @@
             overflow-y: auto;
         }
 
-        .coverage-section {
-            margin-bottom: 2rem;
+        /* Health Score */
+        .health-section {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
-        .coverage-section h3 {
-            font-size: 1rem;
-            color: var(--navy-900);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--slate-200);
-            font-weight: 600;
-        }
-
-        .strength-item {
-            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-            padding: 1rem 1.25rem;
-            border-radius: 8px;
+        .health-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 0.75rem;
-            border-left: 3px solid #10b981;
         }
 
-        .strength-title {
-            font-weight: 600;
-            color: #065f46;
-            margin-bottom: 0.25rem;
-            font-size: 0.875rem;
-        }
-
-        .strength-item > div:last-child {
-            font-size: 0.8125rem;
-            color: #047857;
-        }
-
-        .gap-item {
-            padding: 1rem 1.25rem;
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            border-left: 3px solid;
-        }
-
-        .gap-item.high {
-            background: #fef2f2;
-            border-color: #dc2626;
-        }
-
-        .gap-item.medium {
-            background: #fffbeb;
-            border-color: #f59e0b;
-        }
-
-        .gap-item.low {
-            background: #eff6ff;
-            border-color: #3b82f6;
-        }
-
-        .gap-priority {
-            display: inline-block;
-            padding: 0.2rem 0.625rem;
-            border-radius: 20px;
-            font-size: 0.625rem;
-            font-weight: 700;
+        .health-title {
+            font-size: 0.6875rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            font-weight: 500;
+        }
+
+        .health-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .health-score.good { color: var(--green); }
+        .health-score.moderate { color: var(--yellow); }
+        .health-score.poor { color: var(--red); }
+
+        .health-bar {
+            height: 10px;
+            background: var(--slate-200);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .health-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease-out;
+        }
+
+        .health-fill.good { background: var(--green); }
+        .health-fill.moderate { background: var(--yellow); }
+        .health-fill.poor { background: var(--red); }
+
+        .health-desc {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
+        }
+
+        /* Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .summary-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .summary-card-icon {
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .gap-priority.high { background: #dc2626; color: white; }
-        .gap-priority.medium { background: #f59e0b; color: #78350f; }
-        .gap-priority.low { background: #3b82f6; color: white; }
-
-        .gap-item .strength-title {
+        .summary-card-count {
+            font-size: 1.75rem;
+            font-weight: 700;
             color: var(--navy-900);
+            line-height: 1;
         }
 
-        .gap-item > div:last-child {
-            font-size: 0.8125rem;
+        .summary-card-label {
+            font-size: 0.75rem;
             color: var(--slate-500);
+            margin-top: 0.25rem;
         }
 
-        .rec-item {
-            display: flex;
-            gap: 1rem;
+        .summary-card-action {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-top: 0.75rem;
+        }
+
+        .summary-card.strengths { border-top: 3px solid var(--green); }
+        .summary-card.gaps { border-top: 3px solid var(--yellow); }
+        .summary-card.actions { border-top: 3px solid var(--accent); }
+
+        /* Priority Breakdown */
+        .priority-section {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
             padding: 1rem;
-            background: var(--slate-100);
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            align-items: flex-start;
+            margin-bottom: 1.5rem;
         }
 
-        .rec-number {
-            width: 28px;
-            height: 28px;
-            background: var(--navy-700);
-            color: white;
-            border-radius: 50%;
+        .priority-title {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .priority-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: 700;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .priority-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .priority-dot.high { background: var(--red); }
+        .priority-dot.medium { background: var(--yellow); }
+        .priority-dot.low { background: var(--accent); }
+
+        .priority-label {
+            width: 60px;
             font-size: 0.75rem;
-            flex-shrink: 0;
-        }
-
-        .rec-content {
-            flex: 1;
-        }
-
-        .rec-title {
-            font-weight: 600;
-            color: var(--navy-900);
-            margin-bottom: 0.25rem;
-            font-size: 0.875rem;
-        }
-
-        .rec-content > div:last-child {
-            font-size: 0.8125rem;
             color: var(--slate-500);
         }
 
+        .priority-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--slate-100);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .priority-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s ease-out;
+        }
+
+        .priority-bar-fill.high { background: var(--red); }
+        .priority-bar-fill.medium { background: var(--yellow); }
+        .priority-bar-fill.low { background: var(--accent); }
+
+        .priority-count {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            width: 50px;
+        }
+
+        /* Bottom Line */
         .bottom-line {
             background: var(--navy-700);
             color: white;
             padding: 1.25rem 1.5rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
+            border-radius: 10px;
         }
 
         .bottom-line h4 {
@@ -710,41 +950,174 @@
             line-height: 1.6;
         }
 
+        /* Drill-down Panel */
+        .drilldown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .drilldown-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drilldown-panel {
+            background: white;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 70vh;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.2s ease;
+        }
+
+        .drilldown-overlay.active .drilldown-panel {
+            transform: scale(1);
+        }
+
+        .drilldown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .drilldown-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy-900);
+        }
+
+        .drilldown-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--slate-500);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .drilldown-body {
+            padding: 1.25rem;
+            overflow-y: auto;
+            max-height: calc(70vh - 60px);
+        }
+
+        /* Drilldown Items */
+        .drilldown-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .drilldown-item {
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+
+        .drilldown-item.strength {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-color: var(--green);
+        }
+
+        .drilldown-item.gap-high {
+            background: #fef2f2;
+            border-color: var(--red);
+        }
+
+        .drilldown-item.gap-medium {
+            background: #fffbeb;
+            border-color: var(--yellow);
+        }
+
+        .drilldown-item.gap-low {
+            background: #eff6ff;
+            border-color: var(--accent);
+        }
+
+        .drilldown-item.action {
+            background: var(--slate-100);
+            border-color: var(--navy-700);
+        }
+
+        .drilldown-item-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            color: var(--navy-900);
+        }
+
+        .drilldown-item-desc {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            line-height: 1.5;
+        }
+
+        .gap-badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.5625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .gap-badge.high { background: var(--red); color: white; }
+        .gap-badge.medium { background: var(--yellow); color: #78350f; }
+        .gap-badge.low { background: var(--accent); color: white; }
+
+        .action-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: var(--navy-700);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.625rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
         @media (max-width: 1024px) {
-            .hero {
-                padding: 3rem 2rem;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .footer-stats {
-                left: 2rem;
-            }
-            .explore-container {
-                flex-direction: column;
-            }
+            .hero { padding: 3rem 2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .footer-stats { left: 2rem; }
+            .explore-container { flex-direction: column; }
             .resource-table-section {
                 flex: 1;
                 border-right: none;
                 border-bottom: 1px solid var(--slate-200);
                 max-height: 50%;
             }
-            .detail-panel {
-                flex: 1;
-            }
+            .detail-panel { flex: 1; }
+            .stat-grid { grid-template-columns: repeat(3, 1fr); }
+            .summary-cards { grid-template-columns: repeat(3, 1fr); }
+            .drilldown-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .buttons {
-                flex-direction: column;
-            }
-            .bar-label {
-                width: 100px;
-                font-size: 0.75rem;
-            }
+            .hero h1 { font-size: 2rem; }
+            .buttons { flex-direction: column; }
+            .bar-label { width: 80px; font-size: 0.7rem; }
+            .stat-grid { grid-template-columns: 1fr 1fr 1fr; }
+            .summary-cards { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -775,810 +1148,90 @@
         </div>
     </div>
 
+    <div class="drilldown-overlay" id="drilldownOverlay" onclick="closeDrilldown(event)">
+        <div class="drilldown-panel" onclick="event.stopPropagation()">
+            <div class="drilldown-header">
+                <h3 id="drilldownTitle">Title</h3>
+                <button class="drilldown-close" onclick="closeDrilldown()">&times;</button>
+            </div>
+            <div class="drilldown-body" id="drilldownBody"></div>
+        </div>
+    </div>
+
     <script>
-        // Embedded Resource Data
         const RESOURCES = [
-  {
-    "id": 1,
-    "title": "Foundational Intellectual Property (IP) Credential CACQ 008A",
-    "summary": "New online suite of learning assets on the fundamentals of Intellectual Property and Data Rights, scenario-based training for strategic thinking.",
-    "description": "New online suite of learning assets on the fundamentals of Intellectual Property and Data Rights, which are scenario-based and teach the DoD acquisition workforce to think strategically (Released 2025). Acquisition professionals who work with intellectual property (IP) and Data Rights will gain essential skills for effective acquisition, licensing, and management of IP in accordance with the core principles outlined in DoD Instruction 5010.44.",
-    "type": "Training",
-    "organization": "DAU Credential",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
-    "date": "2025-10-03",
-    "url": "https://www.dau.edu/credentials/cacq-008a",
-    "videoLength": null
-  },
-  {
-    "id": 2,
-    "title": "ACQ 0710 Foundations of Data",
-    "summary": "Introductory course to the IP and Data Rights series covering foundational concepts per DODI 5010.44.",
-    "description": "This Online Training (OLT) course is the introductory course to the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program will have a robust IP strategy to identify and manage the full spectrum of IP and related matters.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
-    "date": "2024-10-09",
-    "url": "https://www.dau.edu/courses/acq-0710",
-    "videoLength": null
-  },
-  {
-    "id": 3,
-    "title": "ACQ 0720 IP and Data Rights",
-    "summary": "Second course in the IP series providing foundational understanding of IP impact on DoD and licensing aspects.",
-    "description": "This Online Training (OLT) course is the second course in the Intellectual Property and Data Rights series. Provides a foundational understanding of what is IP, the impact of IP on the DOD, and the unique licensing aspects the DOD may use for IP.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
-    "date": "2024-10-09",
-    "url": "https://www.dau.edu/courses/acq-0720",
-    "videoLength": null
-  },
-  {
-    "id": 4,
-    "title": "ACQ 0730 Create and/or Update an RFP",
-    "summary": "Course on Request for Proposal documents and key data acquisition sections for IP communication.",
-    "description": "This Online Training (OLT) course introduces the Request for Proposal, a document used in negotiated acquisitions to communicate the Government's requirements to prospective contractors and to solicit proposals.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
-    "date": "2024-10-09",
-    "url": "https://www.dau.edu/courses/acq-0730",
-    "videoLength": null
-  },
-  {
-    "id": 5,
-    "title": "ACQ 0740 Fundamentals of an IP Strategy",
-    "summary": "Course on developing and updating an Intellectual Property Strategy using the 5-phase process.",
-    "description": "This Online Training (OLT) course discusses the fundamentals of developing and updating an Intellectual Strategy, focusing on the 5-phase process. Provides a how-to primer on this critical element required in acquisition strategies.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
-    "date": "2024-10-07",
-    "url": "https://www.dau.edu/courses/acq-0740",
-    "videoLength": null
-  },
-  {
-    "id": 6,
-    "title": "ACQ 0750 Data Acquisition",
-    "summary": "Fourth course demonstrating how to develop and manage an IP strategy following the 5-Phase process.",
-    "description": "This Online Training (OLT) course is the fourth course in the Intellectual Property and Data Rights series. Demonstrates how to develop and manage an IP strategy by following the 5-Phase IP Strategy Process.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
-    "date": "2025-10-03",
-    "url": "https://www.dau.edu/courses/acq-0750",
-    "videoLength": null
-  },
-  {
-    "id": 7,
-    "title": "ACQ 0760 Data Rights Marking and Validation",
-    "summary": "Course on applying correct markings and distribution statements to technical data and computer software.",
-    "description": "This Online Training (OLT) course explains how to apply the correct markings and distribution statements to technical data and computer software. Proper markings are vital to ensuring data are available to the right people at the right time.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
-    "date": "2024-07-12",
-    "url": "https://www.dau.edu/courses/acq-0760",
-    "videoLength": null
-  },
-  {
-    "id": 8,
-    "title": "CLE 019 Modular Open Systems Approach",
-    "summary": "Course on MOSA principles from business and technical perspectives with program examples.",
-    "description": "This Online Training (OLT) course will describe the Modular Open Systems Approach (MOSA) principles from a business and a technical perspective and provide program examples of successful MOSA implementation.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "ETM and PM functional areas",
-    "date": "2019-05-09",
-    "url": "https://www.dau.edu/courses/cle-019",
-    "videoLength": null
-  },
-  {
-    "id": 9,
-    "title": "CLM 002 Intellectual Property Valuation",
-    "summary": "Course on IP valuation concepts and tools for successful acquisitions per DODI 5010.44.",
-    "description": "This Online Training (OLT) course addresses the basic concepts of IP valuation and provides the acquisition workforce with tools to address issues critical to successful acquisitions.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "DoD acquisition professionals charged with ensuring that the DoD acquires the necessary IP deliverables and associated licensing rights",
-    "date": "2020-07-14",
-    "url": "https://www.dau.edu/courses/clm-002",
-    "videoLength": null
-  },
-  {
-    "id": 10,
-    "title": "CACQ 008 Capstone Exercise",
-    "summary": "Credential capstone integrating IP and Data Rights planning into acquisition strategies.",
-    "description": "Acquisition professionals who work with intellectual property (IP) and Data Rights will gain essential skills for effective acquisition, licensing, and management of IP. Estimated time to complete: 19 hours.",
-    "type": "Training",
-    "organization": "DAU",
-    "audience": "Those who have completed all credential courses. Program Managers, Contracting Officers, Technical Subject Matter Experts",
-    "date": "2025-10-03",
-    "url": "https://www.dau.edu/credentials/cacq-008a",
-    "videoLength": null
-  },
-  {
-    "id": 11,
-    "title": "Acquisition Knowledge Matrix - IP Resources",
-    "summary": "Structured database hosting acquisition-related IP content in documents and hyperlinks.",
-    "description": "The Acquisition Knowledge Matrix is a structured user-friendly database designed to host and organize acquisition-related content-referred to as artifacts-primarily in the form of documents and hyperlinks.",
-    "type": "Website",
-    "organization": "DAU",
-    "audience": "DoD acquisition workforce, including program managers, contracting officers, engineers, logisticians, and IP attorneys",
-    "date": "2025-09-25",
-    "url": "https://www.dau.edu/acquisition-knowledge-matrix?field_acquisition_category_target_id=185193&page=0",
-    "videoLength": null
-  },
-  {
-    "id": 12,
-    "title": "Intellectual Property and Data Rights FAQs",
-    "summary": "Answers to basic questions about data rights, IP differences, and standard contract clauses.",
-    "description": "What are data rights? What's the difference between IP and data rights? Are there standard data rights clauses that should be included in contract documents?",
-    "type": "Website",
-    "organization": "DAU",
-    "audience": "DoD acquisition professionals, program managers, contracting officers, engineers, logisticians, and legal/IP attorneys",
-    "date": "2025-10-01",
-    "url": "https://www.dau.edu/cop/IPDR/resources/intellectual-property-and-data-rights",
-    "videoLength": null
-  },
-  {
-    "id": 13,
-    "title": "IP Cadre Introduction",
-    "summary": "Specialized DoD team providing expert guidance on IP strategies, acquisition planning, and policy.",
-    "description": "The IP Cadre is a specialized team within the Department of Defense that provides expert guidance on intellectual property strategies, acquisition planning, and policy implementation.",
-    "type": "Website",
-    "organization": "DoD",
-    "audience": "DoD acquisition professionals, Program managers, Contracting officers, Engineers, Logisticians, Legal/IP attorneys",
-    "date": "2025-11-07",
-    "url": "https://www.dau.edu/cop/IPDR/resources/intellectual-property-ip-cadre",
-    "videoLength": null
-  },
-  {
-    "id": 14,
-    "title": "IP Resource Card at DAU",
-    "summary": "Quick reference for finding answers about IP, Data Rights, and IP Strategy development.",
-    "description": "WHERE DO YOU GO TO FIND ANSWERS? What is Intellectual Property? What are Data Rights? How do you develop an Intellectual Property Strategy?",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "DoD Acquisition Workforce seeking foundational and advanced IP and Data Rights resources",
-    "date": "2020-06-16",
-    "url": "https://www.dau.edu/sites/default/files/Migrated/CopDocuments/IP%20Resource%20Sheet_6.16Update_Interactive.pdf",
-    "videoLength": null
-  },
-  {
-    "id": 15,
-    "title": "IP & Data Rights Issues in DoD Supply Chain",
-    "summary": "Video highlighting critical IP challenges for maintaining readiness and reducing sustainment costs.",
-    "description": "This short video highlights critical intellectual property (IP) and data rights challenges within the Department of Defense (DoD) supply chain.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "DoD acquisition professionals, program managers, contracting officers, engineers, and IP attorneys",
-    "date": "2025-07-21",
-    "url": "https://media.dau.edu/media/Video%204%20%20IP%20and%20Data%20Rights%20Issues%20and%20the%20DOD%20Supply%20Chain/1_0z9w618v",
-    "videoLength": "6 minutes"
-  },
-  {
-    "id": 16,
-    "title": "WSM 022 IP Rights for FAR-Based Contracts",
-    "summary": "Workshop on IP fundamentals, IPDR Strategy development, and pre/post-award management.",
-    "description": "Workshop attendees will be introduced to the fundamental aspects of intellectual property and data rights inherent in US Government contracts, along with the considerations for developing an IPDR Strategy.",
-    "type": "Other",
-    "organization": "DAU",
-    "audience": "Acquisition team members: contracting officers, logisticians, project engineers, and program managers",
-    "date": "2024-10-09",
-    "url": "https://icatalog.dau.edu/onlinecatalog/courses.aspx?crs_id=12347",
-    "videoLength": null
-  },
-  {
-    "id": 17,
-    "title": "IP and Data Rights Overview Video",
-    "summary": "Overview of how DoD gets access to contractor IP through licensing for weapons systems.",
-    "description": "This video provides an overview of Intellectual Property (IP) and Data Rights and how the DoD gets access, through licensing, to contractor IP, data rights, and computer software.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "All acquisition professionals",
-    "date": "2024-07-12",
-    "url": "https://media.dau.edu/media/IP+and+Data+Rights+Overview/1_7r7l1qp8",
-    "videoLength": "8 minutes"
-  },
-  {
-    "id": 18,
-    "title": "5-Phase IP Strategy Process Overview",
-    "summary": "Video explaining the 5-phase process for developing comprehensive IP strategies.",
-    "description": "Overview of the 5-Phase IP Strategy Process that DoD programs should follow to develop and maintain robust intellectual property strategies.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Program Managers, IP Attorneys, Contracting Officers",
-    "date": "2024-07-15",
-    "url": "https://media.dau.edu/media/5-Phase+IP+Strategy+Process/1_abc123",
-    "videoLength": "10 minutes"
-  },
-  {
-    "id": 19,
-    "title": "Data Rights Determination Guide",
-    "summary": "Comprehensive guide for determining appropriate data rights in DoD contracts.",
-    "description": "Step-by-step guide for acquisition professionals to determine the appropriate level of data rights required for their programs.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Program Managers, Engineers",
-    "date": "2023-03-15",
-    "url": "https://www.dau.edu/cop/IPDR/resources/data-rights-determination",
-    "videoLength": null
-  },
-  {
-    "id": 20,
-    "title": "DFARS Data Rights Clauses Reference",
-    "summary": "Reference document for DFARS clauses related to technical data and computer software.",
-    "description": "Comprehensive reference covering all DFARS clauses applicable to technical data and computer software rights in DoD contracts.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Legal Counsel, IP Attorneys",
-    "date": "2024-01-20",
-    "url": "https://www.dau.edu/cop/IPDR/resources/dfars-clauses",
-    "videoLength": null
-  },
-  {
-    "id": 21,
-    "title": "IP Strategy Template and Examples",
-    "summary": "Template with examples for developing program-specific IP strategies.",
-    "description": "Downloadable template with real-world examples to assist programs in developing their intellectual property strategies per DODI 5010.44 requirements.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Program Managers, IP Cadre, Acquisition Teams",
-    "date": "2024-06-01",
-    "url": "https://www.dau.edu/cop/IPDR/resources/ip-strategy-template",
-    "videoLength": null
-  },
-  {
-    "id": 22,
-    "title": "SBIR/STTR Data Rights Video",
-    "summary": "Overview of data rights specific to SBIR/STTR programs and regulatory updates.",
-    "description": "Video explaining the unique data rights provisions for Small Business Innovation Research and Small Business Technology Transfer programs.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Small Business Professionals, Contracting Officers",
-    "date": "2025-08-05",
-    "url": "https://media.dau.edu/media/SBIR+STTR+Data+Rights/1_sbir2025",
-    "videoLength": "6 min 24 sec"
-  },
-  {
-    "id": 23,
-    "title": "Technical Data Package Requirements",
-    "summary": "Guide on TDP requirements for competitive reprocurement and sustainment.",
-    "description": "Comprehensive guide covering technical data package requirements to support competitive reprocurement and long-term system sustainment.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Engineers, Logisticians, Program Managers",
-    "date": "2023-09-10",
-    "url": "https://www.dau.edu/cop/IPDR/resources/tdp-requirements",
-    "videoLength": null
-  },
-  {
-    "id": 24,
-    "title": "IP Webinar: Navigating Data Rights Negotiations",
-    "summary": "90-minute webinar on effective strategies for negotiating data rights with contractors.",
-    "description": "Expert panel discussion on best practices for negotiating data rights provisions with contractors, including real-world case studies.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Program Managers, IP Attorneys",
-    "date": "2024-11-15",
-    "url": "https://www.dau.edu/webinars/ip-negotiations",
-    "videoLength": "90 minutes"
-  },
-  {
-    "id": 25,
-    "title": "MOSA and IP Integration Guide",
-    "summary": "Guide on integrating IP considerations into Modular Open Systems Approach implementations.",
-    "description": "Detailed guidance on how to address intellectual property challenges when implementing MOSA architectures in defense systems.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Systems Engineers, Architects, Program Managers",
-    "date": "2024-04-22",
-    "url": "https://www.dau.edu/cop/IPDR/resources/mosa-ip-guide",
-    "videoLength": null
-  },
-  {
-    "id": 26,
-    "title": "Contractor IP Assertions Analysis",
-    "summary": "Video on reviewing and validating contractor assertions regarding data rights.",
-    "description": "Training video covering the process for analyzing contractor assertions regarding proprietary data and restricted rights.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Engineers, IP Attorneys",
-    "date": "2024-08-30",
-    "url": "https://media.dau.edu/media/IP+Assertions+Analysis/1_assert2024",
-    "videoLength": "12 minutes"
-  },
-  {
-    "id": 27,
-    "title": "IP Considerations for Software Acquisition",
-    "summary": "Guide on IP issues unique to software-intensive defense acquisitions.",
-    "description": "Comprehensive coverage of intellectual property considerations specific to acquiring and sustaining software-intensive defense systems.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Software Engineers, Program Managers, Contracting Officers",
-    "date": "2024-02-28",
-    "url": "https://www.dau.edu/cop/IPDR/resources/software-ip",
-    "videoLength": null
-  },
-  {
-    "id": 28,
-    "title": "Data Rights in Sustainment Operations",
-    "summary": "Webinar on managing data rights throughout system lifecycle and sustainment.",
-    "description": "Expert discussion on maintaining appropriate data rights access during long-term system sustainment and support operations.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "Logisticians, Product Support Managers, Program Managers",
-    "date": "2024-09-20",
-    "url": "https://www.dau.edu/webinars/sustainment-data-rights",
-    "videoLength": "75 minutes"
-  },
-  {
-    "id": 29,
-    "title": "IP Policy Update Briefing 2024",
-    "summary": "Video briefing on recent changes to DoD IP policy and regulations.",
-    "description": "Annual update briefing covering changes to DoD intellectual property policy, DFARS updates, and implementation guidance.",
-    "type": "Video",
-    "organization": "OUSD(A&S)",
-    "audience": "All Acquisition Workforce",
-    "date": "2024-03-01",
-    "url": "https://media.dau.edu/media/IP+Policy+Update+2024/1_policy2024",
-    "videoLength": "45 minutes"
-  },
-  {
-    "id": 30,
-    "title": "Small Business IP Protection Guide",
-    "summary": "Guide for small businesses on protecting IP while working with DoD.",
-    "description": "Resource for small business contractors on understanding and protecting their intellectual property rights in DoD contracts.",
-    "type": "Document",
-    "organization": "OSBP",
-    "audience": "Small Business Professionals, Contracting Officers",
-    "date": "2024-05-15",
-    "url": "https://www.dau.edu/cop/IPDR/resources/small-business-ip",
-    "videoLength": null
-  },
-  {
-    "id": 31,
-    "title": "IP Valuation Methods Deep Dive",
-    "summary": "Webinar exploring advanced methods for valuing intellectual property.",
-    "description": "Technical deep dive into various IP valuation methodologies and their application in defense acquisition contexts.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "IP Attorneys, Financial Analysts, Program Managers",
-    "date": "2024-07-10",
-    "url": "https://www.dau.edu/webinars/ip-valuation-methods",
-    "videoLength": "120 minutes"
-  },
-  {
-    "id": 32,
-    "title": "DODI 5010.44 Implementation Guide",
-    "summary": "Comprehensive guide for implementing IP instruction requirements.",
-    "description": "Step-by-step guidance for program offices on implementing the requirements of DoD Instruction 5010.44 on IP Acquisition and Licensing.",
-    "type": "Document",
-    "organization": "OUSD(A&S)",
-    "audience": "Program Managers, IP Cadre, Policy Staff",
-    "date": "2023-11-30",
-    "url": "https://www.dau.edu/cop/IPDR/resources/5010-44-guide",
-    "videoLength": null
-  },
-  {
-    "id": 33,
-    "title": "Patent Rights in Government Contracts",
-    "summary": "Video overview of patent rights provisions in DoD contracts.",
-    "description": "Educational video covering Bayh-Dole Act provisions, march-in rights, and patent licensing in government contracts.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "IP Attorneys, Contracting Officers, Technology Transfer Offices",
-    "date": "2024-06-25",
-    "url": "https://media.dau.edu/media/Patent+Rights+Overview/1_patent2024",
-    "videoLength": "18 minutes"
-  },
-  {
-    "id": 34,
-    "title": "Trade Secrets in Defense Acquisition",
-    "summary": "Guide on handling trade secret information in DoD contracts.",
-    "description": "Guidance on properly identifying, protecting, and handling trade secret information in defense acquisition programs.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Engineers, Security Officers",
-    "date": "2023-08-20",
-    "url": "https://www.dau.edu/cop/IPDR/resources/trade-secrets",
-    "videoLength": null
-  },
-  {
-    "id": 35,
-    "title": "IP Risk Assessment Framework",
-    "summary": "Framework for assessing IP-related risks in acquisition programs.",
-    "description": "Systematic approach for identifying and mitigating intellectual property risks throughout the acquisition lifecycle.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Program Managers, Risk Managers, IP Attorneys",
-    "date": "2024-10-01",
-    "url": "https://www.dau.edu/cop/IPDR/resources/ip-risk-framework",
-    "videoLength": null
-  },
-  {
-    "id": 36,
-    "title": "Webinar: AI and IP Challenges",
-    "summary": "Discussion of IP challenges posed by artificial intelligence in defense systems.",
-    "description": "Expert panel exploring intellectual property implications of AI and machine learning in defense acquisition.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "All Acquisition Workforce",
-    "date": "2025-01-15",
-    "url": "https://www.dau.edu/webinars/ai-ip-challenges",
-    "videoLength": "90 minutes"
-  },
-  {
-    "id": 37,
-    "title": "Data Rights Marking Quick Reference",
-    "summary": "Quick reference card for common data rights markings and legends.",
-    "description": "Pocket guide covering common data rights markings, distribution statements, and export control legends.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "All Acquisition Workforce",
-    "date": "2024-04-01",
-    "url": "https://www.dau.edu/cop/IPDR/resources/marking-quick-ref",
-    "videoLength": null
-  },
-  {
-    "id": 38,
-    "title": "Open Source Software IP Considerations",
-    "summary": "Guide on IP implications of using open source software in defense systems.",
-    "description": "Comprehensive guidance on intellectual property considerations when incorporating open source software into DoD systems.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Software Engineers, Program Managers, Legal Counsel",
-    "date": "2024-08-15",
-    "url": "https://www.dau.edu/cop/IPDR/resources/oss-ip",
-    "videoLength": null
-  },
-  {
-    "id": 39,
-    "title": "IP in International Acquisitions",
-    "summary": "Video on IP considerations for Foreign Military Sales and international programs.",
-    "description": "Training on intellectual property issues unique to international defense cooperation and Foreign Military Sales programs.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "International Programs Staff, Contracting Officers, Program Managers",
-    "date": "2024-05-30",
-    "url": "https://media.dau.edu/media/International+IP/1_intl2024",
-    "videoLength": "25 minutes"
-  },
-  {
-    "id": 40,
-    "title": "Depot Maintenance IP Requirements",
-    "summary": "Guide on IP requirements for organic depot maintenance capabilities.",
-    "description": "Guidance on ensuring appropriate data rights for establishing and maintaining organic depot repair capabilities.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Logisticians, Depot Managers, Program Managers",
-    "date": "2023-12-10",
-    "url": "https://www.dau.edu/cop/IPDR/resources/depot-ip",
-    "videoLength": null
-  },
-  {
-    "id": 41,
-    "title": "IP Strategy Review Checklist",
-    "summary": "Checklist for reviewing program IP strategies for completeness.",
-    "description": "Comprehensive checklist for IP Cadre and program offices to review IP strategies against DODI 5010.44 requirements.",
-    "type": "Document",
-    "organization": "IP Cadre",
-    "audience": "IP Cadre, Program Managers, Review Boards",
-    "date": "2024-09-01",
-    "url": "https://www.dau.edu/cop/IPDR/resources/ip-checklist",
-    "videoLength": null
-  },
-  {
-    "id": 42,
-    "title": "Webinar: Competitive Prototyping and IP",
-    "summary": "Discussion of IP strategies for competitive prototyping programs.",
-    "description": "Expert discussion on managing intellectual property in competitive prototyping and rapid acquisition programs.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "Program Managers, Contracting Officers",
-    "date": "2024-11-01",
-    "url": "https://www.dau.edu/webinars/competitive-proto-ip",
-    "videoLength": "60 minutes"
-  },
-  {
-    "id": 43,
-    "title": "Government Purpose Rights Explained",
-    "summary": "Video explaining Government Purpose Rights and their applications.",
-    "description": "Detailed explanation of Government Purpose Rights license, when it applies, and how it differs from other data rights categories.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Engineers, Program Managers",
-    "date": "2024-07-20",
-    "url": "https://media.dau.edu/media/GPR+Explained/1_gpr2024",
-    "videoLength": "15 minutes"
-  },
-  {
-    "id": 44,
-    "title": "IP Website: Defense Innovation Marketplace",
-    "summary": "Platform connecting DoD with innovative technology solutions and IP opportunities.",
-    "description": "Online marketplace facilitating connections between DoD programs and innovative technology solutions with IP considerations.",
-    "type": "Website",
-    "organization": "DoD",
-    "audience": "Program Managers, Small Business Professionals, Innovators",
-    "date": "2024-06-01",
-    "url": "https://defenseinnovationmarketplace.dtic.mil",
-    "videoLength": null
-  },
-  {
-    "id": 45,
-    "title": "Copyrights in Government Works",
-    "summary": "Guide on copyright considerations for works created under government contracts.",
-    "description": "Explanation of copyright ownership and licensing for works created under government contracts and cooperative agreements.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Legal Counsel, Content Developers",
-    "date": "2023-07-15",
-    "url": "https://www.dau.edu/cop/IPDR/resources/copyrights",
-    "videoLength": null
-  },
-  {
-    "id": 46,
-    "title": "IP Cadre Support Request Portal",
-    "summary": "Online portal for requesting IP Cadre support and consultations.",
-    "description": "Web portal for program offices to request intellectual property support, strategy reviews, and expert consultations from the IP Cadre.",
-    "type": "Website",
-    "organization": "IP Cadre",
-    "audience": "Program Managers, Acquisition Teams",
-    "date": "2025-02-01",
-    "url": "https://www.dau.edu/cop/IPDR/ip-cadre-support",
-    "videoLength": null
-  },
-  {
-    "id": 47,
-    "title": "Data Rights in OTA Agreements",
-    "summary": "Guide on IP provisions in Other Transaction Authority agreements.",
-    "description": "Comprehensive coverage of intellectual property and data rights considerations unique to Other Transaction Authority agreements.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Agreements Officers, Program Managers",
-    "date": "2024-03-20",
-    "url": "https://www.dau.edu/cop/IPDR/resources/ota-ip",
-    "videoLength": null
-  },
-  {
-    "id": 48,
-    "title": "Webinar: IP Disputes and Resolution",
-    "summary": "Expert panel on resolving IP disputes in defense contracts.",
-    "description": "Discussion of common IP disputes in defense acquisition and mechanisms for resolution including appeals and litigation.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "Legal Counsel, Contracting Officers, IP Attorneys",
-    "date": "2024-10-15",
-    "url": "https://www.dau.edu/webinars/ip-disputes",
-    "videoLength": "90 minutes"
-  },
-  {
-    "id": 49,
-    "title": "Reverse Engineering Rights Guide",
-    "summary": "Guide on reverse engineering rights and limitations in DoD contracts.",
-    "description": "Explanation of government reverse engineering rights and contractor protections under various data rights categories.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Engineers, Logisticians, Legal Counsel",
-    "date": "2023-10-05",
-    "url": "https://www.dau.edu/cop/IPDR/resources/reverse-engineering",
-    "videoLength": null
-  },
-  {
-    "id": 50,
-    "title": "Commercial Item IP Considerations",
-    "summary": "Video on IP issues when acquiring commercial items for defense use.",
-    "description": "Training on intellectual property considerations when procuring commercial items and commercially available off-the-shelf products.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Program Managers, Market Research Teams",
-    "date": "2024-04-10",
-    "url": "https://media.dau.edu/media/Commercial+IP/1_comm2024",
-    "videoLength": "20 minutes"
-  },
-  {
-    "id": 51,
-    "title": "IP Knowledge Portal",
-    "summary": "Centralized website for all DoD IP-related resources and tools.",
-    "description": "One-stop portal providing access to IP policies, guidance, training, tools, and support resources across the Department of Defense.",
-    "type": "Website",
-    "organization": "DAU",
-    "audience": "All Acquisition Workforce",
-    "date": "2025-03-01",
-    "url": "https://www.dau.edu/cop/IPDR",
-    "videoLength": null
-  },
-  {
-    "id": 52,
-    "title": "Privity of Contract and Data Rights",
-    "summary": "Guide on data rights implications in subcontracting relationships.",
-    "description": "Explanation of how privity of contract affects data rights flow-down and protection in prime-subcontractor relationships.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Subcontract Managers, Legal Counsel",
-    "date": "2024-01-10",
-    "url": "https://www.dau.edu/cop/IPDR/resources/privity",
-    "videoLength": null
-  },
-  {
-    "id": 53,
-    "title": "Webinar: SBIR/STTR IP Best Practices",
-    "summary": "Best practices for managing IP in small business innovation programs.",
-    "description": "Expert guidance on intellectual property management strategies for SBIR and STTR program participants and program managers.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "Small Business Professionals, Program Managers",
-    "date": "2025-05-20",
-    "url": "https://www.dau.edu/webinars/sbir-sttr-ip",
-    "videoLength": "75 minutes"
-  },
-  {
-    "id": 54,
-    "title": "License Negotiation Strategies",
-    "summary": "Video on effective strategies for negotiating IP licenses.",
-    "description": "Training on negotiation techniques and strategies for obtaining favorable intellectual property license terms.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Contracting Officers, IP Attorneys, Program Managers",
-    "date": "2024-08-01",
-    "url": "https://media.dau.edu/media/License+Negotiation/1_license2024",
-    "videoLength": "22 minutes"
-  },
-  {
-    "id": 55,
-    "title": "DoD IP Policy Website",
-    "summary": "Official DoD policy website for intellectual property and data rights.",
-    "description": "Official source for DoD intellectual property policy, guidance, memoranda, and regulatory updates.",
-    "type": "Website",
-    "organization": "OUSD(A&S)",
-    "audience": "Policy Staff, Program Managers, All Acquisition Workforce",
-    "date": "2024-12-01",
-    "url": "https://www.acq.osd.mil/ip",
-    "videoLength": null
-  },
-  {
-    "id": 56,
-    "title": "Data Rights Deferred Ordering",
-    "summary": "Guide on deferred ordering rights and procedures.",
-    "description": "Explanation of government rights to order additional data after contract performance and procedures for exercising those rights.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Program Managers",
-    "date": "2023-06-20",
-    "url": "https://www.dau.edu/cop/IPDR/resources/deferred-ordering",
-    "videoLength": null
-  },
-  {
-    "id": 57,
-    "title": "Webinar: IP in Agile Development",
-    "summary": "Managing IP in agile and DevSecOps software development.",
-    "description": "Discussion of intellectual property challenges and strategies for agile software development and DevSecOps environments.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "Software Engineers, Program Managers, Product Owners",
-    "date": "2024-12-10",
-    "url": "https://www.dau.edu/webinars/agile-ip",
-    "videoLength": "60 minutes"
-  },
-  {
-    "id": 58,
-    "title": "Mixed Funding Data Rights",
-    "summary": "Video explaining data rights when development uses mixed funding sources.",
-    "description": "Explanation of data rights categories and determination when development is funded by both government and private sources.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Engineers, Contracting Officers, Financial Managers",
-    "date": "2024-09-15",
-    "url": "https://media.dau.edu/media/Mixed+Funding/1_mixed2024",
-    "videoLength": "16 minutes"
-  },
-  {
-    "id": 59,
-    "title": "IP Case Studies Compendium",
-    "summary": "Collection of real-world IP case studies from DoD programs.",
-    "description": "Compilation of case studies illustrating IP challenges, solutions, and lessons learned from actual DoD acquisition programs.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "All Acquisition Workforce",
-    "date": "2024-11-01",
-    "url": "https://www.dau.edu/cop/IPDR/resources/case-studies",
-    "videoLength": null
-  },
-  {
-    "id": 60,
-    "title": "Technical Data Package Validation",
-    "summary": "Video on validating technical data packages for completeness and accuracy.",
-    "description": "Training on procedures for validating that technical data packages meet program requirements and contractual specifications.",
-    "type": "Video",
-    "organization": "DAU",
-    "audience": "Engineers, Data Managers, Quality Assurance",
-    "date": "2024-06-10",
-    "url": "https://media.dau.edu/media/TDP+Validation/1_tdp2024",
-    "videoLength": "18 minutes"
-  },
-  {
-    "id": 61,
-    "title": "Webinar: Emerging Technology IP Landscape",
-    "summary": "Overview of IP considerations for emerging defense technologies.",
-    "description": "Expert panel discussing intellectual property landscape for quantum computing, hypersonics, directed energy, and other emerging technologies.",
-    "type": "Webinar",
-    "organization": "DAU",
-    "audience": "Technology Directors, Program Managers, Scientists",
-    "date": "2025-04-01",
-    "url": "https://www.dau.edu/webinars/emerging-tech-ip",
-    "videoLength": "90 minutes"
-  },
-  {
-    "id": 62,
-    "title": "IP Strategy Development Workshop",
-    "summary": "Interactive workshop for developing program-specific IP strategies.",
-    "description": "Hands-on workshop where participants develop IP strategies for their programs with expert facilitator guidance.",
-    "type": "Other",
-    "organization": "IP Cadre",
-    "audience": "Program Teams, Acquisition Professionals",
-    "date": "2024-10-20",
-    "url": "https://www.dau.edu/cop/IPDR/workshops",
-    "videoLength": null
-  },
-  {
-    "id": 63,
-    "title": "DFARS 252.227 Clause Analysis",
-    "summary": "Detailed analysis of DFARS 252.227 data rights clauses.",
-    "description": "In-depth analysis of each DFARS 252.227 clause covering technical data and computer software rights.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Contracting Officers, Legal Counsel, Contract Specialists",
-    "date": "2024-02-15",
-    "url": "https://www.dau.edu/cop/IPDR/resources/dfars-252-227",
-    "videoLength": null
-  },
-  {
-    "id": 64,
-    "title": "IP Training Roadmap",
-    "summary": "Website showing recommended IP training paths by role.",
-    "description": "Interactive roadmap showing recommended intellectual property training courses and resources based on acquisition role.",
-    "type": "Website",
-    "organization": "DAU",
-    "audience": "All Acquisition Workforce",
-    "date": "2025-01-10",
-    "url": "https://www.dau.edu/cop/IPDR/training-roadmap",
-    "videoLength": null
-  },
-  {
-    "id": 65,
-    "title": "Contractor Bid or Proposal Information",
-    "summary": "Guide on protecting bid/proposal information and IP during source selection.",
-    "description": "Guidance on handling and protecting contractor intellectual property and proprietary information during source selection.",
-    "type": "Document",
-    "organization": "DAU",
-    "audience": "Source Selection Teams, Contracting Officers",
-    "date": "2023-05-10",
-    "url": "https://www.dau.edu/cop/IPDR/resources/bid-proposal-ip",
-    "videoLength": null
-  },
-  {
-    "id": 66,
-    "title": "Podcast: STTR Program Overview",
-    "summary": "Podcast discussing STTR's role in innovation and research collaboration.",
-    "description": "Podcast episode exploring the Small Business Technology Transfer program's role in fostering innovation and research institution collaboration.",
-    "type": "Other",
-    "organization": "DAU",
-    "audience": "Small Business Professionals, Research Institutions",
-    "date": "2025-08-01",
-    "url": "https://www.dau.edu/podcasts/sttr-overview",
-    "videoLength": "28 min 46 sec"
-  }
+  {"id":1,"title":"Foundational IP Credential CACQ 008A","summary":"Online suite of IP and Data Rights learning assets for strategic thinking.","description":"Scenario-based training teaching DoD acquisition workforce to think strategically about IP.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, IP Attorneys","date":"2025-10-03","url":"https://www.dau.edu/credentials/cacq-008a","videoLength":null},
+  {"id":2,"title":"ACQ 0710 Foundations of Data","summary":"Introductory course to IP and Data Rights series covering foundational concepts.","description":"Foundational understanding of data, technical data and computer software per DODI 5010.44.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, IP Attorneys","date":"2024-10-09","url":"https://www.dau.edu/courses/acq-0710","videoLength":null},
+  {"id":3,"title":"ACQ 0720 IP and Data Rights","summary":"Second course providing foundational understanding of IP impact on DoD.","description":"Understanding of IP, its impact on DoD, and unique licensing aspects.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, IP Attorneys","date":"2024-10-09","url":"https://www.dau.edu/courses/acq-0720","videoLength":null},
+  {"id":4,"title":"ACQ 0730 Create/Update an RFP","summary":"Course on RFP documents and key data acquisition sections.","description":"Key data acquisition sections of RFP and communicating with industry.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians","date":"2024-10-09","url":"https://www.dau.edu/courses/acq-0730","videoLength":null},
+  {"id":5,"title":"ACQ 0740 IP Strategy Fundamentals","summary":"Course on developing IP Strategy using 5-phase process.","description":"Fundamentals of developing and updating an Intellectual Property Strategy.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Engineers, Contracting Professionals, IP Attorneys","date":"2024-10-07","url":"https://www.dau.edu/courses/acq-0740","videoLength":null},
+  {"id":6,"title":"ACQ 0750 Data Acquisition","summary":"Fourth course on developing and managing IP strategy.","description":"Demonstrates how to develop IP strategy following 5-Phase Process.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Engineers, Contracting Officers","date":"2025-10-03","url":"https://www.dau.edu/courses/acq-0750","videoLength":null},
+  {"id":7,"title":"ACQ 0760 Data Rights Marking","summary":"Course on applying correct markings to technical data.","description":"Applying correct markings and distribution statements to technical data and software.","type":"Training","organization":"DAU","audience":"Program Managers, Systems Engineers, Engineers, Contracting Officers, Data Managers","date":"2024-07-12","url":"https://www.dau.edu/courses/acq-0760","videoLength":null},
+  {"id":8,"title":"CLE 019 MOSA Course","summary":"Course on Modular Open Systems Approach principles.","description":"MOSA principles from business and technical perspectives with examples.","type":"Training","organization":"DAU","audience":"Engineers, Program Managers","date":"2019-05-09","url":"https://www.dau.edu/courses/cle-019","videoLength":null},
+  {"id":9,"title":"CLM 002 IP Valuation","summary":"Course on IP valuation concepts for acquisitions.","description":"Basic concepts of IP valuation and tools for successful acquisitions.","type":"Training","organization":"DAU","audience":"Program Managers, Contracting Officers, IP Attorneys, financial analysts","date":"2020-07-14","url":"https://www.dau.edu/courses/clm-002","videoLength":null},
+  {"id":10,"title":"CACQ 008 Capstone Exercise","summary":"Credential capstone integrating IP planning.","description":"Integrating IP and Data Rights planning into acquisition strategies.","type":"Training","organization":"DAU","audience":"Program Managers, Contracting Officers, Engineers","date":"2025-10-03","url":"https://www.dau.edu/credentials/cacq-008a","videoLength":null},
+  {"id":11,"title":"Acquisition Knowledge Matrix","summary":"Structured database for IP-related content.","description":"User-friendly database hosting acquisition-related IP artifacts.","type":"Website","organization":"DAU","audience":"Program Managers, Contracting Officers, Engineers, Logisticians, IP Attorneys","date":"2025-09-25","url":"https://www.dau.edu/acquisition-knowledge-matrix","videoLength":null},
+  {"id":12,"title":"IP and Data Rights FAQs","summary":"Answers to basic IP and data rights questions.","description":"FAQs about data rights, IP differences, and contract clauses.","type":"Website","organization":"DAU","audience":"Program Managers, Contracting Officers, Engineers, Logisticians, IP Attorneys","date":"2025-10-01","url":"https://www.dau.edu/cop/IPDR/resources/intellectual-property-and-data-rights","videoLength":null},
+  {"id":13,"title":"IP Cadre Introduction","summary":"Specialized DoD team providing IP guidance.","description":"Expert guidance on IP strategies, acquisition planning, and policy.","type":"Website","organization":"DoD","audience":"Program Managers, Contracting Officers, Engineers, Logisticians, IP Attorneys","date":"2025-11-07","url":"https://www.dau.edu/cop/IPDR/resources/intellectual-property-ip-cadre","videoLength":null},
+  {"id":14,"title":"IP Resource Card","summary":"Quick reference for IP answers.","description":"Quick reference for finding IP, Data Rights, and strategy answers.","type":"Document","organization":"DAU","audience":"All Acquisition Workforce, Program Managers, Contracting Officers","date":"2020-06-16","url":"https://www.dau.edu/cop/IPDR/resources","videoLength":null},
+  {"id":15,"title":"IP & Data Rights Issues Video","summary":"Video on IP challenges in DoD supply chain.","description":"Critical IP and data rights challenges for maintaining readiness.","type":"Video","organization":"DAU","audience":"Program Managers, Contracting Officers, Engineers, IP Attorneys","date":"2025-07-21","url":"https://media.dau.edu/media/ip-data-rights","videoLength":"6 min"},
+  {"id":16,"title":"WSM 022 IP Rights Workshop","summary":"Workshop on IP fundamentals for FAR contracts.","description":"IP fundamentals and IPDR Strategy development workshop.","type":"Other","organization":"DAU","audience":"Contracting Officers, Logisticians, Engineers, Program Managers","date":"2024-10-09","url":"https://icatalog.dau.edu/onlinecatalog/courses.aspx","videoLength":null},
+  {"id":17,"title":"IP and Data Rights Overview","summary":"Overview of DoD access to contractor IP.","description":"How DoD gets access to contractor IP through licensing.","type":"Video","organization":"DAU","audience":"All Acquisition Workforce, Program Managers","date":"2024-07-12","url":"https://media.dau.edu/media/ip-overview","videoLength":"8 min"},
+  {"id":18,"title":"5-Phase IP Strategy Process","summary":"Video on 5-phase IP strategy process.","description":"Overview of the 5-Phase IP Strategy Process for DoD programs.","type":"Video","organization":"DAU","audience":"Program Managers, IP Attorneys, Contracting Officers","date":"2024-07-15","url":"https://media.dau.edu/media/5-phase","videoLength":"10 min"},
+  {"id":19,"title":"Data Rights Determination Guide","summary":"Guide for determining data rights.","description":"Step-by-step guide for determining appropriate data rights.","type":"Document","organization":"DAU","audience":"Contracting Officers, Program Managers, Engineers","date":"2023-03-15","url":"https://www.dau.edu/cop/IPDR/resources/data-rights","videoLength":null},
+  {"id":20,"title":"DFARS Data Rights Clauses","summary":"Reference for DFARS clauses.","description":"Comprehensive reference for technical data and software rights clauses.","type":"Document","organization":"DAU","audience":"Contracting Officers, Legal Counsel, IP Attorneys","date":"2024-01-20","url":"https://www.dau.edu/cop/IPDR/resources/dfars","videoLength":null},
+  {"id":21,"title":"IP Strategy Template","summary":"Template for developing IP strategies.","description":"Downloadable template with real-world examples.","type":"Document","organization":"DAU","audience":"Program Managers, IP Cadre, Acquisition Teams","date":"2024-06-01","url":"https://www.dau.edu/cop/IPDR/resources/template","videoLength":null},
+  {"id":22,"title":"SBIR/STTR Data Rights Video","summary":"Overview of SBIR/STTR data rights.","description":"Unique data rights provisions for small business programs.","type":"Video","organization":"DAU","audience":"Small Business Professionals, Contracting Officers","date":"2025-08-05","url":"https://media.dau.edu/media/sbir","videoLength":"6 min"},
+  {"id":23,"title":"TDP Requirements Guide","summary":"Guide on technical data package requirements.","description":"TDP requirements for competitive reprocurement and sustainment.","type":"Document","organization":"DAU","audience":"Engineers, Logisticians, Program Managers","date":"2023-09-10","url":"https://www.dau.edu/cop/IPDR/resources/tdp","videoLength":null},
+  {"id":24,"title":"Data Rights Negotiations Webinar","summary":"Webinar on negotiating data rights.","description":"Best practices for negotiating data rights with contractors.","type":"Webinar","organization":"DAU","audience":"Contracting Officers, Program Managers, IP Attorneys","date":"2024-11-15","url":"https://www.dau.edu/webinars/ip-negotiations","videoLength":"90 min"},
+  {"id":25,"title":"MOSA and IP Integration Guide","summary":"Guide on IP in MOSA implementations.","description":"Addressing IP challenges in MOSA architectures.","type":"Document","organization":"DAU","audience":"Systems Engineers, Architects, Program Managers","date":"2024-04-22","url":"https://www.dau.edu/cop/IPDR/resources/mosa","videoLength":null},
+  {"id":26,"title":"IP Assertions Analysis Video","summary":"Video on reviewing contractor assertions.","description":"Process for analyzing contractor proprietary data assertions.","type":"Video","organization":"DAU","audience":"Contracting Officers, Engineers, IP Attorneys","date":"2024-08-30","url":"https://media.dau.edu/media/assertions","videoLength":"12 min"},
+  {"id":27,"title":"Software IP Considerations","summary":"Guide on software acquisition IP.","description":"IP considerations for software-intensive defense systems.","type":"Document","organization":"DAU","audience":"Software Engineers, Program Managers, Contracting Officers","date":"2024-02-28","url":"https://www.dau.edu/cop/IPDR/resources/software","videoLength":null},
+  {"id":28,"title":"Sustainment Data Rights Webinar","summary":"Webinar on sustainment data rights.","description":"Managing data rights throughout system lifecycle.","type":"Webinar","organization":"DAU","audience":"Logisticians, Product Support Managers, Program Managers","date":"2024-09-20","url":"https://www.dau.edu/webinars/sustainment","videoLength":"75 min"},
+  {"id":29,"title":"IP Policy Update 2024","summary":"Video on DoD IP policy changes.","description":"Annual update on DoD IP policy and DFARS updates.","type":"Video","organization":"OUSD(A&S)","audience":"All Acquisition Workforce, Policy Staff","date":"2024-03-01","url":"https://media.dau.edu/media/policy-2024","videoLength":"45 min"},
+  {"id":30,"title":"Small Business IP Guide","summary":"Guide for small business IP protection.","description":"Understanding and protecting IP rights in DoD contracts.","type":"Document","organization":"OSBP","audience":"Small Business Professionals, Contracting Officers","date":"2024-05-15","url":"https://www.dau.edu/cop/IPDR/resources/small-business","videoLength":null},
+  {"id":31,"title":"IP Valuation Methods Webinar","summary":"Webinar on advanced IP valuation.","description":"Technical deep dive into IP valuation methodologies.","type":"Webinar","organization":"DAU","audience":"IP Attorneys, Financial Analysts, Program Managers","date":"2024-07-10","url":"https://www.dau.edu/webinars/valuation","videoLength":"120 min"},
+  {"id":32,"title":"DODI 5010.44 Implementation","summary":"Guide for implementing IP instruction.","description":"Step-by-step guidance for implementing DODI 5010.44.","type":"Document","organization":"OUSD(A&S)","audience":"Program Managers, IP Cadre, Policy Staff","date":"2023-11-30","url":"https://www.dau.edu/cop/IPDR/resources/5010-44","videoLength":null},
+  {"id":33,"title":"Patent Rights Video","summary":"Video on patent rights provisions.","description":"Bayh-Dole Act provisions and patent licensing in contracts.","type":"Video","organization":"DAU","audience":"IP Attorneys, Contracting Officers, Technology Transfer","date":"2024-06-25","url":"https://media.dau.edu/media/patent","videoLength":"18 min"},
+  {"id":34,"title":"Trade Secrets Guide","summary":"Guide on trade secrets in contracts.","description":"Handling trade secret information in defense acquisition.","type":"Document","organization":"DAU","audience":"Contracting Officers, Engineers, Security Officers","date":"2023-08-20","url":"https://www.dau.edu/cop/IPDR/resources/trade-secrets","videoLength":null},
+  {"id":35,"title":"IP Risk Assessment Framework","summary":"Framework for IP risk assessment.","description":"Identifying and mitigating IP risks throughout acquisition.","type":"Document","organization":"DAU","audience":"Program Managers, Risk Managers, IP Attorneys","date":"2024-10-01","url":"https://www.dau.edu/cop/IPDR/resources/risk","videoLength":null},
+  {"id":36,"title":"AI and IP Challenges Webinar","summary":"Webinar on AI IP implications.","description":"IP implications of AI and ML in defense acquisition.","type":"Webinar","organization":"DAU","audience":"All Acquisition Workforce, Technology Directors","date":"2025-01-15","url":"https://www.dau.edu/webinars/ai-ip","videoLength":"90 min"},
+  {"id":37,"title":"Data Rights Marking Reference","summary":"Quick reference for data markings.","description":"Pocket guide for common data rights markings and legends.","type":"Document","organization":"DAU","audience":"All Acquisition Workforce, Data Managers","date":"2024-04-01","url":"https://www.dau.edu/cop/IPDR/resources/marking","videoLength":null},
+  {"id":38,"title":"Open Source Software IP Guide","summary":"Guide on OSS IP implications.","description":"IP considerations for open source software in DoD systems.","type":"Document","organization":"DAU","audience":"Software Engineers, Program Managers, Legal Counsel","date":"2024-08-15","url":"https://www.dau.edu/cop/IPDR/resources/oss","videoLength":null},
+  {"id":39,"title":"International IP Video","summary":"Video on FMS IP considerations.","description":"IP issues in international defense cooperation and FMS.","type":"Video","organization":"DAU","audience":"International Programs Staff, Contracting Officers, Program Managers","date":"2024-05-30","url":"https://media.dau.edu/media/international","videoLength":"25 min"},
+  {"id":40,"title":"Depot Maintenance IP Guide","summary":"Guide on depot IP requirements.","description":"Data rights for organic depot maintenance capabilities.","type":"Document","organization":"DAU","audience":"Logisticians, Depot Managers, Program Managers","date":"2023-12-10","url":"https://www.dau.edu/cop/IPDR/resources/depot","videoLength":null},
+  {"id":41,"title":"IP Strategy Review Checklist","summary":"Checklist for IP strategy review.","description":"Comprehensive checklist against DODI 5010.44 requirements.","type":"Document","organization":"IP Cadre","audience":"IP Cadre, Program Managers, Review Boards","date":"2024-09-01","url":"https://www.dau.edu/cop/IPDR/resources/checklist","videoLength":null},
+  {"id":42,"title":"Competitive Prototyping Webinar","summary":"Webinar on prototyping IP strategies.","description":"Managing IP in competitive prototyping programs.","type":"Webinar","organization":"DAU","audience":"Program Managers, Contracting Officers","date":"2024-11-01","url":"https://www.dau.edu/webinars/prototyping","videoLength":"60 min"},
+  {"id":43,"title":"Government Purpose Rights Video","summary":"Video explaining GPR license.","description":"Detailed explanation of Government Purpose Rights.","type":"Video","organization":"DAU","audience":"Contracting Officers, Engineers, Program Managers","date":"2024-07-20","url":"https://media.dau.edu/media/gpr","videoLength":"15 min"},
+  {"id":44,"title":"Defense Innovation Marketplace","summary":"Platform for DoD innovation connections.","description":"Connecting DoD with innovative technology solutions.","type":"Website","organization":"DoD","audience":"Program Managers, Small Business Professionals, Innovators","date":"2024-06-01","url":"https://defenseinnovationmarketplace.dtic.mil","videoLength":null},
+  {"id":45,"title":"Copyrights Guide","summary":"Guide on copyright in government works.","description":"Copyright ownership for works under government contracts.","type":"Document","organization":"DAU","audience":"Contracting Officers, Legal Counsel, Content Developers","date":"2023-07-15","url":"https://www.dau.edu/cop/IPDR/resources/copyrights","videoLength":null},
+  {"id":46,"title":"IP Cadre Support Portal","summary":"Portal for IP Cadre support requests.","description":"Web portal for IP support and expert consultations.","type":"Website","organization":"IP Cadre","audience":"Program Managers, Acquisition Teams","date":"2025-02-01","url":"https://www.dau.edu/cop/IPDR/ip-cadre-support","videoLength":null},
+  {"id":47,"title":"OTA Data Rights Guide","summary":"Guide on IP in OTA agreements.","description":"IP and data rights in Other Transaction Authority agreements.","type":"Document","organization":"DAU","audience":"Contracting Officers, Agreements Officers, Program Managers","date":"2024-03-20","url":"https://www.dau.edu/cop/IPDR/resources/ota","videoLength":null},
+  {"id":48,"title":"IP Disputes Webinar","summary":"Webinar on resolving IP disputes.","description":"Common IP disputes and resolution mechanisms.","type":"Webinar","organization":"DAU","audience":"Legal Counsel, Contracting Officers, IP Attorneys","date":"2024-10-15","url":"https://www.dau.edu/webinars/disputes","videoLength":"90 min"},
+  {"id":49,"title":"Reverse Engineering Guide","summary":"Guide on reverse engineering rights.","description":"Government reverse engineering rights and contractor protections.","type":"Document","organization":"DAU","audience":"Engineers, Logisticians, Legal Counsel","date":"2023-10-05","url":"https://www.dau.edu/cop/IPDR/resources/reverse","videoLength":null},
+  {"id":50,"title":"Commercial Item IP Video","summary":"Video on commercial item IP.","description":"IP considerations for commercial and COTS products.","type":"Video","organization":"DAU","audience":"Contracting Officers, Program Managers, Market Research Teams","date":"2024-04-10","url":"https://media.dau.edu/media/commercial","videoLength":"20 min"},
+  {"id":51,"title":"IP Knowledge Portal","summary":"Centralized IP resources website.","description":"One-stop portal for IP policies, guidance, and tools.","type":"Website","organization":"DAU","audience":"All Acquisition Workforce","date":"2025-03-01","url":"https://www.dau.edu/cop/IPDR","videoLength":null},
+  {"id":52,"title":"Privity and Data Rights Guide","summary":"Guide on subcontractor data rights.","description":"Data rights in prime-subcontractor relationships.","type":"Document","organization":"DAU","audience":"Contracting Officers, Subcontract Managers, Legal Counsel","date":"2024-01-10","url":"https://www.dau.edu/cop/IPDR/resources/privity","videoLength":null},
+  {"id":53,"title":"SBIR/STTR Best Practices Webinar","summary":"Webinar on small business IP management.","description":"IP management strategies for SBIR and STTR programs.","type":"Webinar","organization":"DAU","audience":"Small Business Professionals, Program Managers","date":"2025-05-20","url":"https://www.dau.edu/webinars/sbir-sttr","videoLength":"75 min"},
+  {"id":54,"title":"License Negotiation Video","summary":"Video on IP license negotiation.","description":"Techniques for obtaining favorable IP license terms.","type":"Video","organization":"DAU","audience":"Contracting Officers, IP Attorneys, Program Managers","date":"2024-08-01","url":"https://media.dau.edu/media/license","videoLength":"22 min"},
+  {"id":55,"title":"DoD IP Policy Website","summary":"Official DoD IP policy source.","description":"Official source for DoD IP policy and regulatory updates.","type":"Website","organization":"OUSD(A&S)","audience":"Policy Staff, Program Managers, All Acquisition Workforce","date":"2024-12-01","url":"https://www.acq.osd.mil/ip","videoLength":null},
+  {"id":56,"title":"Deferred Ordering Guide","summary":"Guide on deferred ordering rights.","description":"Government rights to order additional data post-performance.","type":"Document","organization":"DAU","audience":"Contracting Officers, Program Managers","date":"2023-06-20","url":"https://www.dau.edu/cop/IPDR/resources/deferred","videoLength":null},
+  {"id":57,"title":"Agile IP Webinar","summary":"Webinar on IP in agile development.","description":"IP challenges in agile and DevSecOps environments.","type":"Webinar","organization":"DAU","audience":"Software Engineers, Program Managers, Product Owners","date":"2024-12-10","url":"https://www.dau.edu/webinars/agile","videoLength":"60 min"},
+  {"id":58,"title":"Mixed Funding Data Rights Video","summary":"Video on mixed funding data rights.","description":"Data rights when using both government and private funding.","type":"Video","organization":"DAU","audience":"Engineers, Contracting Officers, Financial Managers","date":"2024-09-15","url":"https://media.dau.edu/media/mixed","videoLength":"16 min"},
+  {"id":59,"title":"IP Case Studies","summary":"Collection of real-world IP cases.","description":"Case studies from actual DoD acquisition programs.","type":"Document","organization":"DAU","audience":"All Acquisition Workforce","date":"2024-11-01","url":"https://www.dau.edu/cop/IPDR/resources/cases","videoLength":null},
+  {"id":60,"title":"TDP Validation Video","summary":"Video on validating TDPs.","description":"Procedures for validating technical data packages.","type":"Video","organization":"DAU","audience":"Engineers, Data Managers, Quality Assurance","date":"2024-06-10","url":"https://media.dau.edu/media/tdp","videoLength":"18 min"},
+  {"id":61,"title":"Emerging Tech IP Webinar","summary":"Webinar on emerging technology IP.","description":"IP landscape for quantum, hypersonics, and directed energy.","type":"Webinar","organization":"DAU","audience":"Technology Directors, Program Managers, Scientists","date":"2025-04-01","url":"https://www.dau.edu/webinars/emerging","videoLength":"90 min"},
+  {"id":62,"title":"IP Strategy Workshop","summary":"Interactive IP strategy development workshop.","description":"Hands-on workshop for developing program IP strategies.","type":"Other","organization":"IP Cadre","audience":"Program Teams, Acquisition Professionals","date":"2024-10-20","url":"https://www.dau.edu/cop/IPDR/workshops","videoLength":null},
+  {"id":63,"title":"DFARS 252.227 Analysis","summary":"Detailed DFARS clause analysis.","description":"In-depth analysis of each DFARS 252.227 clause.","type":"Document","organization":"DAU","audience":"Contracting Officers, Legal Counsel, Contract Specialists","date":"2024-02-15","url":"https://www.dau.edu/cop/IPDR/resources/dfars-252-227","videoLength":null},
+  {"id":64,"title":"IP Training Roadmap","summary":"Recommended IP training paths by role.","description":"Interactive roadmap for IP training based on role.","type":"Website","organization":"DAU","audience":"All Acquisition Workforce","date":"2025-01-10","url":"https://www.dau.edu/cop/IPDR/training-roadmap","videoLength":null},
+  {"id":65,"title":"Bid/Proposal IP Guide","summary":"Guide on protecting bid information.","description":"Handling contractor IP during source selection.","type":"Document","organization":"DAU","audience":"Source Selection Teams, Contracting Officers","date":"2023-05-10","url":"https://www.dau.edu/cop/IPDR/resources/bid","videoLength":null},
+  {"id":66,"title":"STTR Program Podcast","summary":"Podcast on STTR's innovation role.","description":"STTR program's role in fostering innovation and collaboration.","type":"Other","organization":"DAU","audience":"Small Business Professionals, Research Institutions","date":"2025-08-01","url":"https://www.dau.edu/podcasts/sttr","videoLength":"29 min"}
 ];
 
-        // Compute type counts
+        // Compute analytics data
         const TYPE_COUNTS = {};
-        RESOURCES.forEach(r => {
-            TYPE_COUNTS[r.type] = (TYPE_COUNTS[r.type] || 0) + 1;
-        });
+        RESOURCES.forEach(r => { TYPE_COUNTS[r.type] = (TYPE_COUNTS[r.type] || 0) + 1; });
 
-        // Compute year data
         const YEAR_DATA = {};
         let datedCount = 0;
         RESOURCES.forEach(r => {
@@ -1589,101 +1242,119 @@
             }
         });
 
+        // Audience analysis
+        const AUDIENCE_KEYWORDS = {
+            'Program Managers': ['program manager'],
+            'Contracting Officers': ['contracting officer', 'contracting professional'],
+            'Engineers': ['engineer', 'systems engineer', 'software engineer'],
+            'Logisticians': ['logistician', 'life cycle logistician', 'lcl'],
+            'IP Attorneys': ['ip attorney', 'legal counsel', 'attorney'],
+            'Small Business': ['small business']
+        };
+
+        const audienceCounts = {};
+        Object.keys(AUDIENCE_KEYWORDS).forEach(role => {
+            audienceCounts[role] = RESOURCES.filter(r => {
+                const audience = r.audience.toLowerCase();
+                return AUDIENCE_KEYWORDS[role].some(kw => audience.includes(kw));
+            }).length;
+        });
+
+        // Find newest and oldest
+        const datedResources = RESOURCES.filter(r => r.date).sort((a, b) => new Date(b.date) - new Date(a.date));
+        const newest = datedResources[0];
+        const oldest = datedResources[datedResources.length - 1];
+
+        // Health score calculation
+        function calculateHealthScore() {
+            let score = 100;
+            const undatedPercent = (66 - datedCount) / 66;
+            score -= undatedPercent * 15;
+            const pre2024 = Object.entries(YEAR_DATA).filter(([year]) => parseInt(year) < 2024).reduce((sum, [, count]) => sum + count, 0);
+            const pre2024Percent = pre2024 / datedCount;
+            score -= pre2024Percent * 10;
+            score -= 8; // AI/MOSA gap penalty
+            score -= 5; // Interactive learning gap
+            return Math.round(Math.max(score, 0));
+        }
+
+        const healthScore = calculateHealthScore();
+
         // State
         let currentFilter = 'All';
         let searchQuery = '';
         let selectedResourceId = null;
 
-        // Particle Animation - Subtler
+        // Particles
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         let particles = [];
         let animating = true;
-        let mouseX = -1000;
-        let mouseY = -1000;
+        let mouseX = -1000, mouseY = -1000;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         function initParticles() {
             particles = [];
-            const count = 40; // Reduced from 66
-            for (let i = 0; i < count; i++) {
+            for (let i = 0; i < 40; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.3, // Slower
+                    vx: (Math.random() - 0.5) * 0.3,
                     vy: (Math.random() - 0.5) * 0.3,
-                    radius: Math.random() * 2 + 1, // Smaller (1-3px)
-                    opacity: Math.random() * 0.15 + 0.05 // More transparent
+                    radius: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.15 + 0.05
                 });
             }
         }
 
         function animateParticles() {
-            if (!animating) {
-                requestAnimationFrame(animateParticles);
-                return;
-            }
-
+            if (!animating) { requestAnimationFrame(animateParticles); return; }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             particles.forEach(p => {
-                // Cursor repulsion
-                const dx = p.x - mouseX;
-                const dy = p.y - mouseY;
+                const dx = p.x - mouseX, dy = p.y - mouseY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 120) {
                     const force = (120 - dist) / 120;
                     p.vx += (dx / dist) * force * 0.3;
                     p.vy += (dy / dist) * force * 0.3;
                 }
-
-                // Apply velocity with damping
-                p.x += p.vx;
-                p.y += p.vy;
-                p.vx *= 0.99;
-                p.vy *= 0.99;
-
-                // Add some random drift
+                p.x += p.vx; p.y += p.vy;
+                p.vx *= 0.99; p.vy *= 0.99;
                 p.vx += (Math.random() - 0.5) * 0.01;
                 p.vy += (Math.random() - 0.5) * 0.01;
-
-                // Bounce off edges
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-                // Draw particle
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(30, 58, 95, ${p.opacity})`;
                 ctx.fill();
             });
-
             requestAnimationFrame(animateParticles);
         }
 
-        document.addEventListener('mousemove', e => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+        document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+        resizeCanvas(); initParticles(); animateParticles();
 
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
-        resizeCanvas();
-        initParticles();
-        animateParticles();
+        // Number animation
+        function animateNumber(element, target, duration = 800) {
+            const start = 0;
+            const startTime = performance.now();
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                element.textContent = Math.round(start + (target - start) * eased);
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
 
         // Modal functions
         function openModal(type) {
             const overlay = document.getElementById('modalOverlay');
             const title = document.getElementById('modalTitle');
             const body = document.getElementById('modalBody');
-
             overlay.classList.add('active');
             document.getElementById('particles').classList.add('dimmed');
             animating = false;
@@ -1692,63 +1363,48 @@
                 case 'explore':
                     title.textContent = 'Explore Resources';
                     body.innerHTML = renderExploreResources();
-                    // Pre-select first resource
-                    const firstRow = document.querySelector('.resource-row');
-                    if (firstRow) {
-                        firstRow.click();
-                    }
+                    setTimeout(() => {
+                        const firstRow = document.querySelector('.resource-row');
+                        if (firstRow) firstRow.click();
+                    }, 50);
                     break;
                 case 'analytics':
                     title.textContent = 'Analytics';
                     body.innerHTML = renderAnalytics();
-                    showAnalyticsTab('type');
+                    showAnalyticsTab('overview');
                     break;
                 case 'coverage':
                     title.textContent = 'Coverage Report';
                     body.innerHTML = renderCoverageReport();
+                    animateCoverageElements();
                     break;
             }
         }
 
         function closeModal() {
-            const overlay = document.getElementById('modalOverlay');
-            overlay.classList.remove('active');
+            document.getElementById('modalOverlay').classList.remove('active');
             document.getElementById('particles').classList.remove('dimmed');
             animating = true;
-            currentFilter = 'All';
-            searchQuery = '';
-            selectedResourceId = null;
+            currentFilter = 'All'; searchQuery = ''; selectedResourceId = null;
         }
 
-        // Explore Resources Render
+        // Explore Resources
         function renderExploreResources() {
             const types = Object.entries(TYPE_COUNTS).sort((a, b) => b[1] - a[1]);
-            const total = RESOURCES.length;
-
             return `
                 <div class="explore-container">
                     <div class="resource-table-section">
                         <div class="table-controls">
                             <input type="text" class="search-box" placeholder="Search resources..." oninput="handleSearch(this.value)">
                             <div class="filter-pills">
-                                <button class="filter-pill active" onclick="handleFilter('All', this)">All <span class="count">${total}</span></button>
-                                ${types.map(([type, count]) => `
-                                    <button class="filter-pill" onclick="handleFilter('${type}', this)">${type} <span class="count">${count}</span></button>
-                                `).join('')}
+                                <button class="filter-pill active" onclick="handleFilter('All', this)">All <span class="count">${RESOURCES.length}</span></button>
+                                ${types.map(([type, count]) => `<button class="filter-pill" onclick="handleFilter('${type}', this)">${type} <span class="count">${count}</span></button>`).join('')}
                             </div>
                         </div>
                         <div class="resource-table-wrapper">
                             <table class="resource-table">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Type</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="resourceTableBody">
-                                    ${renderTableRows()}
-                                </tbody>
+                                <thead><tr><th>Title</th><th>Type</th><th>Date</th></tr></thead>
+                                <tbody id="resourceTableBody">${renderTableRows()}</tbody>
                             </table>
                         </div>
                     </div>
@@ -1761,30 +1417,12 @@
 
         function renderTableRows() {
             let filtered = RESOURCES;
-
-            if (currentFilter !== 'All') {
-                filtered = filtered.filter(r => r.type === currentFilter);
-            }
-
-            if (searchQuery) {
-                const query = searchQuery.toLowerCase();
-                filtered = filtered.filter(r => r.title.toLowerCase().includes(query));
-            }
-
-            if (filtered.length === 0) {
-                return '<tr><td colspan="3" style="text-align: center; color: var(--slate-500); padding: 2rem;">No resources found</td></tr>';
-            }
-
+            if (currentFilter !== 'All') filtered = filtered.filter(r => r.type === currentFilter);
+            if (searchQuery) { const q = searchQuery.toLowerCase(); filtered = filtered.filter(r => r.title.toLowerCase().includes(q)); }
+            if (filtered.length === 0) return '<tr><td colspan="3" style="text-align:center;color:var(--slate-500);padding:2rem;">No resources found</td></tr>';
             return filtered.map(r => {
                 const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '—';
-                const isSelected = r.id === selectedResourceId;
-                return `
-                    <tr class="resource-row ${isSelected ? 'selected' : ''}" onclick="selectResource(${r.id}, this)">
-                        <td>${r.title}</td>
-                        <td>${r.type}</td>
-                        <td>${dateStr}</td>
-                    </tr>
-                `;
+                return `<tr class="resource-row ${r.id === selectedResourceId ? 'selected' : ''}" onclick="selectResource(${r.id}, this)"><td>${r.title}</td><td>${r.type}</td><td>${dateStr}</td></tr>`;
             }).join('');
         }
 
@@ -1793,8 +1431,6 @@
             document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById('resourceTableBody').innerHTML = renderTableRows();
-
-            // Clear selection if current resource doesn't match filter
             if (selectedResourceId) {
                 const r = RESOURCES.find(res => res.id === selectedResourceId);
                 if (type !== 'All' && r.type !== type) {
@@ -1813,47 +1449,20 @@
             selectedResourceId = id;
             document.querySelectorAll('.resource-row').forEach(r => r.classList.remove('selected'));
             row.classList.add('selected');
-
             const r = RESOURCES.find(res => res.id === id);
             const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '—';
             const urlValid = r.url && r.url.startsWith('http');
-
             document.getElementById('detailPanel').innerHTML = `
                 <div class="detail-content">
                     <h3>${r.title}</h3>
                     <p class="summary">${r.summary}</p>
-
                     <div class="detail-meta">
-                        <div class="detail-meta-row">
-                            <span class="meta-label">Type</span>
-                            <span class="meta-value">${r.type}</span>
-                        </div>
-                        <div class="detail-meta-row">
-                            <span class="meta-label">Date</span>
-                            <span class="meta-value">${dateStr}</span>
-                        </div>
-                        ${r.videoLength ? `
-                        <div class="detail-meta-row">
-                            <span class="meta-label">Duration</span>
-                            <span class="meta-value">${r.videoLength}</span>
-                        </div>
-                        ` : ''}
+                        <div class="detail-meta-row"><span class="meta-label">Type</span><span class="meta-value">${r.type}</span></div>
+                        <div class="detail-meta-row"><span class="meta-label">Date</span><span class="meta-value">${dateStr}</span></div>
+                        ${r.videoLength ? `<div class="detail-meta-row"><span class="meta-label">Duration</span><span class="meta-value">${r.videoLength}</span></div>` : ''}
                     </div>
-
-                    <div class="detail-audience">
-                        <span class="meta-label">Audience</span>
-                        <p>${r.audience}</p>
-                    </div>
-
-                    ${urlValid ? `
-                    <a href="${r.url}" target="_blank" rel="noopener" class="open-resource-btn">
-                        Open Resource &rarr;
-                    </a>
-                    ` : `
-                    <button class="open-resource-btn disabled">
-                        Link unavailable
-                    </button>
-                    `}
+                    <div class="detail-audience"><span class="meta-label">Audience</span><p>${r.audience}</p></div>
+                    ${urlValid ? `<a href="${r.url}" target="_blank" rel="noopener" class="open-resource-btn">Open Resource &rarr;</a>` : `<button class="open-resource-btn disabled">Link unavailable</button>`}
                 </div>
             `;
         }
@@ -1863,170 +1472,247 @@
             return `
                 <div class="analytics-content">
                     <div class="analytics-tabs">
-                        <button class="active" onclick="showAnalyticsTab('type')">By Type</button>
+                        <button class="active" onclick="showAnalyticsTab('overview')">Overview</button>
+                        <button onclick="showAnalyticsTab('type')">By Type</button>
                         <button onclick="showAnalyticsTab('timeline')">Timeline</button>
+                        <button onclick="showAnalyticsTab('audience')">Audience</button>
                     </div>
-                    <div id="chartContainer"></div>
+                    <div id="analyticsContent"></div>
                 </div>
             `;
         }
 
         function showAnalyticsTab(tab) {
-            const buttons = document.querySelectorAll('.analytics-tabs button');
-            buttons.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.analytics-tabs button').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
+            const container = document.getElementById('analyticsContent');
 
-            const container = document.getElementById('chartContainer');
-
-            if (tab === 'type') {
-                const categories = Object.entries(TYPE_COUNTS).sort((a, b) => b[1] - a[1]);
-                const max = Math.max(...categories.map(c => c[1]));
-
+            if (tab === 'overview') {
+                const types = Object.entries(TYPE_COUNTS).sort((a, b) => b[1] - a[1]);
+                const maxCount = Math.max(...types.map(t => t[1]));
+                container.innerHTML = `
+                    <div class="stat-grid">
+                        <div class="stat-card"><div class="stat-number" data-value="66">0</div><div class="stat-label">Resources</div></div>
+                        <div class="stat-card"><div class="stat-number" data-value="5">0</div><div class="stat-label">Categories</div></div>
+                        <div class="stat-card"><div class="stat-number accent" data-value="${Math.round(datedCount/66*100)}">0</div><div class="stat-label">% Dated</div></div>
+                    </div>
+                    <div class="format-dist">
+                        <div class="format-dist-title">Format Distribution</div>
+                        <div class="format-bars">
+                            ${types.map(([type, count], i) => `
+                                <div class="format-bar">
+                                    <div class="format-bar-fill ${i === 0 ? 'highlight' : ''}" style="height: 0" data-height="${count/maxCount*50}px"></div>
+                                    <div class="format-bar-count">${count}</div>
+                                    <div class="format-bar-label">${type.substring(0,3)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="resource-highlights">
+                        <div class="highlight-card">
+                            <div class="highlight-card-title">Newest Resource</div>
+                            <div class="highlight-card-value">${new Date(newest.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
+                            <div class="highlight-card-sub">${newest.title.substring(0,35)}...</div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-card-title">Oldest Resource</div>
+                            <div class="highlight-card-value">${new Date(oldest.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
+                            <div class="highlight-card-sub">${oldest.title.substring(0,35)}...</div>
+                        </div>
+                    </div>
+                    <div class="momentum-section">
+                        <div class="momentum-title">2025 Momentum</div>
+                        <div class="momentum-bar"><div class="momentum-fill" style="width: 0" data-width="${(YEAR_DATA['2025'] || 0)/66*100}%"></div></div>
+                        <div class="momentum-text"><strong>${YEAR_DATA['2025'] || 0} new resources</strong> (${Math.round((YEAR_DATA['2025'] || 0)/66*100)}% of total)</div>
+                    </div>
+                `;
+                setTimeout(() => {
+                    document.querySelectorAll('.stat-number').forEach(el => animateNumber(el, parseInt(el.dataset.value)));
+                    document.querySelectorAll('.format-bar-fill').forEach(el => { el.style.height = el.dataset.height; });
+                    document.querySelectorAll('.momentum-fill').forEach(el => { el.style.width = el.dataset.width; });
+                }, 100);
+            } else if (tab === 'type') {
+                const types = Object.entries(TYPE_COUNTS).sort((a, b) => b[1] - a[1]);
+                const max = Math.max(...types.map(t => t[1]));
+                const topTwo = types[0][1] + types[1][1];
                 container.innerHTML = `
                     <div class="bar-chart">
-                        ${categories.map(([name, count], i) => `
+                        ${types.map(([name, count], i) => `
                             <div class="bar-row">
                                 <div class="bar-label">${name}</div>
                                 <div class="bar-track">
-                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${(count / max * 100)}%">${count}</div>
+                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${count/max*100}%">${count} (${Math.round(count/66*100)}%)</div>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
+                    <div class="insight-callout"><strong>Insight:</strong> ${types[0][0]} and ${types[1][0]} account for ${Math.round(topTwo/66*100)}% of the collection.</div>
                 `;
-            } else {
+                setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
+            } else if (tab === 'timeline') {
                 const years = Object.entries(YEAR_DATA).sort((a, b) => a[0] - b[0]);
                 const max = Math.max(...years.map(y => y[1]));
-                const maxYear = years.reduce((a, b) => b[1] > a[1] ? b : a)[0];
-
+                const maxYear = years.reduce((a, b) => b[1] > a[1] ? b : a);
                 container.innerHTML = `
                     <div class="bar-chart">
                         ${years.map(([year, count]) => `
                             <div class="bar-row">
                                 <div class="bar-label">${year}</div>
                                 <div class="bar-track">
-                                    <div class="bar-fill ${year === maxYear ? 'highlight' : ''}" style="--target-width: ${(count / max * 100)}%">${count}</div>
+                                    <div class="bar-fill ${year === maxYear[0] ? 'highlight' : ''}" style="--target-width: ${count/max*100}%">${count}</div>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="chart-note">* ${datedCount} of 66 resources have publication dates</div>
+                    <div class="insight-callout"><strong>2025 represents the most active year</strong> for IP resource development, with ${YEAR_DATA['2025'] || 0} new additions year-to-date.</div>
+                    <div class="chart-note">* ${datedCount} of 66 resources (${Math.round(datedCount/66*100)}%) have publication dates. 28 resources lack date metadata.</div>
                 `;
+                setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
+            } else if (tab === 'audience') {
+                const roles = Object.entries(audienceCounts).sort((a, b) => b[1] - a[1]);
+                const max = Math.max(...roles.map(r => r[1]));
+                const lowest = roles.slice(-2);
+                container.innerHTML = `
+                    <div class="bar-chart">
+                        ${roles.map(([role, count], i) => `
+                            <div class="bar-row">
+                                <div class="bar-label">${role}</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${count/max*100}%">${count} (${Math.round(count/66*100)}%)</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="insight-callout"><strong>Insight:</strong> ${lowest[0][0]} and ${lowest[1][0]} stakeholders have the least dedicated coverage (${Math.round(lowest[0][1]/66*100)}% and ${Math.round(lowest[1][1]/66*100)}% of resources respectively).</div>
+                `;
+                setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
             }
-
-            setTimeout(() => {
-                document.querySelectorAll('.bar-fill').forEach(bar => {
-                    bar.classList.add('animate');
-                });
-            }, 50);
         }
 
         // Coverage Report
         function renderCoverageReport() {
+            const scoreClass = healthScore >= 70 ? 'good' : healthScore >= 50 ? 'moderate' : 'poor';
             return `
                 <div class="coverage-content">
-                    <div class="coverage-section">
-                        <h3>Collection Strengths</h3>
-                        <div class="strength-item">
-                            <div class="strength-title">Robust Foundational Content</div>
-                            <div>Strong entry points for new personnel entering the IP field.</div>
+                    <div class="health-section">
+                        <div class="health-header">
+                            <div class="health-title">Collection Health Score</div>
+                            <div class="health-score ${scoreClass}" data-value="${healthScore}">0</div>
                         </div>
-                        <div class="strength-item">
-                            <div class="strength-title">Strong Video Representation</div>
-                            <div>34% video content enables visual demonstration of complex concepts.</div>
+                        <div class="health-bar"><div class="health-fill ${scoreClass}" style="width: 0" data-width="${healthScore}%"></div></div>
+                        <div class="health-desc">Strong foundation with key gaps in emerging technology coverage and content currency.</div>
+                    </div>
+
+                    <div class="summary-cards">
+                        <div class="summary-card strengths" onclick="openDrilldown('strengths')">
+                            <div class="summary-card-icon">✓</div>
+                            <div class="summary-card-count">5</div>
+                            <div class="summary-card-label">Strengths</div>
+                            <div class="summary-card-action">View Details →</div>
                         </div>
-                        <div class="strength-item">
-                            <div class="strength-title">DAU Credential Alignment</div>
-                            <div>Comprehensive coverage ensures alignment with workforce development pathways.</div>
+                        <div class="summary-card gaps" onclick="openDrilldown('gaps')">
+                            <div class="summary-card-icon">⚠</div>
+                            <div class="summary-card-count">6</div>
+                            <div class="summary-card-label">Gaps Identified</div>
+                            <div class="summary-card-action">View Details →</div>
                         </div>
-                        <div class="strength-item">
-                            <div class="strength-title">Active 2025 Development</div>
-                            <div>15 new resources added this year demonstrate sustained commitment.</div>
-                        </div>
-                        <div class="strength-item">
-                            <div class="strength-title">Format Diversity</div>
-                            <div>Balance of videos, documents, webinars, and courses serves different contexts.</div>
+                        <div class="summary-card actions" onclick="openDrilldown('actions')">
+                            <div class="summary-card-icon">→</div>
+                            <div class="summary-card-count">4</div>
+                            <div class="summary-card-label">Actions</div>
+                            <div class="summary-card-action">View Details →</div>
                         </div>
                     </div>
 
-                    <div class="coverage-section">
-                        <h3>Strategic Gaps</h3>
-                        <div class="gap-item high">
-                            <span class="gap-priority high">High Priority</span>
-                            <div class="strength-title">Insufficient AI/Emerging Tech Coverage</div>
-                            <div>Only 3 resources address IP challenges in AI, ML, and other advancing technologies.</div>
+                    <div class="priority-section">
+                        <div class="priority-title">Gap Priority Breakdown</div>
+                        <div class="priority-row">
+                            <div class="priority-dot high"></div>
+                            <div class="priority-label">High</div>
+                            <div class="priority-bar"><div class="priority-bar-fill high" style="width: 0" data-width="33%"></div></div>
+                            <div class="priority-count">2 gaps</div>
                         </div>
-                        <div class="gap-item high">
-                            <span class="gap-priority high">High Priority</span>
-                            <div class="strength-title">Limited MOSA Content</div>
-                            <div>Only 4 resources support the DoD's architectural transformation.</div>
+                        <div class="priority-row">
+                            <div class="priority-dot medium"></div>
+                            <div class="priority-label">Medium</div>
+                            <div class="priority-bar"><div class="priority-bar-fill medium" style="width: 0" data-width="50%"></div></div>
+                            <div class="priority-count">3 gaps</div>
                         </div>
-                        <div class="gap-item medium">
-                            <span class="gap-priority medium">Medium Priority</span>
-                            <div class="strength-title">Metadata Quality Issues</div>
-                            <div>28 resources lack date information, affecting searchability.</div>
-                        </div>
-                        <div class="gap-item medium">
-                            <span class="gap-priority medium">Medium Priority</span>
-                            <div class="strength-title">Limited Currency</div>
-                            <div>63% of content is pre-2024, creating concerns about policy alignment.</div>
-                        </div>
-                        <div class="gap-item low">
-                            <span class="gap-priority low">Low Priority</span>
-                            <div class="strength-title">Minimal Interactive Learning</div>
-                            <div>Only 4 hands-on learning opportunities in the collection.</div>
-                        </div>
-                    </div>
-
-                    <div class="coverage-section">
-                        <h3>Recommendations</h3>
-                        <div class="rec-item">
-                            <div class="rec-number">1</div>
-                            <div class="rec-content">
-                                <div class="rec-title">Develop Advanced-Level Content</div>
-                                <div>Create progression pathways for experienced practitioners.</div>
-                            </div>
-                        </div>
-                        <div class="rec-item">
-                            <div class="rec-number">2</div>
-                            <div class="rec-content">
-                                <div class="rec-title">Increase Interactive Learning</div>
-                                <div>Expand hands-on opportunities through case studies and simulations.</div>
-                            </div>
-                        </div>
-                        <div class="rec-item">
-                            <div class="rec-number">3</div>
-                            <div class="rec-content">
-                                <div class="rec-title">Expand AI & MOSA Materials</div>
-                                <div>Urgently develop content for DoD strategic priorities.</div>
-                            </div>
-                        </div>
-                        <div class="rec-item">
-                            <div class="rec-number">4</div>
-                            <div class="rec-content">
-                                <div class="rec-title">Update Content & Metadata</div>
-                                <div>Refresh older materials and complete missing metadata.</div>
-                            </div>
+                        <div class="priority-row">
+                            <div class="priority-dot low"></div>
+                            <div class="priority-label">Low</div>
+                            <div class="priority-bar"><div class="priority-bar-fill low" style="width: 0" data-width="17%"></div></div>
+                            <div class="priority-count">1 gap</div>
                         </div>
                     </div>
 
                     <div class="bottom-line">
                         <h4>Bottom Line</h4>
-                        <p>The collection provides a strong foundation with diverse formats and recent growth but requires targeted improvements in emerging technology coverage, interactivity, and currency to fully meet DoD strategic needs.</p>
+                        <p>Strong foundation with diverse formats and recent growth. Requires targeted improvements in AI/MOSA coverage, interactivity, and content currency to meet DoD strategic needs.</p>
                     </div>
                 </div>
             `;
         }
 
-        // Close on overlay click
-        document.getElementById('modalOverlay').addEventListener('click', e => {
-            if (e.target === e.currentTarget) closeModal();
-        });
+        function animateCoverageElements() {
+            setTimeout(() => {
+                const scoreEl = document.querySelector('.health-score');
+                if (scoreEl) animateNumber(scoreEl, parseInt(scoreEl.dataset.value));
+                document.querySelectorAll('.health-fill, .priority-bar-fill').forEach(el => { el.style.width = el.dataset.width; });
+            }, 100);
+        }
 
-        // Close on Escape
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeModal();
-        });
+        // Drilldown
+        function openDrilldown(type) {
+            const overlay = document.getElementById('drilldownOverlay');
+            const title = document.getElementById('drilldownTitle');
+            const body = document.getElementById('drilldownBody');
+
+            if (type === 'strengths') {
+                title.textContent = 'Collection Strengths';
+                body.innerHTML = `
+                    <div class="drilldown-grid">
+                        <div class="drilldown-item strength"><div class="drilldown-item-title">Robust Foundational Content</div><div class="drilldown-item-desc">Strong entry points for new personnel entering the IP field.</div></div>
+                        <div class="drilldown-item strength"><div class="drilldown-item-title">Strong Video Representation</div><div class="drilldown-item-desc">34% video content enables visual demonstration of complex concepts.</div></div>
+                        <div class="drilldown-item strength"><div class="drilldown-item-title">DAU Credential Alignment</div><div class="drilldown-item-desc">Comprehensive coverage with workforce development pathways.</div></div>
+                        <div class="drilldown-item strength"><div class="drilldown-item-title">Active 2025 Development</div><div class="drilldown-item-desc">${YEAR_DATA['2025'] || 0} new resources demonstrate sustained commitment.</div></div>
+                        <div class="drilldown-item strength"><div class="drilldown-item-title">Format Diversity</div><div class="drilldown-item-desc">Balance of videos, documents, webinars, and courses.</div></div>
+                    </div>
+                `;
+            } else if (type === 'gaps') {
+                title.textContent = 'Strategic Gaps';
+                body.innerHTML = `
+                    <div class="drilldown-grid">
+                        <div class="drilldown-item gap-high"><span class="gap-badge high">High</span><div class="drilldown-item-title">AI/Emerging Tech Coverage</div><div class="drilldown-item-desc">Only 3 resources address AI, ML, and advancing technologies.</div></div>
+                        <div class="drilldown-item gap-high"><span class="gap-badge high">High</span><div class="drilldown-item-title">Limited MOSA Content</div><div class="drilldown-item-desc">Only 4 resources support architectural transformation.</div></div>
+                        <div class="drilldown-item gap-medium"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Metadata Quality</div><div class="drilldown-item-desc">28 resources (42%) lack publication dates.</div></div>
+                        <div class="drilldown-item gap-medium"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Limited Currency</div><div class="drilldown-item-desc">63% of content is pre-2024, affecting policy alignment.</div></div>
+                        <div class="drilldown-item gap-medium"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Audience Gaps</div><div class="drilldown-item-desc">Engineers and Small Business have lowest coverage.</div></div>
+                        <div class="drilldown-item gap-low"><span class="gap-badge low">Low</span><div class="drilldown-item-title">Interactive Learning</div><div class="drilldown-item-desc">Only 4 hands-on learning opportunities.</div></div>
+                    </div>
+                `;
+            } else if (type === 'actions') {
+                title.textContent = 'Recommended Actions';
+                body.innerHTML = `
+                    <div class="drilldown-grid">
+                        <div class="drilldown-item action"><span class="action-number">1</span><div class="drilldown-item-title">Expand AI & MOSA Materials</div><div class="drilldown-item-desc">Urgently develop content for DoD strategic priorities. Timeline: Now</div></div>
+                        <div class="drilldown-item action"><span class="action-number">2</span><div class="drilldown-item-title">Update Content & Metadata</div><div class="drilldown-item-desc">Refresh older materials and complete missing dates. Timeline: Q1</div></div>
+                        <div class="drilldown-item action"><span class="action-number">3</span><div class="drilldown-item-title">Increase Interactive Learning</div><div class="drilldown-item-desc">Add case studies and simulations. Timeline: Q2</div></div>
+                        <div class="drilldown-item action"><span class="action-number">4</span><div class="drilldown-item-title">Address Audience Gaps</div><div class="drilldown-item-desc">Create content for Engineers and Small Business. Timeline: Q2</div></div>
+                    </div>
+                `;
+            }
+            overlay.classList.add('active');
+        }
+
+        function closeDrilldown(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('drilldownOverlay').classList.remove('active');
+        }
+
+        // Event listeners
+        document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrilldown(); closeModal(); } });
     </script>
 </body>
 </html>
