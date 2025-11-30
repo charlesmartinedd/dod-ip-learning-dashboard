@@ -1599,18 +1599,16 @@
             row.classList.add('selected');
             const r = RESOURCES.find(res => res.id === id);
             const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '—';
-            const urlValid = r.url && r.url.startsWith('http');
             document.getElementById('detailPanel').innerHTML = `
                 <div class="detail-content">
                     <h3>${r.title}</h3>
-                    <p class="summary">${r.summary}</p>
+                    <p class="summary">${r.description}</p>
                     <div class="detail-meta">
                         <div class="detail-meta-row"><span class="meta-label">Type</span><span class="meta-value">${r.type}</span></div>
                         <div class="detail-meta-row"><span class="meta-label">Date</span><span class="meta-value">${dateStr}</span></div>
                         ${r.videoLength ? `<div class="detail-meta-row"><span class="meta-label">Duration</span><span class="meta-value">${r.videoLength}</span></div>` : ''}
                     </div>
                     <div class="detail-audience"><span class="meta-label">Audience</span><p>${r.audience}</p></div>
-                    ${urlValid ? `<a href="${r.url}" target="_blank" rel="noopener" class="open-resource-btn">Open Resource &rarr;</a>` : `<button class="open-resource-btn disabled">Link unavailable</button>`}
                 </div>
             `;
         }
