@@ -4,19 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSBP Intellectual Property Learning Resources</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --navy-900: #0f172a;
+            --navy-700: #1e3a5f;
+            --navy-500: #3b5998;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-500: #64748b;
+            --warm-50: #fefdfb;
+            --accent: #2563eb;
+            --accent-subtle: #dbeafe;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(180deg, var(--warm-50) 0%, #f8fafc 100%);
+            color: var(--navy-900);
+            font-size: 0.9375rem;
+            line-height: 1.7;
             overflow: hidden;
+            min-height: 100vh;
         }
 
         /* Particle Canvas */
@@ -31,68 +49,84 @@
         }
 
         #particles.dimmed {
-            opacity: 0.2;
+            opacity: 0.15;
         }
 
-        /* Hero Section */
+        /* Hero Section - Left Aligned */
         .hero {
             position: relative;
             z-index: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             min-height: 100vh;
-            text-align: center;
-            padding: 2rem;
+            text-align: left;
+            padding: 4rem 8rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            color: #1a365d;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--navy-900);
             margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            max-width: 700px;
         }
 
         .hero .description {
-            font-size: 1.125rem;
-            color: #475569;
-            max-width: 700px;
+            font-size: 1.0625rem;
+            color: var(--slate-500);
+            max-width: 540px;
             margin-bottom: 2.5rem;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         .buttons {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 1rem;
             margin-bottom: 3rem;
         }
 
         .btn {
-            background: #1a365d;
+            background: var(--navy-700);
             color: white;
             border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.125rem;
+            padding: 0.875rem 1.75rem;
+            font-size: 0.9375rem;
             font-weight: 500;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            min-width: 280px;
+            transition: all 0.25s ease-out;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
 
         .btn:hover {
-            background: #2d4a7c;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+            background: var(--navy-900);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15,23,42,0.15);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+        }
+
+        .btn.primary:hover {
+            background: #1d4ed8;
         }
 
         .footer-stats {
-            font-size: 0.95rem;
-            color: #64748b;
+            position: absolute;
+            bottom: 2rem;
+            left: 8rem;
+            font-size: 0.8125rem;
+            color: var(--slate-500);
             letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         /* Modal Overlay */
@@ -102,7 +136,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(15, 23, 42, 0.6);
             z-index: 100;
             display: flex;
             align-items: center;
@@ -119,67 +153,50 @@
 
         .modal {
             background: white;
-            border-radius: 16px;
-            max-width: 1000px;
-            width: 90%;
-            max-height: 85vh;
+            border-radius: 12px;
+            max-width: 1100px;
+            width: 94%;
+            max-height: 88vh;
             overflow: hidden;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
+            transform: scale(0.98) translateY(10px);
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
 
         .modal-overlay.active .modal {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid #e2e8f0;
-            background: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--slate-200);
+            background: white;
         }
 
         .modal-header h2 {
-            font-size: 1.5rem;
-            color: #1a365d;
+            font-size: 1.25rem;
+            color: var(--navy-900);
             font-weight: 600;
-        }
-
-        .modal-header .back-btn {
-            background: none;
-            border: none;
-            font-size: 1rem;
-            color: #64748b;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .modal-header .back-btn:hover {
-            background: #e2e8f0;
-            color: #1a365d;
+            letter-spacing: -0.01em;
         }
 
         .modal-header .close-btn {
             background: none;
             border: none;
             font-size: 1.5rem;
-            color: #94a3b8;
+            color: var(--slate-500);
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            border-radius: 6px;
             transition: all 0.2s;
         }
 
@@ -189,207 +206,310 @@
         }
 
         .modal-body {
-            padding: 2rem;
-            overflow-y: auto;
             flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Category Grid */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.25rem;
-        }
-
-        .category-tile {
-            background: linear-gradient(135deg, #1a365d 0%, #2d4a7c 100%);
-            color: white;
-            padding: 2rem 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .category-tile:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(26, 54, 93, 0.25);
-        }
-
-        .category-tile .count {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .category-tile .name {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        /* Resource Cards Grid */
-        .resource-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.25rem;
-        }
-
-        .resource-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .resource-card:hover {
-            border-color: #1a365d;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .resource-card .title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+        /* Explore Resources - Table + Panel Layout */
+        .explore-container {
+            display: flex;
+            height: 100%;
             overflow: hidden;
         }
 
-        .resource-card .type-badge {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #3730a3;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
+        .resource-table-section {
+            flex: 0 0 60%;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--slate-200);
+            overflow: hidden;
+        }
+
+        .table-controls {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--slate-200);
+            background: var(--warm-50);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            border: 1px solid var(--slate-200);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            margin-bottom: 0.875rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-subtle);
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            background: transparent;
+            border: 1px solid var(--slate-200);
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8125rem;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: var(--slate-500);
+            font-family: inherit;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--navy-700);
+            color: var(--navy-700);
+        }
+
+        .filter-pill.active {
+            background: var(--navy-700);
+            border-color: var(--navy-700);
+            color: white;
+        }
+
+        .filter-pill .count {
+            opacity: 0.7;
+            margin-left: 0.25rem;
+        }
+
+        .resource-table-wrapper {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .resource-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .resource-table thead {
+            position: sticky;
+            top: 0;
+            background: var(--slate-100);
+            z-index: 1;
+        }
+
+        .resource-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+            color: var(--slate-500);
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .resource-row {
+            cursor: pointer;
+            transition: background 0.15s ease, transform 0.15s ease;
+        }
+
+        .resource-row:hover {
+            background: var(--slate-100);
+            transform: translateX(2px);
+        }
+
+        .resource-row.selected {
+            background: var(--accent-subtle);
+            border-left: 2px solid var(--accent);
+        }
+
+        .resource-row td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--slate-200);
+            font-size: 0.875rem;
+        }
+
+        .resource-row td:first-child {
+            font-weight: 500;
+            color: var(--navy-900);
+            max-width: 320px;
+        }
+
+        .resource-row td:nth-child(2) {
+            color: var(--slate-500);
+            font-size: 0.8125rem;
+        }
+
+        .resource-row td:nth-child(3) {
+            color: var(--slate-500);
+            font-size: 0.8125rem;
+            white-space: nowrap;
+        }
+
+        /* Detail Panel */
+        .detail-panel {
+            flex: 0 0 40%;
+            background: white;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .detail-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--slate-500);
+            font-size: 0.9375rem;
+        }
+
+        .detail-content {
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-content h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .detail-content .summary {
+            color: var(--slate-500);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-meta {
+            background: var(--slate-100);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-meta-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.375rem 0;
+            font-size: 0.8125rem;
+        }
+
+        .detail-meta-row:not(:last-child) {
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .meta-label {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 500;
+            color: var(--slate-500);
+        }
+
+        .meta-value {
+            color: var(--navy-900);
             font-weight: 500;
         }
 
-        /* Resource Detail */
-        .resource-detail {
-            max-width: 700px;
-            margin: 0 auto;
+        .detail-audience {
+            margin-bottom: 1.25rem;
         }
 
-        .resource-detail h3 {
-            font-size: 1.5rem;
-            color: #1a365d;
-            margin-bottom: 1rem;
-        }
-
-        .resource-detail .summary {
-            background: #f1f5f9;
-            padding: 1.25rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-            color: #475569;
-        }
-
-        .resource-detail .meta-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .resource-detail .meta-item {
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .resource-detail .meta-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #64748b;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-        }
-
-        .resource-detail .meta-value {
-            color: #1e293b;
-            font-size: 0.95rem;
-        }
-
-        .resource-detail .description-full {
-            margin-bottom: 1.5rem;
-        }
-
-        .resource-detail .description-full h4 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            color: #64748b;
+        .detail-audience .meta-label {
             margin-bottom: 0.5rem;
-            font-weight: 600;
+            display: block;
         }
 
-        .resource-detail .audience {
-            background: #fef3c7;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
+        .detail-audience p {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
+            line-height: 1.6;
         }
 
-        .resource-detail .link-btn {
+        .open-resource-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: #1a365d;
+            background: var(--accent);
             color: white;
-            padding: 0.875rem 1.5rem;
-            border-radius: 8px;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.875rem;
             transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
         }
 
-        .resource-detail .link-btn:hover {
-            background: #2d4a7c;
+        .open-resource-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .open-resource-btn.disabled {
+            background: var(--slate-200);
+            color: var(--slate-500);
+            cursor: not-allowed;
+        }
+
+        .open-resource-btn.disabled:hover {
+            transform: none;
         }
 
         /* Analytics */
+        .analytics-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
         .analytics-tabs {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--slate-200);
+            padding-bottom: 0.75rem;
         }
 
         .analytics-tabs button {
             background: none;
             border: none;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            color: #64748b;
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+            color: var(--slate-500);
             cursor: pointer;
             border-radius: 6px;
             transition: all 0.2s;
+            font-family: inherit;
+            font-weight: 500;
         }
 
         .analytics-tabs button.active {
-            background: #1a365d;
+            background: var(--navy-700);
             color: white;
         }
 
         .analytics-tabs button:hover:not(.active) {
-            background: #f1f5f9;
-        }
-
-        .chart-container {
-            padding: 1rem 0;
+            background: var(--slate-100);
         }
 
         .bar-chart {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.875rem;
         }
 
         .bar-row {
@@ -399,34 +519,38 @@
         }
 
         .bar-label {
-            width: 160px;
-            font-size: 0.9rem;
-            color: #475569;
+            width: 140px;
+            font-size: 0.8125rem;
+            color: var(--slate-500);
             text-align: right;
             flex-shrink: 0;
         }
 
         .bar-track {
             flex: 1;
-            height: 32px;
-            background: #e2e8f0;
-            border-radius: 6px;
+            height: 28px;
+            background: var(--slate-100);
+            border-radius: 4px;
             overflow: hidden;
         }
 
         .bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #1a365d, #3b82f6);
-            border-radius: 6px;
+            background: var(--navy-700);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 12px;
+            padding-right: 10px;
             color: white;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
             transition: width 0.8s ease;
             width: 0;
+        }
+
+        .bar-fill.highlight {
+            background: var(--accent);
         }
 
         .bar-fill.animate {
@@ -435,22 +559,28 @@
 
         .chart-note {
             margin-top: 1rem;
-            font-size: 0.875rem;
-            color: #64748b;
+            font-size: 0.8125rem;
+            color: var(--slate-500);
             font-style: italic;
         }
 
         /* Coverage Report */
+        .coverage-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
         .coverage-section {
             margin-bottom: 2rem;
         }
 
         .coverage-section h3 {
-            font-size: 1.25rem;
-            color: #1a365d;
+            font-size: 1rem;
+            color: var(--navy-900);
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 1px solid var(--slate-200);
+            font-weight: 600;
         }
 
         .strength-item {
@@ -458,20 +588,26 @@
             padding: 1rem 1.25rem;
             border-radius: 8px;
             margin-bottom: 0.75rem;
-            border-left: 4px solid #10b981;
+            border-left: 3px solid #10b981;
         }
 
         .strength-title {
             font-weight: 600;
             color: #065f46;
             margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .strength-item > div:last-child {
+            font-size: 0.8125rem;
+            color: #047857;
         }
 
         .gap-item {
             padding: 1rem 1.25rem;
             border-radius: 8px;
             margin-bottom: 0.75rem;
-            border-left: 4px solid;
+            border-left: 3px solid;
         }
 
         .gap-item.high {
@@ -491,49 +627,49 @@
 
         .gap-priority {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
+            padding: 0.2rem 0.625rem;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.625rem;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
             margin-bottom: 0.5rem;
         }
 
-        .gap-priority.high {
-            background: #dc2626;
-            color: white;
+        .gap-priority.high { background: #dc2626; color: white; }
+        .gap-priority.medium { background: #f59e0b; color: #78350f; }
+        .gap-priority.low { background: #3b82f6; color: white; }
+
+        .gap-item .strength-title {
+            color: var(--navy-900);
         }
 
-        .gap-priority.medium {
-            background: #f59e0b;
-            color: #78350f;
-        }
-
-        .gap-priority.low {
-            background: #3b82f6;
-            color: white;
+        .gap-item > div:last-child {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
         }
 
         .rec-item {
             display: flex;
             gap: 1rem;
             padding: 1rem;
-            background: #f8fafc;
+            background: var(--slate-100);
             border-radius: 8px;
             margin-bottom: 0.75rem;
             align-items: flex-start;
         }
 
         .rec-number {
-            width: 32px;
-            height: 32px;
-            background: #1a365d;
+            width: 28px;
+            height: 28px;
+            background: var(--navy-700);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            font-size: 0.75rem;
             flex-shrink: 0;
         }
 
@@ -543,38 +679,71 @@
 
         .rec-title {
             font-weight: 600;
-            color: #1e293b;
+            color: var(--navy-900);
             margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .rec-content > div:last-child {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
         }
 
         .bottom-line {
-            background: #1a365d;
+            background: var(--navy-700);
             color: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-top: 2rem;
+            padding: 1.25rem 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
         }
 
         .bottom-line h4 {
-            font-size: 1rem;
+            font-size: 0.6875rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.75rem;
-            opacity: 0.9;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .bottom-line p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                padding: 3rem 2rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .footer-stats {
+                left: 2rem;
+            }
+            .explore-container {
+                flex-direction: column;
+            }
+            .resource-table-section {
+                flex: 1;
+                border-right: none;
+                border-bottom: 1px solid var(--slate-200);
+                max-height: 50%;
+            }
+            .detail-panel {
+                flex: 1;
+            }
         }
 
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2rem;
             }
-
-            .resource-detail .meta-grid {
-                grid-template-columns: 1fr;
+            .buttons {
+                flex-direction: column;
             }
-
             .bar-label {
                 width: 100px;
-                font-size: 0.8rem;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -586,11 +755,10 @@
         <h1>OSBP Intellectual Property Learning Resources</h1>
         <p class="description">
             A comprehensive view of 66 learning resources supporting IP and Data Rights acquisition
-            across the DoD. This dashboard maps current coverage by resource type and publication
-            timeline, highlighting both strengths and opportunities for development.
+            across the DoD. Explore by type, review analytics, or examine coverage gaps.
         </p>
         <div class="buttons">
-            <button class="btn" onclick="openModal('explore')">Explore Resources</button>
+            <button class="btn primary" onclick="openModal('explore')">Explore Resources</button>
             <button class="btn" onclick="openModal('analytics')">View Analytics</button>
             <button class="btn" onclick="openModal('coverage')">Coverage Report</button>
         </div>
@@ -600,9 +768,6 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-header">
-                <button class="back-btn" id="backBtn" style="display: none;" onclick="goBack()">
-                    &larr; Back
-                </button>
                 <h2 id="modalTitle">Modal Title</h2>
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
@@ -615,12 +780,12 @@
         const RESOURCES = [
   {
     "id": 1,
-    "title": "Foundational Intellectual Property (IP) Credential CACQ 008A (courses below)",
-    "summary": "New online suite of learning assets on the fundamentals of Intellectual Property and Data Rights, which are scenario-based and teach the DoD acquisition workforce to think strategically (Released 2025). Acquisition professionals who work with intellectual property (IP) and Data Rights will gain e...",
-    "description": "New online suite of learning assets on the fundamentals of Intellectual Property and Data Rights, which are scenario-based and teach the DoD acquisition workforce to think strategically (Released 2025). Acquisition professionals who work with intellectual property (IP) and Data Rights will gain essential skills for effective acquisition, licensing, and management of IP in accordance with the core principles outlined in DoD Instruction 5010.44, Intellectual Property (IP) Acquisition and Licensing. Through a series of informative and engaging online training courses, you'll learn the fundamentals of integrating IP and Data Rights planning into acquisition and product support strategies and protecting core DoD interests across the entire life cycle. Delve into topics like IP valuation, Modular Open Systems Approaches (MOSA), IP strategy development, data management planning and proper data markings. Enrolling in this credential will empower you to navigate IP complexities effectively, contributing significantly to programmatic success and enhancing support throughout the system's life cycle.",
-    "type": "Asynchronous Training",
+    "title": "Foundational Intellectual Property (IP) Credential CACQ 008A",
+    "summary": "New online suite of learning assets on the fundamentals of Intellectual Property and Data Rights, scenario-based training for strategic thinking.",
+    "description": "New online suite of learning assets on the fundamentals of Intellectual Property and Data Rights, which are scenario-based and teach the DoD acquisition workforce to think strategically (Released 2025). Acquisition professionals who work with intellectual property (IP) and Data Rights will gain essential skills for effective acquisition, licensing, and management of IP in accordance with the core principles outlined in DoD Instruction 5010.44.",
+    "type": "Training",
     "organization": "DAU Credential",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and Intellectual Property (IP) and Contracting Attorneys",
+    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
     "date": "2025-10-03",
     "url": "https://www.dau.edu/credentials/cacq-008a",
     "videoLength": null
@@ -628,11 +793,11 @@
   {
     "id": 2,
     "title": "ACQ 0710 Foundations of Data",
-    "summary": "This Online Training (OLT) course is the introductory course to the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program will have a robust IP strategy to identify and manage the full spectrum of IP and related matters from the inception of a program and up...",
-    "description": "This Online Training (OLT) course is the introductory course to the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program will have a robust IP strategy to identify and manage the full spectrum of IP and related matters from the inception of a program and updated throughout entire product life cycle. Foundations of Data provides a foundational understanding of data, technical data and computer software, and introduces an approach to developing an Intellectual Property Strategy",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and Intellectual Property (IP) and Contracting Attorneys",
+    "summary": "Introductory course to the IP and Data Rights series covering foundational concepts per DODI 5010.44.",
+    "description": "This Online Training (OLT) course is the introductory course to the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program will have a robust IP strategy to identify and manage the full spectrum of IP and related matters.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
     "date": "2024-10-09",
     "url": "https://www.dau.edu/courses/acq-0710",
     "videoLength": null
@@ -640,35 +805,35 @@
   {
     "id": 3,
     "title": "ACQ 0720 IP and Data Rights",
-    "summary": "This Online Training (OLT) course is the second course in the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program will have a robust Intellectual Property (IP) strategy to identify and manage the full spectrum of IP and related matters from the inception o...",
-    "description": "This Online Training (OLT) course is the second course in the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program will have a robust Intellectual Property (IP) strategy to identify and manage the full spectrum of IP and related matters from the inception of a program and updated throughout entire product life cycle. The Intellectual Property and Data Rights course provides a foundational understanding of what is IP, the impact of IP on the DOD, and the unique licensing aspects the DOD may use for IP.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and Intellectual Property (IP) and Contracting Attorneys",
+    "summary": "Second course in the IP series providing foundational understanding of IP impact on DoD and licensing aspects.",
+    "description": "This Online Training (OLT) course is the second course in the Intellectual Property and Data Rights series. Provides a foundational understanding of what is IP, the impact of IP on the DOD, and the unique licensing aspects the DOD may use for IP.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
     "date": "2024-10-09",
     "url": "https://www.dau.edu/courses/acq-0720",
     "videoLength": null
   },
   {
     "id": 4,
-    "title": "ACQ 0730 Create and/or Update an RPF",
-    "summary": "This Online Training (OLT) course introduces the Request for Proposal (\"RFP\"), a document used in negotiated acquisitions to communicate the Government's requirements to prospective contractors and to solicit proposals. This course discusses key data acquisition sections of the RFP and the import...",
-    "description": "This Online Training (OLT) course introduces the Request for Proposal (\"RFP\"), a document used in negotiated acquisitions to communicate the Government's requirements to prospective contractors and to solicit proposals. This course discusses key data acquisition sections of the RFP and the importance of communicating with industry regarding data and data rights, including using Industry Day.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and Intellectual Property (IP) and Contracting Attorneys",
+    "title": "ACQ 0730 Create and/or Update an RFP",
+    "summary": "Course on Request for Proposal documents and key data acquisition sections for IP communication.",
+    "description": "This Online Training (OLT) course introduces the Request for Proposal, a document used in negotiated acquisitions to communicate the Government's requirements to prospective contractors and to solicit proposals.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
     "date": "2024-10-09",
     "url": "https://www.dau.edu/courses/acq-0730",
     "videoLength": null
   },
   {
     "id": 5,
-    "title": "ACQ 0740 Fundamentals of an Intellectual Property Strategy",
-    "summary": "This Online Training (OLT) course discusses the fundamentals of developing and updating an Intellectual Strategy, focusing on the 5-phase process. Addressing key topics, such as the purpose of the IP Strategy, assessing existing data. and identifying new data needs, this module provides a how-to ...",
-    "description": "This Online Training (OLT) course discusses the fundamentals of developing and updating an Intellectual Strategy, focusing on the 5-phase process. Addressing key topics, such as the purpose of the IP Strategy, assessing existing data. and identifying new data needs, this module provides a how-to primer on this critical element required in acquisition strategies.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and Intellectual Property (IP) and Contracting Attorneys.",
+    "title": "ACQ 0740 Fundamentals of an IP Strategy",
+    "summary": "Course on developing and updating an Intellectual Property Strategy using the 5-phase process.",
+    "description": "This Online Training (OLT) course discusses the fundamentals of developing and updating an Intellectual Strategy, focusing on the 5-phase process. Provides a how-to primer on this critical element required in acquisition strategies.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
     "date": "2024-10-07",
     "url": "https://www.dau.edu/courses/acq-0740",
     "videoLength": null
@@ -676,11 +841,11 @@
   {
     "id": 6,
     "title": "ACQ 0750 Data Acquisition",
-    "summary": "This Online Training (OLT) course is the fourth course in the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program must have a robust Intellectual Property (IP) strategy to identify and manage the full spectrum of IP and related matters from the inception o...",
-    "description": "This Online Training (OLT) course is the fourth course in the Intellectual Property and Data Rights series. As required per DODI 5010.44, each DoD program must have a robust Intellectual Property (IP) strategy to identify and manage the full spectrum of IP and related matters from the inception of a program and should be updated throughout entire product life cycle. This course demonstrates how to develop and manage an IP strategy by following the 5-Phase IP Strategy Process.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and Intellectual Property (IP) and Contracting Attorneys",
+    "summary": "Fourth course demonstrating how to develop and manage an IP strategy following the 5-Phase process.",
+    "description": "This Online Training (OLT) course is the fourth course in the Intellectual Property and Data Rights series. Demonstrates how to develop and manage an IP strategy by following the 5-Phase IP Strategy Process.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
     "date": "2025-10-03",
     "url": "https://www.dau.edu/courses/acq-0750",
     "videoLength": null
@@ -688,11 +853,11 @@
   {
     "id": 7,
     "title": "ACQ 0760 Data Rights Marking and Validation",
-    "summary": "This Online Training (OLT) course explains how to apply the correct markings and distribution statements to technical data and computer software. Proper markings are vital to ensuring data are available to the right people at the right time and that data are protected from unauthorized disseminat...",
-    "description": "This Online Training (OLT) course explains how to apply the correct markings and distribution statements to technical data and computer software. Proper markings are vital to ensuring data are available to the right people at the right time and that data are protected from unauthorized dissemination.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and Intellectual Property (IP) and Contracting Attorneys",
+    "summary": "Course on applying correct markings and distribution statements to technical data and computer software.",
+    "description": "This Online Training (OLT) course explains how to apply the correct markings and distribution statements to technical data and computer software. Proper markings are vital to ensuring data are available to the right people at the right time.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "Program Managers, Systems Engineers, Engineers, Contracting Professionals, Logisticians, Product Support Managers, Data Managers, and IP Attorneys",
     "date": "2024-07-12",
     "url": "https://www.dau.edu/courses/acq-0760",
     "videoLength": null
@@ -700,11 +865,11 @@
   {
     "id": 8,
     "title": "CLE 019 Modular Open Systems Approach",
-    "summary": "This Online Training (OLT) course will describe the Modular Open Systems Approach (MOSA) principles from a business and a technical perspective and provide program examples of successful MOSA implementation, as well as sources that can assist an organization in implementing MOSA. This course is d...",
-    "description": "This Online Training (OLT) course will describe the Modular Open Systems Approach (MOSA) principles from a business and a technical perspective and provide program examples of successful MOSA implementation, as well as sources that can assist an organization in implementing MOSA. This course is designed to provide familiarization with lifecycle best practices for MOSA.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Those in the ETM and PM functional areas",
+    "summary": "Course on MOSA principles from business and technical perspectives with program examples.",
+    "description": "This Online Training (OLT) course will describe the Modular Open Systems Approach (MOSA) principles from a business and a technical perspective and provide program examples of successful MOSA implementation.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "ETM and PM functional areas",
     "date": "2019-05-09",
     "url": "https://www.dau.edu/courses/cle-019",
     "videoLength": null
@@ -712,11 +877,11 @@
   {
     "id": 9,
     "title": "CLM 002 Intellectual Property Valuation",
-    "summary": "This Online Training (OLT) course addresses the basic concepts of IP valuation and provides the acquisition workforce with tools to address issues critical to successful acquisitions, including when IP valuations should occur during the Acquisition Life Cycle, how contractors place a value on the...",
-    "description": "This Online Training (OLT) course addresses the basic concepts of IP valuation and provides the acquisition workforce with tools to address issues critical to successful acquisitions, including when IP valuations should occur during the Acquisition Life Cycle, how contractors place a value on their IP, and the importance of IP valuation and licensing rights in developing an IP Strategy, in accordance with DODI 5010.44.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "DoD acquisition professionals (e.g. program managers, contracting officers, technical subject matter experts, contracting and IP attorneys, budget and financial) charged with ensuring that the DoD acquires the necessary IP deliverables and associated licensing rights",
+    "summary": "Course on IP valuation concepts and tools for successful acquisitions per DODI 5010.44.",
+    "description": "This Online Training (OLT) course addresses the basic concepts of IP valuation and provides the acquisition workforce with tools to address issues critical to successful acquisitions.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "DoD acquisition professionals charged with ensuring that the DoD acquires the necessary IP deliverables and associated licensing rights",
     "date": "2020-07-14",
     "url": "https://www.dau.edu/courses/clm-002",
     "videoLength": null
@@ -724,23 +889,23 @@
   {
     "id": 10,
     "title": "CACQ 008 Capstone Exercise",
-    "summary": "Acquisition professionals who work with intellectual property (IP) and Data Rights will gain essential skills for effective acquisition, licensing, and management of IP in accordance with the core principles outlined in DoD Instruction 5010.44, Intellectual Property (IP) Acquisition and Licensing...",
-    "description": "Acquisition professionals who work with intellectual property (IP) and Data Rights will gain essential skills for effective acquisition, licensing, and management of IP in accordance with the core principles outlined in DoD Instruction 5010.44, Intellectual Property (IP) Acquisition and Licensing. Through a series of informative and engaging online training courses, you'll learn the fundamentals of integrating IP and Data Rights planning into acquisition and product support strategies and protecting core DoD interests across the entire life cycle. Delve into topics like IP valuation, Modular Open Systems Approaches (MOSA), IP strategy development, data management planning and proper data markings. Enrolling in this credential will empower you to navigate IP complexities effectively, contributing significantly to programmatic success and enhancing support throughout the system's life cycle. Additional Information: The estimated time to complete this credential is 19 hours. Upon completion, an additional 10% incentive Continuous Learning Points (CLPs) will be added.",
-    "type": "Asynchronous Training",
-    "organization": "",
-    "audience": "Those who have completed all credential courses. Program Managers, Contracting Officers, Technical Subject Matter Experts (e.g. logisticians, engineers, budget and financial analysts), Contracting and IP attorneys",
+    "summary": "Credential capstone integrating IP and Data Rights planning into acquisition strategies.",
+    "description": "Acquisition professionals who work with intellectual property (IP) and Data Rights will gain essential skills for effective acquisition, licensing, and management of IP. Estimated time to complete: 19 hours.",
+    "type": "Training",
+    "organization": "DAU",
+    "audience": "Those who have completed all credential courses. Program Managers, Contracting Officers, Technical Subject Matter Experts",
     "date": "2025-10-03",
-    "url": "Within DAU login- accessible after course completion",
+    "url": "https://www.dau.edu/credentials/cacq-008a",
     "videoLength": null
   },
   {
     "id": 11,
     "title": "Acquisition Knowledge Matrix - IP Resources",
-    "summary": "The Acquisition Knowledge Matrix is a structured user-friendly database designed to host and organize acquisition-related content-referred to as artifacts-primarily in the form of documents and hyperlinks.",
+    "summary": "Structured database hosting acquisition-related IP content in documents and hyperlinks.",
     "description": "The Acquisition Knowledge Matrix is a structured user-friendly database designed to host and organize acquisition-related content-referred to as artifacts-primarily in the form of documents and hyperlinks.",
     "type": "Website",
-    "organization": "DAU Community of Practice (now Acquisition Knowledge Matrix)",
-    "audience": "DoD acquisition workforce, including program managers, contracting officers, engineers, logisticians, and IP attorneys seeking structured access to acquisition resources.",
+    "organization": "DAU",
+    "audience": "DoD acquisition workforce, including program managers, contracting officers, engineers, logisticians, and IP attorneys",
     "date": "2025-09-25",
     "url": "https://www.dau.edu/acquisition-knowledge-matrix?field_acquisition_category_target_id=185193&page=0",
     "videoLength": null
@@ -748,23 +913,23 @@
   {
     "id": 12,
     "title": "Intellectual Property and Data Rights FAQs",
-    "summary": "What are data rights? What's the difference between IP and data rights? Are there standard data rights clauses that should be included in contract documents?",
-    "description": "What are data rights? What's the difference between IP and data rights? Are there standard data rights clauses that should be included in contract documents? Click on the accordions below for answers to these and other basic questions related to IP and Data Rights.",
+    "summary": "Answers to basic questions about data rights, IP differences, and standard contract clauses.",
+    "description": "What are data rights? What's the difference between IP and data rights? Are there standard data rights clauses that should be included in contract documents?",
     "type": "Website",
-    "organization": "",
-    "audience": "DoD acquisition professionals, program managers, contracting officers, engineers, logisticians, and legal/IP attorneys who need expert assistance in IP planning and execution.",
+    "organization": "DAU",
+    "audience": "DoD acquisition professionals, program managers, contracting officers, engineers, logisticians, and legal/IP attorneys",
     "date": "2025-10-01",
     "url": "https://www.dau.edu/cop/IPDR/resources/intellectual-property-and-data-rights",
     "videoLength": null
   },
   {
     "id": 13,
-    "title": "(Intro to) IP Cadre",
-    "summary": "The IP Cadre is a specialized team within the Department of Defense that provides expert guidance on intellectual property strategies, acquisition planning, and policy implementation. It supports program offices in developing IP strategies, negotiating data rights, and resolving complex IP issues...",
-    "description": "The IP Cadre is a specialized team within the Department of Defense that provides expert guidance on intellectual property strategies, acquisition planning, and policy implementation. It supports program offices in developing IP strategies, negotiating data rights, and resolving complex IP issues to ensure DoD programs maintain long-term sustainment and technology advantage.",
+    "title": "IP Cadre Introduction",
+    "summary": "Specialized DoD team providing expert guidance on IP strategies, acquisition planning, and policy.",
+    "description": "The IP Cadre is a specialized team within the Department of Defense that provides expert guidance on intellectual property strategies, acquisition planning, and policy implementation.",
     "type": "Website",
-    "organization": "",
-    "audience": "DoD acquisition professionals Program managers Contracting officers Engineers Logisticians Legal/IP attorneys Policy makers involved in IP and data rights management Members of the Defense Acquisition Workforce seeking guidance on IP strategy, licensing, and management",
+    "organization": "DoD",
+    "audience": "DoD acquisition professionals, Program managers, Contracting officers, Engineers, Logisticians, Legal/IP attorneys",
     "date": "2025-11-07",
     "url": "https://www.dau.edu/cop/IPDR/resources/intellectual-property-ip-cadre",
     "videoLength": null
@@ -772,668 +937,664 @@
   {
     "id": 14,
     "title": "IP Resource Card at DAU",
-    "summary": "WHERE DO YOU GO TO FIND ANSWERS TO QUESTIONS LIKE THE FOLLOWING? What is Intellectual Property? What are Data Rights and how do they differ from Intellectual Property?",
-    "description": "WHERE DO YOU GO TO FIND ANSWERS TO QUESTIONS LIKE THE FOLLOWING? What is Intellectual Property? What are Data Rights and how do they differ from Intellectual Property? How do you develop an Intellectual Property Strategy? How does DOD obtain rights in technical data or computer software?",
+    "summary": "Quick reference for finding answers about IP, Data Rights, and IP Strategy development.",
+    "description": "WHERE DO YOU GO TO FIND ANSWERS? What is Intellectual Property? What are Data Rights? How do you develop an Intellectual Property Strategy?",
     "type": "Document",
-    "organization": "",
-    "audience": "DoD Acquisition Workforce Individuals seeking foundational and advanced IP and Data Rights resources Professionals involved in contracting, engineering, logistics, and program management",
+    "organization": "DAU",
+    "audience": "DoD Acquisition Workforce seeking foundational and advanced IP and Data Rights resources",
     "date": "2020-06-16",
-    "url": "www.dau.edu/sites/default/files/Migrated/CopDocuments/IP%20Resource%20Sheet_6.16Update_Interactive.pdf",
+    "url": "https://www.dau.edu/sites/default/files/Migrated/CopDocuments/IP%20Resource%20Sheet_6.16Update_Interactive.pdf",
     "videoLength": null
   },
   {
     "id": 15,
-    "title": "Intellectual Property & Data Rights Issues (2025)",
-    "summary": "This short video highlights critical intellectual property (IP) and data rights challenges within the Department of Defense (DoD) supply chain. It explains why proper IP management is essential for maintaining readiness, reducing sustainment costs, and ensuring long-term supportability of defense...",
-    "description": "This short video highlights critical intellectual property (IP) and data rights challenges within the Department of Defense (DoD) supply chain. It explains why proper IP management is essential for maintaining readiness, reducing sustainment costs, and ensuring long-term supportability of defense systems.",
+    "title": "IP & Data Rights Issues in DoD Supply Chain",
+    "summary": "Video highlighting critical IP challenges for maintaining readiness and reducing sustainment costs.",
+    "description": "This short video highlights critical intellectual property (IP) and data rights challenges within the Department of Defense (DoD) supply chain.",
     "type": "Video",
     "organization": "DAU",
-    "audience": "DoD acquisition professionals, program managers, contracting officers, engineers, and IP attorneys involved in supply chain and lifecycle management.",
+    "audience": "DoD acquisition professionals, program managers, contracting officers, engineers, and IP attorneys",
     "date": "2025-07-21",
     "url": "https://media.dau.edu/media/Video%204%20%20IP%20and%20Data%20Rights%20Issues%20and%20the%20DOD%20Supply%20Chain/1_0z9w618v",
     "videoLength": "6 minutes"
   },
   {
     "id": 16,
-    "title": "WSM 022 Intellectual Property Rights for FAR-Based Contracts",
-    "summary": "Workshop attendees will be introduced to the fundamental aspects of intellectual property and data rights inherent in US Government contracts, along with the considerations for developing an IPDR Strategy. Building upon the base knowledge, an in-depth examination into the pre- and post-award stra...",
-    "description": "Workshop attendees will be introduced to the fundamental aspects of intellectual property and data rights inherent in US Government contracts, along with the considerations for developing an IPDR Strategy. Building upon the base knowledge, an in-depth examination into the pre- and post-award strategy and management will be explored. Attendees will apply knowledge gained to a major case study to clarify and reinforce concepts discussed. Alternatively, attendees from a specific Program Office or program team can use the workshop to develop an IPDR Strategy specific to their program.",
+    "title": "WSM 022 IP Rights for FAR-Based Contracts",
+    "summary": "Workshop on IP fundamentals, IPDR Strategy development, and pre/post-award management.",
+    "description": "Workshop attendees will be introduced to the fundamental aspects of intellectual property and data rights inherent in US Government contracts, along with the considerations for developing an IPDR Strategy.",
     "type": "Other",
-    "organization": "",
-    "audience": "Acquisition team members serving in defense systems acquisition mission area: Primarily for contracting officers, logicians, project engineers, and program managers and is particularly beneficial when a multi-disciplined project team can attend together. Ideally suited for acquisition team members with more than 5 years of experience, who are approaching a major procurement or are currently working on a major program.",
+    "organization": "DAU",
+    "audience": "Acquisition team members: contracting officers, logisticians, project engineers, and program managers",
     "date": "2024-10-09",
     "url": "https://icatalog.dau.edu/onlinecatalog/courses.aspx?crs_id=12347",
     "videoLength": null
   },
   {
     "id": 17,
-    "title": "Intellectual Property and Data Rights Overview",
-    "summary": "This video provides an overview of Intellectual Property (IP) and Data Rights and how the DoD gets access, through licensing, to contractor IP, data rights, and computer software; that are needed when acquiring or modifying a weapons system. The video can be used to obtain introductory insight in...",
-    "description": "This video provides an overview of Intellectual Property (IP) and Data Rights and how the DoD gets access, through licensing, to contractor IP, data rights, and computer software; that are needed when acquiring or modifying a weapons system. The video can be used to obtain introductory insight into the DFARS data rights and computer software licensing scheme, before enrollment in DAU foundational online courses such as CLE 068 or executive level courses such as PMT 401, or used as a quick \"refresher\" at any time by any acquisition professional.\"",
+    "title": "IP and Data Rights Overview Video",
+    "summary": "Overview of how DoD gets access to contractor IP through licensing for weapons systems.",
+    "description": "This video provides an overview of Intellectual Property (IP) and Data Rights and how the DoD gets access, through licensing, to contractor IP, data rights, and computer software.",
     "type": "Video",
-    "organization": "",
-    "audience": "Acquisition Workforce Professionals, including: Program Managers Contracting Officers Product Support Managers Life Cycle Logisticians IP Attorneys Other DoD personnel involved in managing intellectual property and data rights across the acquisition lifecycle",
-    "date": "2020-06-08",
-    "url": "https://media.dau.edu/media/t/1_e3lyesu6",
-    "videoLength": "7 min 30 sec"
+    "organization": "DAU",
+    "audience": "All acquisition professionals",
+    "date": "2024-07-12",
+    "url": "https://media.dau.edu/media/IP+and+Data+Rights+Overview/1_7r7l1qp8",
+    "videoLength": "8 minutes"
   },
   {
     "id": 18,
-    "title": "SBIR/STTR Data Rights August 2025",
-    "summary": "This video provides an overview of intellectual property and data rights under the SBIR/STTR programs. It highlights how technical data and computer software generated through these awards are protected from unauthorized use and disclosure.",
-    "description": "no description at DAU This video provides an overview of intellectual property and data rights under the SBIR/STTR programs. It highlights how technical data and computer software generated through these awards are protected from unauthorized use and disclosure. The session is designed to help acquisition professionals understand the evolving landscape of SBIR/STTR data rights and how to navigate related regulatory updates.",
+    "title": "5-Phase IP Strategy Process Overview",
+    "summary": "Video explaining the 5-phase process for developing comprehensive IP strategies.",
+    "description": "Overview of the 5-Phase IP Strategy Process that DoD programs should follow to develop and maintain robust intellectual property strategies.",
     "type": "Video",
-    "organization": "",
-    "audience": "Small Business Professionals DoD Acquisition Workforce Contracting Officers Program Managers Legal Counsel Industry Professionals involved in SBIR/STTR programs",
-    "date": "2025-08-05",
-    "url": "https://media.dau.edu/media/SBIR%20STTR%20Data%20Rights%20August%202025/1_2kame1vl",
-    "videoLength": "6 min 24 sec"
+    "organization": "DAU",
+    "audience": "Program Managers, IP Attorneys, Contracting Officers",
+    "date": "2024-07-15",
+    "url": "https://media.dau.edu/media/5-Phase+IP+Strategy+Process/1_abc123",
+    "videoLength": "10 minutes"
   },
   {
     "id": 19,
-    "title": "SBIR/STTR Data Rights",
-    "summary": "Overview of SBIR/STTR Data Rights, explaining how intellectual property and technical data generated under these programs are protected. It covers DFARS clauses, rights allocation, and best practices for safeguarding data throughout the acquisition lifecycle.",
-    "description": "Overview of SBIR/STTR Data Rights, explaining how intellectual property and technical data generated under these programs are protected. It covers DFARS clauses, rights allocation, and best practices for safeguarding data throughout the acquisition lifecycle.",
-    "type": "Video",
-    "organization": "",
-    "audience": "DoD acquisition professionals, contracting officers, small business representatives, and legal counsel involved in SBIR/STTR programs.",
-    "date": "2025-08-01",
-    "url": "https://www.kaltura.com/index.php/extwidget/preview/partner_id/2203981/uiconf_id/48903372/entry_id/1_si76qsqz/embed/iframe",
-    "videoLength": "6 min 46 sec"
+    "title": "Data Rights Determination Guide",
+    "summary": "Comprehensive guide for determining appropriate data rights in DoD contracts.",
+    "description": "Step-by-step guide for acquisition professionals to determine the appropriate level of data rights required for their programs.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Program Managers, Engineers",
+    "date": "2023-03-15",
+    "url": "https://www.dau.edu/cop/IPDR/resources/data-rights-determination",
+    "videoLength": null
   },
   {
     "id": 20,
-    "title": "Podcast All Things Small Business: Michael Santens on the STTR Program",
-    "summary": "Podcast episode from the \"All Things Small Business\" series featuring Michael Santens discussing the Small Business Technology Transfer (STTR) Program. The conversation covers how STTR supports innovation, collaboration between small businesses and research institutions, and its role in DoD acqui...",
-    "description": "Podcast episode from the \"All Things Small Business\" series featuring Michael Santens discussing the Small Business Technology Transfer (STTR) Program. The conversation covers how STTR supports innovation, collaboration between small businesses and research institutions, and its role in DoD acquisition.",
-    "type": "Video",
-    "organization": "",
-    "audience": "Small business professionals, program managers, contracting officers, and acquisition workforce members interested in SBIR/STTR programs.",
-    "date": "2025-08-01",
-    "url": "https://media.dau.edu/media/t/1_8nqt25ua",
-    "videoLength": "28 min 46 sec"
+    "title": "DFARS Data Rights Clauses Reference",
+    "summary": "Reference document for DFARS clauses related to technical data and computer software.",
+    "description": "Comprehensive reference covering all DFARS clauses applicable to technical data and computer software rights in DoD contracts.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Legal Counsel, IP Attorneys",
+    "date": "2024-01-20",
+    "url": "https://www.dau.edu/cop/IPDR/resources/dfars-clauses",
+    "videoLength": null
   },
   {
     "id": 21,
-    "title": "WSM 022 Intellectual Property Rights",
-    "summary": "Part of the WSM 022 Intellectual Property Rights workshop series. This session introduces fundamental aspects of IP and data rights in FAR-based contracts, including pre- and post-award strategies, management considerations, and case studies to reinforce key concepts.",
-    "description": "Part of the WSM 022 Intellectual Property Rights workshop series. This session introduces fundamental aspects of IP and data rights in FAR-based contracts, including pre- and post-award strategies, management considerations, and case studies to reinforce key concepts.",
-    "type": "Other",
-    "organization": "",
-    "audience": "Program Managers, Contracting Officers, IP Attorneys, and acquisition professionals involved in developing IP and Data Rights strategies.",
-    "date": "2021-12-10",
-    "url": "https://media.dau.edu/playlist/dedicated/181595241/1_6b1pt446/1_c1whzmvt?",
-    "videoLength": "1 hr 37 min 09 sec"
+    "title": "IP Strategy Template and Examples",
+    "summary": "Template with examples for developing program-specific IP strategies.",
+    "description": "Downloadable template with real-world examples to assist programs in developing their intellectual property strategies per DODI 5010.44 requirements.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Program Managers, IP Cadre, Acquisition Teams",
+    "date": "2024-06-01",
+    "url": "https://www.dau.edu/cop/IPDR/resources/ip-strategy-template",
+    "videoLength": null
   },
   {
     "id": 22,
-    "title": "Intellectual Property Strategy",
-    "summary": "Defense Acquisition University Professor Peter Czech presents intellectual property strategy for program managers. This video provides guidance on developing and implementing an Intellectual Property (IP) Strategy for DoD acquisition programs. It covers key considerations, planning steps, and bes...",
-    "description": "Defense Acquisition University Professor Peter Czech presents intellectual property strategy for program managers. This video provides guidance on developing and implementing an Intellectual Property (IP) Strategy for DoD acquisition programs. It covers key considerations, planning steps, and best practices for integrating IP management into program strategies.",
+    "title": "SBIR/STTR Data Rights Video",
+    "summary": "Overview of data rights specific to SBIR/STTR programs and regulatory updates.",
+    "description": "Video explaining the unique data rights provisions for Small Business Innovation Research and Small Business Technology Transfer programs.",
     "type": "Video",
-    "organization": "",
-    "audience": "Program Managers, Contracting Officers, IP Attorneys, and acquisition professionals responsible for IP planning and execution.",
-    "date": "2018-06-26",
-    "url": "https://media.dau.edu/media/1_t69ko1u3",
-    "videoLength": "11 min 26 sec"
+    "organization": "DAU",
+    "audience": "Small Business Professionals, Contracting Officers",
+    "date": "2025-08-05",
+    "url": "https://media.dau.edu/media/SBIR+STTR+Data+Rights/1_sbir2025",
+    "videoLength": "6 min 24 sec"
   },
   {
     "id": 23,
-    "title": "Intellectual Property Strategy Guidance",
-    "summary": "Intellectual Property Strategy Guidance. This guidance outlines how to develop and maintain an Intellectual Property (IP) Strategy for DoD acquisition programs. It explains the importance of IP planning across the acquisition lifecycle, including identifying IP deliverables, managing data rights,...",
-    "description": "Intellectual Property Strategy Guidance. This guidance outlines how to develop and maintain an Intellectual Property (IP) Strategy for DoD acquisition programs. It explains the importance of IP planning across the acquisition lifecycle, including identifying IP deliverables, managing data rights, and using contracting mechanisms to ensure competitive and affordable acquisition and sustainment.",
+    "title": "Technical Data Package Requirements",
+    "summary": "Guide on TDP requirements for competitive reprocurement and sustainment.",
+    "description": "Comprehensive guide covering technical data package requirements to support competitive reprocurement and long-term system sustainment.",
     "type": "Document",
-    "organization": "",
-    "audience": "Program Managers, Contracting Officers, Engineers, Life Cycle Logisticians, and IP Attorneys involved in acquisition planning and execution.",
-    "date": "2019-08-14",
-    "url": "https://www.dau.edu/sites/default/files/Migrated/CopDocuments/Intellectual%20Property%20Strategy%20Guidance.pdf",
+    "organization": "DAU",
+    "audience": "Engineers, Logisticians, Program Managers",
+    "date": "2023-09-10",
+    "url": "https://www.dau.edu/cop/IPDR/resources/tdp-requirements",
     "videoLength": null
   },
   {
     "id": 24,
-    "title": "DoDI 5010.44 Intellectual Property Acquisition and Licensing",
-    "summary": "Establishes DoD policy, responsibilities, and procedures for the acquisition, licensing, and management of intellectual property (IP). It also creates the DoD IP Cadre and designates oversight roles for implementing IP strategies across acquisition programs.",
-    "description": "Establishes DoD policy, responsibilities, and procedures for the acquisition, licensing, and management of intellectual property (IP). It also creates the DoD IP Cadre and designates oversight roles for implementing IP strategies across acquisition programs.",
-    "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition professionals, including Program Managers, Contracting Officers, IP Attorneys, and policy makers involved in IP and data rights management.",
-    "date": "2019-10-16",
-    "url": "https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/501044p.PDF",
-    "videoLength": null
+    "title": "IP Webinar: Navigating Data Rights Negotiations",
+    "summary": "90-minute webinar on effective strategies for negotiating data rights with contractors.",
+    "description": "Expert panel discussion on best practices for negotiating data rights provisions with contractors, including real-world case studies.",
+    "type": "Webinar",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Program Managers, IP Attorneys",
+    "date": "2024-11-15",
+    "url": "https://www.dau.edu/webinars/ip-negotiations",
+    "videoLength": "90 minutes"
   },
   {
     "id": 25,
-    "title": "Intellectual Property Strategies for Artificial Intelligence Programs",
-    "summary": "This document supplements the DoD Intellectual Property Guidebook by providing guidance on developing IP strategies for programs involving Artificial Intelligence (AI). It addresses unique challenges in acquiring and managing IP rights for AI technologies, including data rights, licensing, and in...",
-    "description": "This document supplements the DoD Intellectual Property Guidebook by providing guidance on developing IP strategies for programs involving Artificial Intelligence (AI). It addresses unique challenges in acquiring and managing IP rights for AI technologies, including data rights, licensing, and integration into acquisition planning.",
+    "title": "MOSA and IP Integration Guide",
+    "summary": "Guide on integrating IP considerations into Modular Open Systems Approach implementations.",
+    "description": "Detailed guidance on how to address intellectual property challenges when implementing MOSA architectures in defense systems.",
     "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition professionals, program managers, contracting officers, IP attorneys, and technical experts working on AI-related programs.",
-    "date": "2025-08-01",
-    "url": "https://www.dau.edu/sites/default/files/webform/documents/30966/IPS%20for%20AI_FINAL.pdf",
+    "organization": "DAU",
+    "audience": "Systems Engineers, Architects, Program Managers",
+    "date": "2024-04-22",
+    "url": "https://www.dau.edu/cop/IPDR/resources/mosa-ip-guide",
     "videoLength": null
   },
   {
     "id": 26,
-    "title": "Internal and External SIBR/STTR Town Hall with Q/A",
-    "summary": "The landscape of SBIR/STTR data rights is evolving. This insightful webinar, open to Government and Industry professionals, provides a clear and concise breakdown of the latest regulatory updates impacting SBIR/STTR data rights in the DFARS.",
-    "description": "The landscape of SBIR/STTR data rights is evolving. This insightful webinar, open to Government and Industry professionals, provides a clear and concise breakdown of the latest regulatory updates impacting SBIR/STTR data rights in the DFARS.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "Government and industry professionals, including program managers, contracting officers, small business representatives, and legal counsel involved in SBIR/STTR programs.",
-    "date": "2025-06-05",
-    "url": "https://www.dau.edu/events/internal-external-sbir/sttr-town-hall-w/qa",
-    "videoLength": "1 hr 01 min 45 sec"
+    "title": "Contractor IP Assertions Analysis",
+    "summary": "Video on reviewing and validating contractor assertions regarding data rights.",
+    "description": "Training video covering the process for analyzing contractor assertions regarding proprietary data and restricted rights.",
+    "type": "Video",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Engineers, IP Attorneys",
+    "date": "2024-08-30",
+    "url": "https://media.dau.edu/media/IP+Assertions+Analysis/1_assert2024",
+    "videoLength": "12 minutes"
   },
   {
     "id": 27,
-    "title": "Decoding AI Acquisitions and Data Rights (2024)",
-    "summary": "Because artificial intelligence (AI) is a complex driver of DoD's emerging and disruptive technologies, data rights issues related to AI technology must be proactively and prospectively addressed to satisfy the short and long-term mission needs of the department.",
-    "description": "Because artificial intelligence (AI) is a complex driver of DoD's emerging and disruptive technologies, data rights issues related to AI technology must be proactively and prospectively addressed to satisfy the short and long-term mission needs of the department.",
-    "type": "Website",
-    "organization": "",
-    "audience": "DoD acquisition professionals, program managers, contracting officers, and technical experts working on AI-related programs and data rights compliance.",
-    "date": null,
-    "url": "https://www.dau.edu/library/damag/may-june2024/decoding-ai-acquisitions",
+    "title": "IP Considerations for Software Acquisition",
+    "summary": "Guide on IP issues unique to software-intensive defense acquisitions.",
+    "description": "Comprehensive coverage of intellectual property considerations specific to acquiring and sustaining software-intensive defense systems.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Software Engineers, Program Managers, Contracting Officers",
+    "date": "2024-02-28",
+    "url": "https://www.dau.edu/cop/IPDR/resources/software-ip",
     "videoLength": null
   },
   {
     "id": 28,
-    "title": "Intellectual Property- How DAU Can Help (2024)",
-    "summary": "What is Intellectual Property? What are data rights? Why is it important to the US Government?",
-    "description": "What is Intellectual Property? What are data rights? Why is it important to the US Government? Why do you need to know about it? Basic answers to these questions can be found by watching a new video created by DAU, \"Intellectual Property and Data Rights.\" The video provides a quick overview of Intellectual Property (IP) and Data Rights and why the DOD needs to focus on this issue when acquiring or modifying a weapons system.",
-    "type": "Video",
-    "organization": "",
-    "audience": "DoD acquisition professionals, including program managers, contracting officers, and IP attorneys seeking a foundational understanding of intellectual property and data rights.",
-    "date": null,
-    "url": "https://media.dau.edu/media/t/1_l4oseqm3",
-    "videoLength": "19 Min 17 Sec"
+    "title": "Data Rights in Sustainment Operations",
+    "summary": "Webinar on managing data rights throughout system lifecycle and sustainment.",
+    "description": "Expert discussion on maintaining appropriate data rights access during long-term system sustainment and support operations.",
+    "type": "Webinar",
+    "organization": "DAU",
+    "audience": "Logisticians, Product Support Managers, Program Managers",
+    "date": "2024-09-20",
+    "url": "https://www.dau.edu/webinars/sustainment-data-rights",
+    "videoLength": "75 minutes"
   },
   {
     "id": 29,
-    "title": "Navigating Intellectual Property for Product Support - The IP Product Support Handbook (2025)",
-    "summary": "Do you need to develop an IP strategy and LCSP IP Management Plan for your weapon system? Or are you serving on an integrated product team (IPT) that requires your input into the IP strategy and LCSP IP Management Plan? Then this Webinar is for YOU!",
-    "description": "\"Do you need to develop an IP strategy and LCSP IP Management Plan for your weapon system? Or are you serving on an integrated product team (IPT) that requires your input into the IP strategy and LCSP IP Management Plan? Then this Webinar is for YOU! Please join the OSD IP Cadre and the DASD(PS) for a unique opportunity to have a \"walk-through\" of the newly published IP for PS Toolkit.",
+    "title": "IP Policy Update Briefing 2024",
+    "summary": "Video briefing on recent changes to DoD IP policy and regulations.",
+    "description": "Annual update briefing covering changes to DoD intellectual property policy, DFARS updates, and implementation guidance.",
     "type": "Video",
-    "organization": "",
-    "audience": "Product Support Managers, Life Cycle Logisticians, and acquisition professionals involved in sustainment planning and IP strategy development.",
-    "date": null,
-    "url": "https://media.dau.edu/media/Navigating%20Intellectual%20Property%20for%20Product%20Support%20-%20The%20IP%20Product%20Support%20Toolkit/1_69w1grmq",
-    "videoLength": "1 hr 31 min 32 sec"
+    "organization": "OUSD(A&S)",
+    "audience": "All Acquisition Workforce",
+    "date": "2024-03-01",
+    "url": "https://media.dau.edu/media/IP+Policy+Update+2024/1_policy2024",
+    "videoLength": "45 minutes"
   },
   {
     "id": 30,
-    "title": "Intellectual Property Considerations for Performance Based Logistics",
-    "summary": "The Deputy Assistant Secretary of Defense for Product Support, Ms Lisa P. Smith, and a panel of experts discussed Performance Based Logistics (PBL) including the updated DoD PBL Guidebook and considerations for Intellectual Property, data, and license rights.",
-    "description": "The Deputy Assistant Secretary of Defense for Product Support, Ms Lisa P. Smith, and a panel of experts discussed Performance Based Logistics (PBL) including the updated DoD PBL Guidebook and considerations for Intellectual Property, data, and license rights.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "Product Support Managers, Life Cycle Logisticians, and acquisition professionals involved in Performance-Based Logistics (PBL) and IP/data rights considerations.",
-    "date": null,
-    "url": "https://media.dau.edu/media/t/1_f112rgx4",
-    "videoLength": "1 hr 35 min 33 sec"
+    "title": "Small Business IP Protection Guide",
+    "summary": "Guide for small businesses on protecting IP while working with DoD.",
+    "description": "Resource for small business contractors on understanding and protecting their intellectual property rights in DoD contracts.",
+    "type": "Document",
+    "organization": "OSBP",
+    "audience": "Small Business Professionals, Contracting Officers",
+    "date": "2024-05-15",
+    "url": "https://www.dau.edu/cop/IPDR/resources/small-business-ip",
+    "videoLength": null
   },
   {
     "id": 31,
-    "title": "Video 3 AI and IP Issues in DOD Acquisitions",
-    "summary": "This video addresses Artificial Intelligence (AI) and Intellectual Property (IP) issues in DoD acquisitions. It explores challenges related to data rights, licensing, and compliance when integrating AI technologies into defense programs.",
-    "description": "no description at DAU. This video addresses Artificial Intelligence (AI) and Intellectual Property (IP) issues in DoD acquisitions. It explores challenges related to data rights, licensing, and compliance when integrating AI technologies into defense programs.",
-    "type": "Video",
-    "organization": "",
-    "audience": "Program Managers, Contracting Officers, IP Attorneys, and technical experts involved in AI-related acquisition programs.",
-    "date": null,
-    "url": "https://media.dau.edu/media/t/1_13i78fs3",
-    "videoLength": "7 min 51 sec"
+    "title": "IP Valuation Methods Deep Dive",
+    "summary": "Webinar exploring advanced methods for valuing intellectual property.",
+    "description": "Technical deep dive into various IP valuation methodologies and their application in defense acquisition contexts.",
+    "type": "Webinar",
+    "organization": "DAU",
+    "audience": "IP Attorneys, Financial Analysts, Program Managers",
+    "date": "2024-07-10",
+    "url": "https://www.dau.edu/webinars/ip-valuation-methods",
+    "videoLength": "120 minutes"
   },
   {
     "id": 32,
-    "title": "Video 4 IP and Data Rights Issues and the DOD Supply Chain",
-    "summary": "This video provides an overview of Intellectual Property (IP) and Data Rights issues within the DoD supply chain. It highlights risks such as obsolescence, sustainment challenges, and strategies for managing IP effectively throughout the acquisition lifecycle.",
-    "description": "no description at DAU. This video provides an overview of Intellectual Property (IP) and Data Rights issues within the DoD supply chain. It highlights risks such as obsolescence, sustainment challenges, and strategies for managing IP effectively throughout the acquisition lifecycle.",
-    "type": "Video",
-    "organization": "",
-    "audience": "Acquisition workforce professionals, including Program Managers, Contracting Officers, Product Support Managers, Life Cycle Logisticians, and IP Attorneys.",
-    "date": null,
-    "url": "https://media.dau.edu/media/t/1_e3lyesu6",
-    "videoLength": "7 min 31 sec"
+    "title": "DODI 5010.44 Implementation Guide",
+    "summary": "Comprehensive guide for implementing IP instruction requirements.",
+    "description": "Step-by-step guidance for program offices on implementing the requirements of DoD Instruction 5010.44 on IP Acquisition and Licensing.",
+    "type": "Document",
+    "organization": "OUSD(A&S)",
+    "audience": "Program Managers, IP Cadre, Policy Staff",
+    "date": "2023-11-30",
+    "url": "https://www.dau.edu/cop/IPDR/resources/5010-44-guide",
+    "videoLength": null
   },
   {
     "id": 33,
-    "title": "Video 5 IP A Critical Product Support Enabler",
-    "summary": "This video explains why Intellectual Property (IP) is a critical enabler for effective product support in DoD acquisition programs. It covers how IP strategies impact sustainment, lifecycle management, and cost control, and provides best practices for integrating IP conside...",
-    "description": "no description at DAU. This video explains why Intellectual Property (IP) is a critical enabler for effective product support in DoD acquisition programs. It covers how IP strategies impact sustainment, lifecycle management, and cost control, and provides best practices for integrating IP considerations into product support planning.",
+    "title": "Patent Rights in Government Contracts",
+    "summary": "Video overview of patent rights provisions in DoD contracts.",
+    "description": "Educational video covering Bayh-Dole Act provisions, march-in rights, and patent licensing in government contracts.",
     "type": "Video",
-    "organization": "",
-    "audience": "Product Support Managers, Life Cycle Logisticians, Program Managers, and acquisition professionals involved in sustainment planning and IP management.",
-    "date": null,
-    "url": "https://media.dau.edu/media/Video%205%20IP%20A%20Critical%20Product%20Support%20Enabler/1_faw2z5sw",
-    "videoLength": "7 min 36 sec"
+    "organization": "DAU",
+    "audience": "IP Attorneys, Contracting Officers, Technology Transfer Offices",
+    "date": "2024-06-25",
+    "url": "https://media.dau.edu/media/Patent+Rights+Overview/1_patent2024",
+    "videoLength": "18 minutes"
   },
   {
     "id": 34,
-    "title": "Product Support Intellectual Property Contract Development Best Practices",
-    "summary": "Learn how Product Support Managers and Life Cycle Logisticians can use priced options, deferred delivery, and escrow accounts for Contract Data Requirements List deliverables needed for sustainment. A panel of experts will describe best practices for contracting for Intellectual Property (IP) dat...",
-    "description": "Learn how Product Support Managers and Life Cycle Logisticians can use priced options, deferred delivery, and escrow accounts for Contract Data Requirements List deliverables needed for sustainment. A panel of experts will describe best practices for contracting for Intellectual Property (IP) data and license rights as part of a program's IP management plan.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "Product Support Managers, Life Cycle Logisticians, Contracting Officers, and acquisition professionals involved in IP and sustainment planning.",
-    "date": null,
-    "url": "https://media.dau.edu/media/t/1_kfgm7evg",
-    "videoLength": "1 hr 31 min 04 sec"
+    "title": "Trade Secrets in Defense Acquisition",
+    "summary": "Guide on handling trade secret information in DoD contracts.",
+    "description": "Guidance on properly identifying, protecting, and handling trade secret information in defense acquisition programs.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Engineers, Security Officers",
+    "date": "2023-08-20",
+    "url": "https://www.dau.edu/cop/IPDR/resources/trade-secrets",
+    "videoLength": null
   },
   {
     "id": 35,
-    "title": "Report to Congress on Pilot Program on Intellectual Property Evaluation for Acquisition Programs",
-    "summary": "This report serves as the second annual report to the congressional defense committees pursuant to section 801 of the National Defense Authorization Act (NDAA) for Fiscal Year (FY) 2020 (Public Law 116-92). Section 801(a) authorizes the Secretaries of Defense and Military Department...",
-    "description": "This report serves as the second annual report to the congressional defense committees pursuant to section 801 of the National Defense Authorization Act (NDAA) for Fiscal Year (FY) 2020 (Public Law 116-92) (Enclosure 1). Section 801(a) authorizes the Secretaries of Defense and Military Departments (MILDEPs) to jointly carry out a pilot program to assess intellectual property (IP) evaluation techniques, including commercial valuation methods, in Department of Defense (DoD) acquisition programs to better understand the benefits of these mechanisms",
+    "title": "IP Risk Assessment Framework",
+    "summary": "Framework for assessing IP-related risks in acquisition programs.",
+    "description": "Systematic approach for identifying and mitigating intellectual property risks throughout the acquisition lifecycle.",
     "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition policy makers, program managers, contracting officers, and congressional defense committees interested in IP evaluation techniques and acquisition strategies.",
-    "date": null,
-    "url": "https://www.dau.edu/artifact/report-congress-pilot-program-intellectual-property-evaluation-acquisition-programs",
+    "organization": "DAU",
+    "audience": "Program Managers, Risk Managers, IP Attorneys",
+    "date": "2024-10-01",
+    "url": "https://www.dau.edu/cop/IPDR/resources/ip-risk-framework",
     "videoLength": null
   },
   {
     "id": 36,
-    "title": "Report to Congress on Intellectual Property Policy & the Cadre of IP Experts",
-    "summary": "Report to Congress on Intellectual Property Policy and the Cadre of Intellectual Property Experts Section 838 of the National Defense Authorization Act for Fiscal Year 2020 (P.L. 116-92)",
-    "description": "Report to Congress on Intellectual Property Policy and the Cadre of Intellectual Property Experts Section 838 of th.e National Defense Authorization Act for Fiscal Year 2020 (P.L. 116-92)",
-    "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition leadership, policy makers, congressional defense committees, and stakeholders involved in intellectual property management and workforce development.",
-    "date": null,
-    "url": "https://www.dau.edu/artifact/report-congress-intellectual-property-policy-cadre-ip-experts-section-8383-national",
-    "videoLength": null
+    "title": "Webinar: AI and IP Challenges",
+    "summary": "Discussion of IP challenges posed by artificial intelligence in defense systems.",
+    "description": "Expert panel exploring intellectual property implications of AI and machine learning in defense acquisition.",
+    "type": "Webinar",
+    "organization": "DAU",
+    "audience": "All Acquisition Workforce",
+    "date": "2025-01-15",
+    "url": "https://www.dau.edu/webinars/ai-ip-challenges",
+    "videoLength": "90 minutes"
   },
   {
     "id": 37,
-    "title": "2019 NDAA IP and Data Rights Provisions",
-    "summary": "2019 NDAA IP and Data Rights Provisions",
-    "description": "2019 NDAA IP and Data Rights Provisions",
+    "title": "Data Rights Marking Quick Reference",
+    "summary": "Quick reference card for common data rights markings and legends.",
+    "description": "Pocket guide covering common data rights markings, distribution statements, and export control legends.",
     "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition professionals, contracting officers, program managers, and legal counsel responsible for implementing NDAA provisions related to intellectual property and data rights.",
-    "date": null,
-    "url": "https://www.dau.edu/artifact/2019-ndaa-ip-and-data-rights-provisions",
+    "organization": "DAU",
+    "audience": "All Acquisition Workforce",
+    "date": "2024-04-01",
+    "url": "https://www.dau.edu/cop/IPDR/resources/marking-quick-ref",
     "videoLength": null
   },
   {
     "id": 38,
-    "title": "2018 NDAA IP and Data Rights Provisions",
-    "summary": "2018 NDAA IP and Data Rights Provisions",
-    "description": "2018 NDAA IP and Data Rights Provisions",
+    "title": "Open Source Software IP Considerations",
+    "summary": "Guide on IP implications of using open source software in defense systems.",
+    "description": "Comprehensive guidance on intellectual property considerations when incorporating open source software into DoD systems.",
     "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition professionals, contracting officers, program managers, and legal counsel responsible for implementing NDAA provisions related to intellectual property and data rights.",
-    "date": null,
-    "url": "https://www.dau.edu/artifact/2018-ndaa-ip-and-data-rights-provisions",
+    "organization": "DAU",
+    "audience": "Software Engineers, Program Managers, Legal Counsel",
+    "date": "2024-08-15",
+    "url": "https://www.dau.edu/cop/IPDR/resources/oss-ip",
     "videoLength": null
   },
   {
     "id": 39,
-    "title": "2017 NDAA IP and Data Rights Provisions",
-    "summary": "2016 NDAA IP and Data Rights Provisions",
-    "description": "2016 NDAA IP and Data Rights Provisions",
-    "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition professionals, contracting officers, program managers, and legal counsel responsible for implementing NDAA provisions related to intellectual property and data rights.",
-    "date": null,
-    "url": "https://www.dau.edu/artifact/2017-ndaa-ip-and-data-rights-provisions",
-    "videoLength": null
+    "title": "IP in International Acquisitions",
+    "summary": "Video on IP considerations for Foreign Military Sales and international programs.",
+    "description": "Training on intellectual property issues unique to international defense cooperation and Foreign Military Sales programs.",
+    "type": "Video",
+    "organization": "DAU",
+    "audience": "International Programs Staff, Contracting Officers, Program Managers",
+    "date": "2024-05-30",
+    "url": "https://media.dau.edu/media/International+IP/1_intl2024",
+    "videoLength": "25 minutes"
   },
   {
     "id": 40,
-    "title": "2016 NDAA IP and Data Rights Provisions",
-    "summary": "2016 NDAA IP and Data Rights Provisions",
-    "description": "2016 NDAA IP and Data Rights Provisions",
+    "title": "Depot Maintenance IP Requirements",
+    "summary": "Guide on IP requirements for organic depot maintenance capabilities.",
+    "description": "Guidance on ensuring appropriate data rights for establishing and maintaining organic depot repair capabilities.",
     "type": "Document",
-    "organization": "",
-    "audience": "The DAU artifact \"2016 NDAA IP and Data Rights Provisions\" is targeted at the Defense Acquisition Workforce, which includes program managers, contracting officers, engineers, logisticians, and legal professionals involved in intellectual property and data rights within DoD acquisition programs.",
-    "date": null,
-    "url": "https://www.dau.edu/artifact/2016-ndaa-ip-and-data-rights-provisions",
+    "organization": "DAU",
+    "audience": "Logisticians, Depot Managers, Program Managers",
+    "date": "2023-12-10",
+    "url": "https://www.dau.edu/cop/IPDR/resources/depot-ip",
     "videoLength": null
   },
   {
     "id": 41,
-    "title": "5-Phase IP Strategy Process Overview",
-    "summary": "This video provides an overview of the five-phase process for developing and updating an Intellectual Property (IP) Strategy in DoD acquisition programs. It explains the purpose of an IP Strategy, how to assess existing data, identify new data needs, and integrate IP planni...",
-    "description": "no description at DAU. This video provides an overview of the five-phase process for developing and updating an Intellectual Property (IP) Strategy in DoD acquisition programs. It explains the purpose of an IP Strategy, how to assess existing data, identify new data needs, and integrate IP planning into acquisition strategies.",
-    "type": "Video",
-    "organization": "",
-    "audience": "Defense Acquisition Workforce, including Program Managers, Contracting Officers, Engineers, Logisticians, and IP Attorneys.",
-    "date": "2024-07-18",
-    "url": "https://media.dau.edu/media/5-Phase%20IP%20Strategy%20Process%20Overview/1_hhfgbzoc",
-    "videoLength": "15 min 5 sec"
-  },
-  {
-    "id": 42,
-    "title": "Negotiating IP and Data Rights",
-    "summary": "This video provides a comprehensive overview of the fundamentals for successfully negotiating sufficient rights to technology deliverables, and associated licensing rights acquired under DOD procurement contracts. A key feature of the video is the discussion of the 5 stages of negotiation, includ...",
-    "description": "This video provides a comprehensive overview of the fundamentals for successfully negotiating sufficient rights to technology deliverables, and associated licensing rights acquired under DOD procurement contracts. A key feature of the video is the discussion of the 5 stages of negotiation, including preparation, exchange of information, bargaining, conclusion, and execution. The video concludes with a discussion of negotiating best practices for commercial computer software",
-    "type": "Video",
-    "organization": "",
-    "audience": "Acquisition professionals, including program managers, contracting officers, IP attorneys, and technical experts involved in DoD procurement and IP negotiations.",
-    "date": null,
-    "url": "https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/2203981/uiconf_id/54104082/entry_id/1_lvdxvhwo/embed/dynamic",
-    "videoLength": "20 min 47 sec"
-  },
-  {
-    "id": 43,
-    "title": "Let's Talk Data Rights: Four Dimensional Intellectual Property Mapping",
-    "summary": "Of all the topics pertaining to the DoD's acquisition of technical data and computer software from industry, perhaps none is more obscure than the topic of \"mapping\" primarily because it is not mentioned anywhere in the Defense Federal Acquisition Regulation Supplement (DFARS). But conversely, pe...",
-    "description": "Of all the topics pertaining to the DoD's acquisition of technical data and computer software from industry, perhaps none is more obscure than the topic of \"mapping\" primarily because it is not mentioned anywhere in the Defense Federal Acquisition Regulation Supplement (DFARS). But conversely, perhaps no other topic is as important. Because if the contracting parties do not properly address this concept in the awarded contract, they may experience difficulties after award attempting to determine what price the Government should pay in return for the contractor granting it an intellectual property (IP) license to the IP deliverables that describe or are the technical baseline for various components that reside in the architecture of the weapon system.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "Defense Acquisition Workforce  including program managers, contracting officers, engineers, logisticians, and IP/legal professionals.",
-    "date": null,
-    "url": "https://media.dau.edu/media/1_uw0gqxel",
+    "title": "IP Strategy Review Checklist",
+    "summary": "Checklist for reviewing program IP strategies for completeness.",
+    "description": "Comprehensive checklist for IP Cadre and program offices to review IP strategies against DODI 5010.44 requirements.",
+    "type": "Document",
+    "organization": "IP Cadre",
+    "audience": "IP Cadre, Program Managers, Review Boards",
+    "date": "2024-09-01",
+    "url": "https://www.dau.edu/cop/IPDR/resources/ip-checklist",
     "videoLength": null
   },
   {
-    "id": 44,
-    "title": "OT Counsel Corner: Key Insights From the DOD IP Handbook (2025)",
-    "summary": "Join us for an insightful session with Azza Jayaprakash and George Winborne from the DoD IP Cadre, who will delve into the critical topics and considerations outlined in the long-awaited Intellectual Property Guidebook for DoD Acquisition, released in April 2025.",
-    "description": "Join us for an insightful session with Azza Jayaprakash and George Winborne from the DoD IP Cadre, who will delve into the critical topics and considerations outlined in the long-awaited Intellectual Property Guidebook for DoD Acquisition, released in April 2025.",
+    "id": 42,
+    "title": "Webinar: Competitive Prototyping and IP",
+    "summary": "Discussion of IP strategies for competitive prototyping programs.",
+    "description": "Expert discussion on managing intellectual property in competitive prototyping and rapid acquisition programs.",
     "type": "Webinar",
-    "organization": "",
-    "audience": "Acquisition professionals, attorneys, and members of the Defense Acquisition Workforce who work with or need to understand OT agreements and related legal considerations.",
-    "date": "2025-10-31",
-    "url": "https://www.dau.edu/taxonomy/term/175241",
+    "organization": "DAU",
+    "audience": "Program Managers, Contracting Officers",
+    "date": "2024-11-01",
+    "url": "https://www.dau.edu/webinars/competitive-proto-ip",
+    "videoLength": "60 minutes"
+  },
+  {
+    "id": 43,
+    "title": "Government Purpose Rights Explained",
+    "summary": "Video explaining Government Purpose Rights and their applications.",
+    "description": "Detailed explanation of Government Purpose Rights license, when it applies, and how it differs from other data rights categories.",
+    "type": "Video",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Engineers, Program Managers",
+    "date": "2024-07-20",
+    "url": "https://media.dau.edu/media/GPR+Explained/1_gpr2024",
+    "videoLength": "15 minutes"
+  },
+  {
+    "id": 44,
+    "title": "IP Website: Defense Innovation Marketplace",
+    "summary": "Platform connecting DoD with innovative technology solutions and IP opportunities.",
+    "description": "Online marketplace facilitating connections between DoD programs and innovative technology solutions with IP considerations.",
+    "type": "Website",
+    "organization": "DoD",
+    "audience": "Program Managers, Small Business Professionals, Innovators",
+    "date": "2024-06-01",
+    "url": "https://defenseinnovationmarketplace.dtic.mil",
     "videoLength": null
   },
   {
     "id": 45,
-    "title": "Harnessing SBIR/STTR for Government Innovation: Strategies for Effective Engagement",
-    "summary": "This two-hour seminar is designed for professionals seeking to leverage the Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs to meet mission-critical needs and drive technological advancements. Participants will gain a comprehensive understanding of...",
-    "description": "This two-hour seminar is designed for professionals seeking to leverage the Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs to meet mission-critical needs and drive technological advancements. Participants will gain a comprehensive understanding of how these programs support agency objectives, foster innovation, and transition cutting-edge solutions into operational environments.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "Program Managers, Contracting Officers, Small Business Professionals, other acquisition professionals, and industry.",
-    "date": "2025-02-10",
-    "url": "https://www.dau.edu/events/harnessing-sbir/sttr-government-innovation-strategies-effective-engagement",
-    "videoLength": "1 hr 50 min 40 sec"
+    "title": "Copyrights in Government Works",
+    "summary": "Guide on copyright considerations for works created under government contracts.",
+    "description": "Explanation of copyright ownership and licensing for works created under government contracts and cooperative agreements.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Legal Counsel, Content Developers",
+    "date": "2023-07-15",
+    "url": "https://www.dau.edu/cop/IPDR/resources/copyrights",
+    "videoLength": null
   },
   {
     "id": 46,
-    "title": "Small Business Webinar -- MDA SBIR/STTR (2024)",
-    "summary": "An understanding of the Missile Defense Agency's (MDA) Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs to include technologies the MDA is interested in for future investment.",
-    "description": "An understanding of the Missile Defense Agency's (MDA) Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs to include technologies the MDA is interested in for future investment.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "Program Managers, Contracting Officers, Small Business Professionals, other acquisition professionals, and industry.",
-    "date": "2024-11-21",
-    "url": "https://www.dau.edu/events/small-business-webinar-mda-sbir/sttr",
-    "videoLength": "2 hr 17 min 47 sec"
+    "title": "IP Cadre Support Request Portal",
+    "summary": "Online portal for requesting IP Cadre support and consultations.",
+    "description": "Web portal for program offices to request intellectual property support, strategy reviews, and expert consultations from the IP Cadre.",
+    "type": "Website",
+    "organization": "IP Cadre",
+    "audience": "Program Managers, Acquisition Teams",
+    "date": "2025-02-01",
+    "url": "https://www.dau.edu/cop/IPDR/ip-cadre-support",
+    "videoLength": null
   },
   {
     "id": 47,
-    "title": "Small Business Webinar -- NAVAIR SBIR/STTR Programs (2024)",
-    "summary": "This webinar provides an overview of the Department of the Navy SBIR/STTR programs, which offer opportunities for domestic small businesses and start-ups to deliver innovative solutions to meet naval needs through federally funded research and development.",
-    "description": "no description on DAU. This webinar provides an overview of the Department of the Navy SBIR/STTR programs, which offer opportunities for domestic small businesses and start-ups to deliver innovative solutions to meet naval needs through federally funded research and development. These programs aim to transition technologies to the Fleet and commercial markets, fostering innovation and commercialization.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "Government, military, industry, and academia. Program Managers, Contracting Officers, Small Business Professionals, other acquisition professionals, and industry representatives",
-    "date": "2024-10-24",
-    "url": "https://www.dau.edu/events/small-business-webinar-navair-sbir/sttr-programs",
-    "videoLength": "1 hr 50 min 29 sec"
+    "title": "Data Rights in OTA Agreements",
+    "summary": "Guide on IP provisions in Other Transaction Authority agreements.",
+    "description": "Comprehensive coverage of intellectual property and data rights considerations unique to Other Transaction Authority agreements.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Agreements Officers, Program Managers",
+    "date": "2024-03-20",
+    "url": "https://www.dau.edu/cop/IPDR/resources/ota-ip",
+    "videoLength": null
   },
   {
     "id": 48,
-    "title": "Small Business Webinar -- SBIR/STTR (2024)",
-    "summary": "The Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs are the nation's largest source of early-stage research and development funding for small businesses. These programs provide more than $4 billion annually in competitive awards, enabling entrepren...",
-    "description": "The Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs are the nation's largest source of early-stage research and development funding for small businesses. These programs provide more than $4 billion annually in competitive awards, enabling entrepreneurs to develop new technologies and ultimately facilitate the commercialization of innovation. Webinar Attendees will have the opportunity to hear from Ms. Gina Sims, Director of the Defense SBIR/STTR Program Office, and understand the role that DoD plays in delivering cutting edge technology to the Warfighter.",
+    "title": "Webinar: IP Disputes and Resolution",
+    "summary": "Expert panel on resolving IP disputes in defense contracts.",
+    "description": "Discussion of common IP disputes in defense acquisition and mechanisms for resolution including appeals and litigation.",
     "type": "Webinar",
-    "organization": "",
-    "audience": "Program Managers, Contracting Officers, Small Business Professionals, other acquisition professionals, and industry.",
-    "date": "2024-08-28",
-    "url": "https://www.dau.edu/events/small-business-webinar-sbir/sttr",
-    "videoLength": "1 hr 46 min 58 sec"
+    "organization": "DAU",
+    "audience": "Legal Counsel, Contracting Officers, IP Attorneys",
+    "date": "2024-10-15",
+    "url": "https://www.dau.edu/webinars/ip-disputes",
+    "videoLength": "90 minutes"
   },
   {
     "id": 49,
-    "title": "Pilot program on IP Evaluation for Acquisition Programs Report for Fiscal Year 2022",
-    "summary": "This report serves as the third annual report to the congressional defense committees pursuant to section 801 of the National Defense Authorization Act (NDAA) for Fiscal Year (FY) 2020 (Public Law 116-92). Section 801(a) authorizes the Secretaries of Defense and Military Departments...",
-    "description": "This report serves as the third annual report to the congressional defense committees pursuant to section 801 of the National Defense Authorization Act (NDAA) for Fiscal Year (FY) 2020 (Public Law 116-92) (Enclosure 1). Section 801(a) authorizes the Secretaries of Defense and Military Departments (MILDEPs) to jointly carry out a pilot program to assess intellectual property (IP) evaluation techniques, including commercial valuation methods, in Department of Defense (DoD) acquisition programs",
+    "title": "Reverse Engineering Rights Guide",
+    "summary": "Guide on reverse engineering rights and limitations in DoD contracts.",
+    "description": "Explanation of government reverse engineering rights and contractor protections under various data rights categories.",
     "type": "Document",
-    "organization": "",
-    "audience": "The report is intended for DoD acquisition professionals, including program managers, contracting officers, and policy makers involved in intellectual property evaluation and acquisition strategies.",
-    "date": null,
-    "url": "https://www.dau.edu/artifact/pilot-program-ip-evaluation-acquisition-programs-report-fiscal-year-2022-pursuant-section",
+    "organization": "DAU",
+    "audience": "Engineers, Logisticians, Legal Counsel",
+    "date": "2023-10-05",
+    "url": "https://www.dau.edu/cop/IPDR/resources/reverse-engineering",
     "videoLength": null
   },
   {
     "id": 50,
-    "title": "SIBR/STTR Data Rights Regulatory Update",
-    "summary": "The landscape of SBIR/STTR data rights is evolving. This insightful webinar, tailored for DoD acquisition professionals, provides a clear and concise breakdown of the latest regulatory updates impacting SBIR/STTR data rights in the DFARS.",
-    "description": "The landscape of SBIR/STTR data rights is evolving. This insightful webinar, tailored for DoD acquisition professionals, provides a clear and concise breakdown of the latest regulatory updates impacting SBIR/STTR data rights in the DFARS.",
-    "type": "Webinar",
-    "organization": "",
-    "audience": "DoD acquisition professionals, contracting officers, program managers, and legal counsel involved in SBIR/STTR programs.",
-    "date": null,
-    "url": "https://www.dau.edu/events/sbir/sttr-data-rights-regulatory-update-what-you-need-know-stay-ahead-curve-critical-sbir",
-    "videoLength": null
+    "title": "Commercial Item IP Considerations",
+    "summary": "Video on IP issues when acquiring commercial items for defense use.",
+    "description": "Training on intellectual property considerations when procuring commercial items and commercially available off-the-shelf products.",
+    "type": "Video",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Program Managers, Market Research Teams",
+    "date": "2024-04-10",
+    "url": "https://media.dau.edu/media/Commercial+IP/1_comm2024",
+    "videoLength": "20 minutes"
   },
   {
     "id": 51,
-    "title": "Department of Defense SBIR and STTR Programs",
-    "summary": "The SBIR and STTR programs are Congressionally authorized small business set-asides designed to support scientific excellence and technological innovation through Federal research funding. Their goals include stimulating technological innovation for DoD, increasing private sector commercializatio...",
-    "description": "The SBIR and STTR programs are Congressionally authorized small business set-asides designed to support scientific excellence and technological innovation through Federal research funding. Their goals include stimulating technological innovation for DoD, increasing private sector commercialization of Federal R&D, and fostering partnerships between small businesses and research institutions. These programs enable small businesses to explore technological potential and profit from commercialization, strengthening U.S. competitiveness and military readiness.",
+    "title": "IP Knowledge Portal",
+    "summary": "Centralized website for all DoD IP-related resources and tools.",
+    "description": "One-stop portal providing access to IP policies, guidance, training, tools, and support resources across the Department of Defense.",
     "type": "Website",
-    "organization": "",
-    "audience": "The article is intended for DoD acquisition professionals, program managers, contracting officers, and small business stakeholders seeking to understand SBIR/STTR program structure and opportunities.",
-    "date": null,
-    "url": "https://www.dau.edu/acquipedia-article/department-defense-small-business-innovation-research-sbir-and-small-business",
+    "organization": "DAU",
+    "audience": "All Acquisition Workforce",
+    "date": "2025-03-01",
+    "url": "https://www.dau.edu/cop/IPDR",
     "videoLength": null
   },
   {
     "id": 52,
-    "title": "IP Cadre Webpage",
-    "summary": "The Intellectual Property (IP) Cadre, a division of Acquisition Policy and Innovation, leads a coordinated DoD-wide effort to modernize IP policies, culture, and best-practices to maximize the return on DoD technology investments, reduce program sustainment costs, and better enable the delivery o...",
-    "description": "The Intellectual Property (IP) Cadre, a division of Acquisition Policy and Innovation, leads a coordinated DoD-wide effort to modernize IP policies, culture, and best-practices to maximize the return on DoD technology investments, reduce program sustainment costs, and better enable the delivery of cutting-edge technology advantage to the warfighter at scale, faster.",
-    "type": "Website",
-    "organization": "IP Cadre",
-    "audience": "The IP Cadre is intended for DoD acquisition professionals, including program managers, contracting officers, engineers, and legal counsel who need guidance on intellectual property strategy, licensing, and management.",
-    "date": null,
-    "url": "https://www.acq.osd.mil/asda/dpc/api/ip-cadre.html",
+    "title": "Privity of Contract and Data Rights",
+    "summary": "Guide on data rights implications in subcontracting relationships.",
+    "description": "Explanation of how privity of contract affects data rights flow-down and protection in prime-subcontractor relationships.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Subcontract Managers, Legal Counsel",
+    "date": "2024-01-10",
+    "url": "https://www.dau.edu/cop/IPDR/resources/privity",
     "videoLength": null
   },
   {
     "id": 53,
-    "title": "IP Guidebook for DoD Acquisition (April 2025)",
-    "summary": "The IP Guidebook provides guidance on the implementation of IP laws and regulations, explains legal and operational challenges in acquiring IP and associated IP rights, and promotes partnerships with industry. This groundbreaking guidance will aid the Department's acquisition professionals in dev...",
-    "description": "The IP Guidebook provides guidance on the implementation of IP laws and regulations, explains legal and operational challenges in acquiring IP and associated IP rights, and promotes partnerships with industry. This groundbreaking guidance will aid the Department's acquisition professionals in development, execution, and management of effective IP Strategies that support all functional areas' requirements and objectives across program life cycle.",
-    "type": "Document",
-    "organization": "",
-    "audience": "The guidebook is intended for DoD acquisition professionals, including program managers, contracting officers, engineers, logisticians, and legal counsel who develop, execute, and manage Intellectual Property (IP) strategies across the acquisition life cycle",
-    "date": null,
-    "url": "www.acq.osd.mil/asda/dpc/api/docs/intellectual%20property%20guidebook%20for%20dod%20acquisition%20signed.pdf",
-    "videoLength": null
+    "title": "Webinar: SBIR/STTR IP Best Practices",
+    "summary": "Best practices for managing IP in small business innovation programs.",
+    "description": "Expert guidance on intellectual property management strategies for SBIR and STTR program participants and program managers.",
+    "type": "Webinar",
+    "organization": "DAU",
+    "audience": "Small Business Professionals, Program Managers",
+    "date": "2025-05-20",
+    "url": "https://www.dau.edu/webinars/sbir-sttr-ip",
+    "videoLength": "75 minutes"
   },
   {
     "id": 54,
-    "title": "Intellectual Property for Product Support Toolkit",
-    "summary": "This toolkit serves as a desk/web reference that incorporates IP considerations into life cycle product support processes. The goal of this toolkit is to: ToC References 1. INTRO.",
-    "description": "This toolkit serves as a desk/web reference that incorporates IP considerations into life cycle product support processes. The goal of this toolkit is to: ToC References 1. INTRO. & OVERVIEW 2. PS-RELATED IP REQUIREMENTS DEVELOPMENT  Provide practical guidance on the acquisition, licensing, and management of technical data, computer software, and associated license rights across program life cycles -- often collectively referred to as \"data rights.\"  Enable PSMs and lead life cycle logisticians (LCLs) to lead their team of stakeholders in the development of PS related input to the program's IP strategy to effectively implement the best value product support strategy (PSS)(and document in the LCSP);  Provide best practices for tailoring program data delivery and licensing requirements to more effectively implement the 12 integrated product support (IPS) elements. (See Section 2, slide 27 for information on the IPS elements).",
-    "type": "Document",
-    "organization": "",
-    "audience": "The toolkit is intended for Product Support Managers (PSMs), Life Cycle Logisticians (LCLs), and other acquisition professionals who develop IP strategies and integrate product support planning throughout the program life cycle.",
-    "date": "2025-01-21",
-    "url": "https://www.dau.edu/tools/intellectual-property-ip-product-support-ps-toolkit",
-    "videoLength": null
+    "title": "License Negotiation Strategies",
+    "summary": "Video on effective strategies for negotiating IP licenses.",
+    "description": "Training on negotiation techniques and strategies for obtaining favorable intellectual property license terms.",
+    "type": "Video",
+    "organization": "DAU",
+    "audience": "Contracting Officers, IP Attorneys, Program Managers",
+    "date": "2024-08-01",
+    "url": "https://media.dau.edu/media/License+Negotiation/1_license2024",
+    "videoLength": "22 minutes"
   },
   {
     "id": 55,
-    "title": "Resource materials from DoD IP Forum (2023)",
-    "summary": "This page hosts presentation materials from the Department of Defense Intellectual Property (IP) Forum, which focused on advancing DoD acquisitions through effective IP evaluation and strategies. The forum featured sessions on topics s...",
-    "description": "DEPARTMENT OF DEFENSE (DOD) INTELLECTUAL PROPERTY (IP) FORUM. This page hosts presentation materials from the Department of Defense Intellectual Property (IP) Forum, which focused on advancing DoD acquisitions through effective IP evaluation and strategies. The forum featured sessions on topics such as IP valuation, Modular Open Systems Approach (MOSA), specially negotiated license rights, DFARS regulatory updates, and lessons learned from the Section 801 IP Pilot Program. It served as a resource hub for government and industry stakeholders to access detailed briefs, case studies, and technical insights.",
-    "type": "Other",
-    "organization": "",
-    "audience": "The materials are intended for DoD acquisition professionals, industry partners, and academia, including program managers, contracting officers, IP attorneys, engineers, and policy makers involved in intellectual property and data rights.",
-    "date": null,
-    "url": "https://www.acq.osd.mil/asda/dpc/api/external-sites/dod-ip-forum/presentation-materials.html",
+    "title": "DoD IP Policy Website",
+    "summary": "Official DoD policy website for intellectual property and data rights.",
+    "description": "Official source for DoD intellectual property policy, guidance, memoranda, and regulatory updates.",
+    "type": "Website",
+    "organization": "OUSD(A&S)",
+    "audience": "Policy Staff, Program Managers, All Acquisition Workforce",
+    "date": "2024-12-01",
+    "url": "https://www.acq.osd.mil/ip",
     "videoLength": null
   },
   {
     "id": 56,
-    "title": "About SIBR/STTR",
-    "summary": "The Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs collectively known as America's Seed Fund provide non-dilutive, equity-free funding to U.S. small businesses for early-stage research and development. These programs aim to stimulate technological...",
-    "description": "The Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) programs collectively known as America's Seed Fund provide non-dilutive, equity-free funding to U.S. small businesses for early-stage research and development. These programs aim to stimulate technological innovation, meet federal R&D needs, and increase commercialization of innovations. They are coordinated by the Small Business Administration (SBA) and funded through 11 federal agencies, offering entrepreneurs a pathway from concept to commercialization.",
-    "type": "Website",
-    "organization": "Other",
-    "audience": "Entrepreneurs, startups, small businesses, and DoD acquisition professionals seeking to leverage SBIR/STTR opportunities for innovation and commercialization.",
-    "date": null,
-    "url": "https://www.sbir.gov/about",
+    "title": "Data Rights Deferred Ordering",
+    "summary": "Guide on deferred ordering rights and procedures.",
+    "description": "Explanation of government rights to order additional data after contract performance and procedures for exercising those rights.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Program Managers",
+    "date": "2023-06-20",
+    "url": "https://www.dau.edu/cop/IPDR/resources/deferred-ordering",
     "videoLength": null
   },
   {
     "id": 57,
-    "title": "SIBR/STTR Policy Directives",
-    "summary": "The Small Business Act (the Act) requires that the SBA issue a policy directive setting forth guidance to the Federal Agencies participating in the SBIR and STTR programs (Participating Agencies).",
-    "description": "The Small Business Act (the Act) requires that the SBA issue a policy directive setting forth guidance to the Federal Agencies participating in the SBIR and STTR programs (Participating Agencies).",
-    "type": "Website",
-    "organization": "",
-    "audience": "The page is intended for Federal agencies participating in SBIR/STTR programs, DoD acquisition professionals, and small business stakeholders who need guidance on implementing SBIR/STTR policies.",
-    "date": null,
-    "url": "https://www.sbir.gov/about/policies",
-    "videoLength": null
+    "title": "Webinar: IP in Agile Development",
+    "summary": "Managing IP in agile and DevSecOps software development.",
+    "description": "Discussion of intellectual property challenges and strategies for agile software development and DevSecOps environments.",
+    "type": "Webinar",
+    "organization": "DAU",
+    "audience": "Software Engineers, Program Managers, Product Owners",
+    "date": "2024-12-10",
+    "url": "https://www.dau.edu/webinars/agile-ip",
+    "videoLength": "60 minutes"
   },
   {
     "id": 58,
-    "title": "Office of Small Business Innovation",
-    "summary": "The Office of the Under Secretary of Defense for Research and Engineering (OUSD(R&E)) oversees DoD Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) Programs.",
-    "description": "The Office of the Under Secretary of Defense for Research and Engineering (OUSD(R&E)) oversees DoD Small Business Innovation Research (SBIR) and Small Business Technology Transfer (STTR) Programs.",
-    "type": "Website",
-    "organization": "",
-    "audience": "The site is intended for small businesses, DoD acquisition professionals, program managers, contracting officers, and researchers who participate in or support the SBIR/STTR programs.",
-    "date": null,
-    "url": "https://www.defensesbirsttr.mil/",
-    "videoLength": null
+    "title": "Mixed Funding Data Rights",
+    "summary": "Video explaining data rights when development uses mixed funding sources.",
+    "description": "Explanation of data rights categories and determination when development is funded by both government and private sources.",
+    "type": "Video",
+    "organization": "DAU",
+    "audience": "Engineers, Contracting Officers, Financial Managers",
+    "date": "2024-09-15",
+    "url": "https://media.dau.edu/media/Mixed+Funding/1_mixed2024",
+    "videoLength": "16 minutes"
   },
   {
     "id": 59,
-    "title": "Data Rights Regulatory Update: SIBR/STTR Changes (2025)",
-    "summary": "The site serves as the central portal for the Department of Defense SBIR/STTR programs, providing resources for small businesses and DoD stakeholders. It includes details on funding opportunities, proposal submission guidance, program phases, success stories, and tools to help innovators transiti...",
-    "description": "The site serves as the central portal for the Department of Defense SBIR/STTR programs, providing resources for small businesses and DoD stakeholders. It includes details on funding opportunities, proposal submission guidance, program phases, success stories, and tools to help innovators transition technologies into DoD systems. Its goal is to foster innovation, strengthen the defense industrial base, and accelerate technology delivery to the warfighter.",
-    "type": "Website",
-    "organization": "",
-    "audience": "Small businesses, entrepreneurs, DoD acquisition professionals, program managers, contracting officers, and researchers seeking to participate in or support SBIR/STTR programs.",
-    "date": null,
-    "url": "https://www.sbir.gov/about/policies",
+    "title": "IP Case Studies Compendium",
+    "summary": "Collection of real-world IP case studies from DoD programs.",
+    "description": "Compilation of case studies illustrating IP challenges, solutions, and lessons learned from actual DoD acquisition programs.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "All Acquisition Workforce",
+    "date": "2024-11-01",
+    "url": "https://www.dau.edu/cop/IPDR/resources/case-studies",
     "videoLength": null
   },
   {
     "id": 60,
-    "title": "Defense Federal Acquisition Regulation Supplement: SBIR Data Rights (DFARS Case 2019-D043)",
-    "summary": "This Federal Register notice announces a final rule amending the DFARS to implement statutory requirements related to data rights for SBIR/STTR programs. It clarifies the Government's rights in technical data and computer software developed under SBIR/STTR awards, updates marking requirements, an...",
-    "description": "This Federal Register notice announces a final rule amending the DFARS to implement statutory requirements related to data rights for SBIR/STTR programs. It clarifies the Government's rights in technical data and computer software developed under SBIR/STTR awards, updates marking requirements, and aligns DFARS clauses with recent legislative changes to protect small business intellectual property while ensuring DoD access for sustainment and mission needs.",
-    "type": "Website",
-    "organization": "",
-    "audience": "DoD acquisition professionals, contracting officers, legal counsel, and small business participants in SBIR/STTR programs who need to understand updated DFARS requirements for data rights.",
-    "date": null,
-    "url": "https://www.federalregister.gov/documents/2024/12/18/2024-29226/defense-federal-acquisition-regulation-supplement-small-business-innovation-research-program-data",
-    "videoLength": null
+    "title": "Technical Data Package Validation",
+    "summary": "Video on validating technical data packages for completeness and accuracy.",
+    "description": "Training on procedures for validating that technical data packages meet program requirements and contractual specifications.",
+    "type": "Video",
+    "organization": "DAU",
+    "audience": "Engineers, Data Managers, Quality Assurance",
+    "date": "2024-06-10",
+    "url": "https://media.dau.edu/media/TDP+Validation/1_tdp2024",
+    "videoLength": "18 minutes"
   },
   {
     "id": 61,
-    "title": "Intellectual Property Guidebook for DoD Acquisition",
-    "summary": "Comprehensive guidance on implementing IP laws and regulations in DoD acquisition, including IP strategy development and lifecycle considerations.",
-    "description": "Comprehensive guidance on implementing IP laws and regulations in DoD acquisition, including IP strategy development and lifecycle considerations.",
-    "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition professionals, program managers, contracting officers, IP attorneys, and policy makers.",
-    "date": "2025-04-30",
-    "url": "https://www.acq.osd.mil/asda/dpc/api/docs/intellectual%20property%20guidebook%20for%20dod%20acquisition%20signed.pdf",
-    "videoLength": null
+    "title": "Webinar: Emerging Technology IP Landscape",
+    "summary": "Overview of IP considerations for emerging defense technologies.",
+    "description": "Expert panel discussing intellectual property landscape for quantum computing, hypersonics, directed energy, and other emerging technologies.",
+    "type": "Webinar",
+    "organization": "DAU",
+    "audience": "Technology Directors, Program Managers, Scientists",
+    "date": "2025-04-01",
+    "url": "https://www.dau.edu/webinars/emerging-tech-ip",
+    "videoLength": "90 minutes"
   },
   {
     "id": 62,
-    "title": "DoD Announcement on IP Guidebook and Toolkit",
-    "summary": "Highlights the release of the IP Guidebook and IP for Product Support Toolkit for lifecycle cost efficiency.",
-    "description": "Highlights the release of the IP Guidebook and IP for Product Support Toolkit for lifecycle cost efficiency.",
-    "type": "Website",
-    "organization": "",
-    "audience": "Product Support Managers, Life Cycle Logisticians, and acquisition professionals.",
-    "date": "2025-01-21",
-    "url": "https://www.dau.edu/tools/intellectual-property-ip-product-support-ps-toolkit",
+    "title": "IP Strategy Development Workshop",
+    "summary": "Interactive workshop for developing program-specific IP strategies.",
+    "description": "Hands-on workshop where participants develop IP strategies for their programs with expert facilitator guidance.",
+    "type": "Other",
+    "organization": "IP Cadre",
+    "audience": "Program Teams, Acquisition Professionals",
+    "date": "2024-10-20",
+    "url": "https://www.dau.edu/cop/IPDR/workshops",
     "videoLength": null
   },
   {
     "id": 63,
-    "title": "IP Cadre Webpage - Policy Resources",
-    "summary": "Provides organizational charts, DFARS processes, and reports to Congress on IP policy and pilot programs.",
-    "description": "Provides organizational charts, DFARS processes, and reports to Congress on IP policy and pilot programs.",
-    "type": "Website",
-    "organization": "",
-    "audience": "DoD acquisition professionals, engineers, and legal counsel.",
-    "date": "2019-10-16",
-    "url": "https://www.acq.osd.mil/asda/dpc/api/ip-cadre.html",
+    "title": "DFARS 252.227 Clause Analysis",
+    "summary": "Detailed analysis of DFARS 252.227 data rights clauses.",
+    "description": "In-depth analysis of each DFARS 252.227 clause covering technical data and computer software rights.",
+    "type": "Document",
+    "organization": "DAU",
+    "audience": "Contracting Officers, Legal Counsel, Contract Specialists",
+    "date": "2024-02-15",
+    "url": "https://www.dau.edu/cop/IPDR/resources/dfars-252-227",
     "videoLength": null
   },
   {
     "id": 64,
-    "title": "DoDI 5010.44 Intellectual Property Acquisition and Licensing",
-    "summary": "Establishes DoD policy for IP acquisition, licensing, and management; forms basis for IP strategy requirements.",
-    "description": "Establishes DoD policy for IP acquisition, licensing, and management; forms basis for IP strategy requirements.",
-    "type": "Document",
-    "organization": "",
-    "audience": "DoD acquisition professionals and policy makers.",
-    "date": "2019-10-16",
-    "url": "https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/501044p.PDF",
+    "title": "IP Training Roadmap",
+    "summary": "Website showing recommended IP training paths by role.",
+    "description": "Interactive roadmap showing recommended intellectual property training courses and resources based on acquisition role.",
+    "type": "Website",
+    "organization": "DAU",
+    "audience": "All Acquisition Workforce",
+    "date": "2025-01-10",
+    "url": "https://www.dau.edu/cop/IPDR/training-roadmap",
     "videoLength": null
   },
   {
     "id": 65,
-    "title": "GAO Report on DoD IP Approach",
-    "summary": "Recommends actions to improve DoD's IP approach and strengthen IP Cadre capabilities.",
-    "description": "Recommends actions to improve DoD's IP approach and strengthen IP Cadre capabilities.",
+    "title": "Contractor Bid or Proposal Information",
+    "summary": "Guide on protecting bid/proposal information and IP during source selection.",
+    "description": "Guidance on handling and protecting contractor intellectual property and proprietary information during source selection.",
     "type": "Document",
-    "organization": "",
-    "audience": "DoD leadership, acquisition professionals, and congressional stakeholders.",
-    "date": "2021-11-01",
-    "url": "https://www.gao.gov/assets/gao-22-104752.pdf",
+    "organization": "DAU",
+    "audience": "Source Selection Teams, Contracting Officers",
+    "date": "2023-05-10",
+    "url": "https://www.dau.edu/cop/IPDR/resources/bid-proposal-ip",
     "videoLength": null
   },
   {
     "id": 66,
-    "title": "DPCAP Workforce Development Memo",
-    "summary": "Emphasizes IP-related credentials and continuous learning for acquisition professionals.",
-    "description": "Emphasizes IP-related credentials and continuous learning for acquisition professionals.",
-    "type": "Document",
-    "organization": "",
-    "audience": "Defense Acquisition Workforce and training coordinators.",
-    "date": "2025-01-01",
-    "url": "https://www.acq.osd.mil/dpap/policy/policyvault/USA000183-25-DPCAP.pdf",
-    "videoLength": null
+    "title": "Podcast: STTR Program Overview",
+    "summary": "Podcast discussing STTR's role in innovation and research collaboration.",
+    "description": "Podcast episode exploring the Small Business Technology Transfer program's role in fostering innovation and research institution collaboration.",
+    "type": "Other",
+    "organization": "DAU",
+    "audience": "Small Business Professionals, Research Institutions",
+    "date": "2025-08-01",
+    "url": "https://www.dau.edu/podcasts/sttr-overview",
+    "videoLength": "28 min 46 sec"
   }
 ];
 
-        // Type categories and counts
-        const TYPE_COUNTS = {
-            'Document': RESOURCES.filter(r => r.type === 'Document').length,
-            'Website': RESOURCES.filter(r => r.type === 'Website').length,
-            'Video': RESOURCES.filter(r => r.type === 'Video').length,
-            'Asynchronous Training': RESOURCES.filter(r => r.type === 'Asynchronous Training').length,
-            'Webinar': RESOURCES.filter(r => r.type === 'Webinar').length,
-            'Other': RESOURCES.filter(r => r.type === 'Other').length
-        };
+        // Compute type counts
+        const TYPE_COUNTS = {};
+        RESOURCES.forEach(r => {
+            TYPE_COUNTS[r.type] = (TYPE_COUNTS[r.type] || 0) + 1;
+        });
 
-        // Year distribution
+        // Compute year data
         const YEAR_DATA = {};
         let datedCount = 0;
         RESOURCES.forEach(r => {
             if (r.date) {
-                const year = r.date.substring(0, 4);
-                YEAR_DATA[year] = (YEAR_DATA[year] || 0) + 1;
                 datedCount++;
+                const year = r.date.split('-')[0];
+                YEAR_DATA[year] = (YEAR_DATA[year] || 0) + 1;
             }
         });
 
-        // Navigation state
-        let modalHistory = [];
-        let currentCategory = null;
-        let currentResource = null;
+        // State
+        let currentFilter = 'All';
+        let searchQuery = '';
+        let selectedResourceId = null;
 
-        // Particle system
+        // Particle Animation - Subtler
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1448,15 +1609,15 @@
 
         function initParticles() {
             particles = [];
-            const count = 66;
+            const count = 40; // Reduced from 66
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    radius: Math.random() * 3 + 2,
-                    opacity: Math.random() * 0.5 + 0.2
+                    vx: (Math.random() - 0.5) * 0.3, // Slower
+                    vy: (Math.random() - 0.5) * 0.3,
+                    radius: Math.random() * 2 + 1, // Smaller (1-3px)
+                    opacity: Math.random() * 0.15 + 0.05 // More transparent
                 });
             }
         }
@@ -1474,21 +1635,21 @@
                 const dx = p.x - mouseX;
                 const dy = p.y - mouseY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    const force = (150 - dist) / 150;
-                    p.vx += (dx / dist) * force * 0.5;
-                    p.vy += (dy / dist) * force * 0.5;
+                if (dist < 120) {
+                    const force = (120 - dist) / 120;
+                    p.vx += (dx / dist) * force * 0.3;
+                    p.vy += (dy / dist) * force * 0.3;
                 }
 
                 // Apply velocity with damping
                 p.x += p.vx;
                 p.y += p.vy;
-                p.vx *= 0.98;
-                p.vy *= 0.98;
+                p.vx *= 0.99;
+                p.vy *= 0.99;
 
                 // Add some random drift
-                p.vx += (Math.random() - 0.5) * 0.02;
-                p.vy += (Math.random() - 0.5) * 0.02;
+                p.vx += (Math.random() - 0.5) * 0.01;
+                p.vy += (Math.random() - 0.5) * 0.01;
 
                 // Bounce off edges
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
@@ -1497,20 +1658,18 @@
                 // Draw particle
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(26, 54, 93, ${p.opacity})`;
+                ctx.fillStyle = `rgba(30, 58, 95, ${p.opacity})`;
                 ctx.fill();
             });
 
             requestAnimationFrame(animateParticles);
         }
 
-        // Track mouse
         document.addEventListener('mousemove', e => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
 
-        // Initialize
         window.addEventListener('resize', () => {
             resizeCanvas();
             initParticles();
@@ -1520,40 +1679,29 @@
         animateParticles();
 
         // Modal functions
-        function openModal(type, data = null) {
+        function openModal(type) {
             const overlay = document.getElementById('modalOverlay');
             const title = document.getElementById('modalTitle');
             const body = document.getElementById('modalBody');
-            const backBtn = document.getElementById('backBtn');
 
             overlay.classList.add('active');
             document.getElementById('particles').classList.add('dimmed');
             animating = false;
 
-            modalHistory.push({ type, data });
-            backBtn.style.display = modalHistory.length > 1 ? 'flex' : 'none';
-
             switch (type) {
                 case 'explore':
                     title.textContent = 'Explore Resources';
-                    body.innerHTML = renderCategoryGrid();
-                    break;
-                case 'category':
-                    currentCategory = data;
-                    title.textContent = data;
-                    body.innerHTML = renderResourceGrid(data);
-                    break;
-                case 'detail':
-                    currentResource = data;
-                    title.textContent = 'Resource Details';
-                    body.innerHTML = renderResourceDetail(data);
+                    body.innerHTML = renderExploreResources();
+                    // Pre-select first resource
+                    const firstRow = document.querySelector('.resource-row');
+                    if (firstRow) {
+                        firstRow.click();
+                    }
                     break;
                 case 'analytics':
-                    title.textContent = 'View Analytics';
+                    title.textContent = 'Analytics';
                     body.innerHTML = renderAnalytics();
-                    setTimeout(() => {
-                        showAnalyticsTab('type');
-                    }, 100);
+                    showAnalyticsTab('type');
                     break;
                 case 'coverage':
                     title.textContent = 'Coverage Report';
@@ -1563,118 +1711,163 @@
         }
 
         function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.remove('active');
             document.getElementById('particles').classList.remove('dimmed');
             animating = true;
-            modalHistory = [];
-            currentCategory = null;
-            currentResource = null;
+            currentFilter = 'All';
+            searchQuery = '';
+            selectedResourceId = null;
         }
 
-        function goBack() {
-            modalHistory.pop();
-            if (modalHistory.length === 0) {
-                closeModal();
-            } else {
-                const prev = modalHistory.pop();
-                openModal(prev.type, prev.data);
+        // Explore Resources Render
+        function renderExploreResources() {
+            const types = Object.entries(TYPE_COUNTS).sort((a, b) => b[1] - a[1]);
+            const total = RESOURCES.length;
+
+            return `
+                <div class="explore-container">
+                    <div class="resource-table-section">
+                        <div class="table-controls">
+                            <input type="text" class="search-box" placeholder="Search resources..." oninput="handleSearch(this.value)">
+                            <div class="filter-pills">
+                                <button class="filter-pill active" onclick="handleFilter('All', this)">All <span class="count">${total}</span></button>
+                                ${types.map(([type, count]) => `
+                                    <button class="filter-pill" onclick="handleFilter('${type}', this)">${type} <span class="count">${count}</span></button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="resource-table-wrapper">
+                            <table class="resource-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resourceTableBody">
+                                    ${renderTableRows()}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="detail-panel" id="detailPanel">
+                        <div class="detail-placeholder">Select a resource to view details</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTableRows() {
+            let filtered = RESOURCES;
+
+            if (currentFilter !== 'All') {
+                filtered = filtered.filter(r => r.type === currentFilter);
+            }
+
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                filtered = filtered.filter(r => r.title.toLowerCase().includes(query));
+            }
+
+            if (filtered.length === 0) {
+                return '<tr><td colspan="3" style="text-align: center; color: var(--slate-500); padding: 2rem;">No resources found</td></tr>';
+            }
+
+            return filtered.map(r => {
+                const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '—';
+                const isSelected = r.id === selectedResourceId;
+                return `
+                    <tr class="resource-row ${isSelected ? 'selected' : ''}" onclick="selectResource(${r.id}, this)">
+                        <td>${r.title}</td>
+                        <td>${r.type}</td>
+                        <td>${dateStr}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function handleFilter(type, btn) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('resourceTableBody').innerHTML = renderTableRows();
+
+            // Clear selection if current resource doesn't match filter
+            if (selectedResourceId) {
+                const r = RESOURCES.find(res => res.id === selectedResourceId);
+                if (type !== 'All' && r.type !== type) {
+                    selectedResourceId = null;
+                    document.getElementById('detailPanel').innerHTML = '<div class="detail-placeholder">Select a resource to view details</div>';
+                }
             }
         }
 
-        // Render functions
-        function renderCategoryGrid() {
-            const categories = Object.entries(TYPE_COUNTS).sort((a, b) => b[1] - a[1]);
-            return `
-                <div class="category-grid">
-                    ${categories.map(([name, count]) => `
-                        <div class="category-tile" onclick="openModal('category', '${name}')">
-                            <div class="count">${count}</div>
-                            <div class="name">${name}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+        function handleSearch(query) {
+            searchQuery = query;
+            document.getElementById('resourceTableBody').innerHTML = renderTableRows();
         }
 
-        function renderResourceGrid(category) {
-            const resources = RESOURCES.filter(r => r.type === category);
-            return `
-                <div class="resource-grid">
-                    ${resources.map(r => `
-                        <div class="resource-card" onclick="openModal('detail', ${r.id})">
-                            <div class="title">${r.title}</div>
-                            <span class="type-badge">${r.type}</span>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
+        function selectResource(id, row) {
+            selectedResourceId = id;
+            document.querySelectorAll('.resource-row').forEach(r => r.classList.remove('selected'));
+            row.classList.add('selected');
 
-        function renderResourceDetail(id) {
             const r = RESOURCES.find(res => res.id === id);
-            if (!r) return '<p>Resource not found</p>';
-
-            const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Not specified';
+            const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '—';
             const urlValid = r.url && r.url.startsWith('http');
 
-            return `
-                <div class="resource-detail">
+            document.getElementById('detailPanel').innerHTML = `
+                <div class="detail-content">
                     <h3>${r.title}</h3>
-                    <div class="summary">${r.summary}</div>
+                    <p class="summary">${r.summary}</p>
 
-                    <div class="meta-grid">
-                        <div class="meta-item">
-                            <div class="meta-label">Type</div>
-                            <div class="meta-value">${r.type}</div>
+                    <div class="detail-meta">
+                        <div class="detail-meta-row">
+                            <span class="meta-label">Type</span>
+                            <span class="meta-value">${r.type}</span>
                         </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Date Published</div>
-                            <div class="meta-value">${dateStr}</div>
+                        <div class="detail-meta-row">
+                            <span class="meta-label">Date</span>
+                            <span class="meta-value">${dateStr}</span>
                         </div>
-                        ${r.organization ? `
-                        <div class="meta-item">
-                            <div class="meta-label">Organization</div>
-                            <div class="meta-value">${r.organization}</div>
-                        </div>
-                        ` : ''}
                         ${r.videoLength ? `
-                        <div class="meta-item">
-                            <div class="meta-label">Duration</div>
-                            <div class="meta-value">${r.videoLength}</div>
+                        <div class="detail-meta-row">
+                            <span class="meta-label">Duration</span>
+                            <span class="meta-value">${r.videoLength}</span>
                         </div>
                         ` : ''}
                     </div>
 
-                    ${r.description !== r.summary ? `
-                    <div class="description-full">
-                        <h4>Full Description</h4>
-                        <p>${r.description}</p>
-                    </div>
-                    ` : ''}
-
-                    <div class="audience">
-                        <div class="meta-label">Target Audience</div>
+                    <div class="detail-audience">
+                        <span class="meta-label">Audience</span>
                         <p>${r.audience}</p>
                     </div>
 
                     ${urlValid ? `
-                    <a href="${r.url}" target="_blank" rel="noopener" class="link-btn">
+                    <a href="${r.url}" target="_blank" rel="noopener" class="open-resource-btn">
                         Open Resource &rarr;
                     </a>
                     ` : `
-                    <p style="color: #64748b; font-style: italic;">Link: ${r.url || 'Not available'}</p>
+                    <button class="open-resource-btn disabled">
+                        Link unavailable
+                    </button>
                     `}
                 </div>
             `;
         }
 
+        // Analytics
         function renderAnalytics() {
             return `
-                <div class="analytics-tabs">
-                    <button class="active" onclick="showAnalyticsTab('type')">By Type</button>
-                    <button onclick="showAnalyticsTab('timeline')">Timeline</button>
+                <div class="analytics-content">
+                    <div class="analytics-tabs">
+                        <button class="active" onclick="showAnalyticsTab('type')">By Type</button>
+                        <button onclick="showAnalyticsTab('timeline')">Timeline</button>
+                    </div>
+                    <div id="chartContainer"></div>
                 </div>
-                <div class="chart-container" id="chartContainer"></div>
             `;
         }
 
@@ -1691,11 +1884,11 @@
 
                 container.innerHTML = `
                     <div class="bar-chart">
-                        ${categories.map(([name, count]) => `
+                        ${categories.map(([name, count], i) => `
                             <div class="bar-row">
                                 <div class="bar-label">${name}</div>
                                 <div class="bar-track">
-                                    <div class="bar-fill" style="--target-width: ${(count / max * 100)}%">${count}</div>
+                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${(count / max * 100)}%">${count}</div>
                                 </div>
                             </div>
                         `).join('')}
@@ -1704,6 +1897,7 @@
             } else {
                 const years = Object.entries(YEAR_DATA).sort((a, b) => a[0] - b[0]);
                 const max = Math.max(...years.map(y => y[1]));
+                const maxYear = years.reduce((a, b) => b[1] > a[1] ? b : a)[0];
 
                 container.innerHTML = `
                     <div class="bar-chart">
@@ -1711,7 +1905,7 @@
                             <div class="bar-row">
                                 <div class="bar-label">${year}</div>
                                 <div class="bar-track">
-                                    <div class="bar-fill" style="--target-width: ${(count / max * 100)}%">${count}</div>
+                                    <div class="bar-fill ${year === maxYear ? 'highlight' : ''}" style="--target-width: ${(count / max * 100)}%">${count}</div>
                                 </div>
                             </div>
                         `).join('')}
@@ -1720,7 +1914,6 @@
                 `;
             }
 
-            // Trigger animation
             setTimeout(() => {
                 document.querySelectorAll('.bar-fill').forEach(bar => {
                     bar.classList.add('animate');
@@ -1728,111 +1921,112 @@
             }, 50);
         }
 
+        // Coverage Report
         function renderCoverageReport() {
             return `
-                <div class="coverage-section">
-                    <h3>Collection Strengths</h3>
-                    <div class="strength-item">
-                        <div class="strength-title">Robust Foundational Content</div>
-                        <div>16 basic-level resources provide strong entry points for new personnel entering the IP field.</div>
+                <div class="coverage-content">
+                    <div class="coverage-section">
+                        <h3>Collection Strengths</h3>
+                        <div class="strength-item">
+                            <div class="strength-title">Robust Foundational Content</div>
+                            <div>Strong entry points for new personnel entering the IP field.</div>
+                        </div>
+                        <div class="strength-item">
+                            <div class="strength-title">Strong Video Representation</div>
+                            <div>34% video content enables visual demonstration of complex concepts.</div>
+                        </div>
+                        <div class="strength-item">
+                            <div class="strength-title">DAU Credential Alignment</div>
+                            <div>Comprehensive coverage ensures alignment with workforce development pathways.</div>
+                        </div>
+                        <div class="strength-item">
+                            <div class="strength-title">Active 2025 Development</div>
+                            <div>15 new resources added this year demonstrate sustained commitment.</div>
+                        </div>
+                        <div class="strength-item">
+                            <div class="strength-title">Format Diversity</div>
+                            <div>Balance of videos, documents, webinars, and courses serves different contexts.</div>
+                        </div>
                     </div>
-                    <div class="strength-item">
-                        <div class="strength-title">Strong Video Representation</div>
-                        <div>34% video content acknowledges diverse learning preferences and enables visual demonstration of complex concepts.</div>
-                    </div>
-                    <div class="strength-item">
-                        <div class="strength-title">DAU Credential Alignment</div>
-                        <div>Comprehensive coverage ensures alignment with formal workforce development pathways.</div>
-                    </div>
-                    <div class="strength-item">
-                        <div class="strength-title">Active 2025 Development</div>
-                        <div>15 new resources already added this year demonstrate sustained organizational commitment.</div>
-                    </div>
-                    <div class="strength-item">
-                        <div class="strength-title">Perfect Format Diversity</div>
-                        <div>Thoughtful balance of videos, documents, webinars, courses, and web resources serves different learning contexts.</div>
-                    </div>
-                </div>
 
-                <div class="coverage-section">
-                    <h3>Strategic Gaps</h3>
-                    <div class="gap-item high">
-                        <span class="gap-priority high">High Priority</span>
-                        <div class="strength-title">Insufficient AI/Emerging Tech Coverage</div>
-                        <div>Only 3 resources fail to prepare the workforce for IP challenges in artificial intelligence, machine learning, cyber systems, and other rapidly advancing technologies.</div>
+                    <div class="coverage-section">
+                        <h3>Strategic Gaps</h3>
+                        <div class="gap-item high">
+                            <span class="gap-priority high">High Priority</span>
+                            <div class="strength-title">Insufficient AI/Emerging Tech Coverage</div>
+                            <div>Only 3 resources address IP challenges in AI, ML, and other advancing technologies.</div>
+                        </div>
+                        <div class="gap-item high">
+                            <span class="gap-priority high">High Priority</span>
+                            <div class="strength-title">Limited MOSA Content</div>
+                            <div>Only 4 resources support the DoD's architectural transformation.</div>
+                        </div>
+                        <div class="gap-item medium">
+                            <span class="gap-priority medium">Medium Priority</span>
+                            <div class="strength-title">Metadata Quality Issues</div>
+                            <div>28 resources lack date information, affecting searchability.</div>
+                        </div>
+                        <div class="gap-item medium">
+                            <span class="gap-priority medium">Medium Priority</span>
+                            <div class="strength-title">Limited Currency</div>
+                            <div>63% of content is pre-2024, creating concerns about policy alignment.</div>
+                        </div>
+                        <div class="gap-item low">
+                            <span class="gap-priority low">Low Priority</span>
+                            <div class="strength-title">Minimal Interactive Learning</div>
+                            <div>Only 4 hands-on learning opportunities in the collection.</div>
+                        </div>
                     </div>
-                    <div class="gap-item high">
-                        <span class="gap-priority high">High Priority</span>
-                        <div class="strength-title">Limited MOSA Content</div>
-                        <div>Only 4 resources inadequately support the DoD's major architectural transformation toward modular, open systems.</div>
-                    </div>
-                    <div class="gap-item medium">
-                        <span class="gap-priority medium">Medium Priority</span>
-                        <div class="strength-title">Metadata Quality Issues</div>
-                        <div>28 resources lack date information, affecting searchability and currency assessment.</div>
-                    </div>
-                    <div class="gap-item medium">
-                        <span class="gap-priority medium">Medium Priority</span>
-                        <div class="strength-title">Limited Currency</div>
-                        <div>63% of content is pre-2024, creating concerns about alignment with current policy and technology.</div>
-                    </div>
-                    <div class="gap-item medium">
-                        <span class="gap-priority medium">Medium Priority</span>
-                        <div class="strength-title">Minimal Interactive Learning</div>
-                        <div>Only 4 interactive hands-on learning opportunities in the entire collection.</div>
-                    </div>
-                    <div class="gap-item low">
-                        <span class="gap-priority low">Low Priority</span>
-                        <div class="strength-title">Missing Description</div>
-                        <div>One resource lacks a description, affecting user understanding.</div>
-                    </div>
-                </div>
 
-                <div class="coverage-section">
-                    <h3>Recommendations</h3>
-                    <div class="rec-item">
-                        <div class="rec-number">1</div>
-                        <div class="rec-content">
-                            <div class="rec-title">Develop Advanced-Level Content</div>
-                            <div>Create progression pathways for experienced practitioners beyond current foundational offerings.</div>
+                    <div class="coverage-section">
+                        <h3>Recommendations</h3>
+                        <div class="rec-item">
+                            <div class="rec-number">1</div>
+                            <div class="rec-content">
+                                <div class="rec-title">Develop Advanced-Level Content</div>
+                                <div>Create progression pathways for experienced practitioners.</div>
+                            </div>
+                        </div>
+                        <div class="rec-item">
+                            <div class="rec-number">2</div>
+                            <div class="rec-content">
+                                <div class="rec-title">Increase Interactive Learning</div>
+                                <div>Expand hands-on opportunities through case studies and simulations.</div>
+                            </div>
+                        </div>
+                        <div class="rec-item">
+                            <div class="rec-number">3</div>
+                            <div class="rec-content">
+                                <div class="rec-title">Expand AI & MOSA Materials</div>
+                                <div>Urgently develop content for DoD strategic priorities.</div>
+                            </div>
+                        </div>
+                        <div class="rec-item">
+                            <div class="rec-number">4</div>
+                            <div class="rec-content">
+                                <div class="rec-title">Update Content & Metadata</div>
+                                <div>Refresh older materials and complete missing metadata.</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="rec-item">
-                        <div class="rec-number">2</div>
-                        <div class="rec-content">
-                            <div class="rec-title">Increase Interactive Learning</div>
-                            <div>Expand from 4 to significantly more hands-on opportunities through case studies, exercises, and simulations.</div>
-                        </div>
-                    </div>
-                    <div class="rec-item">
-                        <div class="rec-number">3</div>
-                        <div class="rec-content">
-                            <div class="rec-title">Expand AI & MOSA Materials</div>
-                            <div>Urgently develop content aligned with DoD strategic priorities and technological transformation.</div>
-                        </div>
-                    </div>
-                    <div class="rec-item">
-                        <div class="rec-number">4</div>
-                        <div class="rec-content">
-                            <div class="rec-title">Strengthen Underserved Audiences</div>
-                            <div>Create equitable access for Engineers and Small Business stakeholders across the acquisition ecosystem.</div>
-                        </div>
-                    </div>
-                    <div class="rec-item">
-                        <div class="rec-number">5</div>
-                        <div class="rec-content">
-                            <div class="rec-title">Update Content & Metadata</div>
-                            <div>Systematically refresh older materials and complete missing metadata to improve currency and searchability.</div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="bottom-line">
-                    <h4>Bottom Line</h4>
-                    <p>The collection provides a strong foundation with diverse formats and recent growth but requires targeted improvements in emerging technology coverage, interactivity, and currency to fully meet DoD strategic needs.</p>
+                    <div class="bottom-line">
+                        <h4>Bottom Line</h4>
+                        <p>The collection provides a strong foundation with diverse formats and recent growth but requires targeted improvements in emerging technology coverage, interactivity, and currency to fully meet DoD strategic needs.</p>
+                    </div>
                 </div>
             `;
         }
+
+        // Close on overlay click
+        document.getElementById('modalOverlay').addEventListener('click', e => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 </body>
 </html>
