@@ -451,6 +451,58 @@
             transform: translateY(-1px);
         }
 
+        .replay-video-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--navy-700);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .replay-video-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .replay-video-btn:hover {
+            background: var(--navy-800);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .resource-table th {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .resource-table th:hover {
+            background: var(--slate-100);
+        }
+
+        .sort-indicator {
+            margin-left: 0.5rem;
+            opacity: 0.4;
+            font-size: 0.7rem;
+        }
+
+        .resource-table th.sorted .sort-indicator {
+            opacity: 1;
+        }
+
         .open-resource-btn.disabled {
             background: var(--slate-200);
             color: var(--slate-500);
@@ -1203,6 +1255,8 @@
         <div class="footer-stats">66 Resources &bull; 5 Categories</div>
     </main>
 
+    <button class="replay-video-btn" id="replayVideoBtn" onclick="replayIntroVideo()">▶ Replay Intro</button>
+
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-header">
@@ -1280,6 +1334,7 @@
 
             setTimeout(() => {
                 videoOverlay.remove();
+                document.getElementById('replayVideoBtn').classList.add('visible');
             }, 700);
         }
 
@@ -1294,6 +1349,39 @@
                 dismissVideo();
             }
         });
+
+        // Replay intro video function
+        function replayIntroVideo() {
+            document.getElementById('replayVideoBtn').classList.remove('visible');
+
+            const overlay = document.createElement('div');
+            overlay.className = 'video-overlay';
+            overlay.id = 'videoOverlay';
+            overlay.innerHTML = `
+                <video id="introVideo" autoplay muted loop playsinline>
+                    <source src="intro.mp4" type="video/mp4">
+                </video>
+                <div class="sound-indicator" id="soundIndicator">🔊</div>
+            `;
+            document.body.insertBefore(overlay, document.body.firstChild);
+
+            let clickCount = 0;
+            overlay.addEventListener('click', function() {
+                clickCount++;
+                const video = document.getElementById('introVideo');
+                const soundIndicator = document.getElementById('soundIndicator');
+                if (clickCount === 1) {
+                    video.muted = false;
+                    soundIndicator.style.opacity = '1';
+                } else {
+                    overlay.classList.add('dismissed');
+                    setTimeout(() => {
+                        overlay.remove();
+                        document.getElementById('replayVideoBtn').classList.add('visible');
+                    }, 700);
+                }
+            });
+        }
 
         // Escape key to dismiss immediately
         document.addEventListener('keydown', (e) => {
@@ -1427,6 +1515,8 @@
         let currentFilter = 'All';
         let searchQuery = '';
         let selectedResourceId = null;
+        let sortColumn = 'date';
+        let sortDirection = 'desc';
 
         // Particles
         const canvas = document.getElementById('particles');
@@ -1556,7 +1646,11 @@
                         </div>
                         <div class="resource-table-wrapper">
                             <table class="resource-table">
-                                <thead><tr><th>Title</th><th>Type</th><th>Date</th></tr></thead>
+                                <thead><tr>
+                                    <th onclick="handleSort('title')" class="${sortColumn === 'title' ? 'sorted' : ''}">Title <span class="sort-indicator">${sortColumn === 'title' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</span></th>
+                                    <th onclick="handleSort('type')" class="${sortColumn === 'type' ? 'sorted' : ''}">Type <span class="sort-indicator">${sortColumn === 'type' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</span></th>
+                                    <th onclick="handleSort('date')" class="${sortColumn === 'date' ? 'sorted' : ''}">Date <span class="sort-indicator">${sortColumn === 'date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</span></th>
+                                </tr></thead>
                                 <tbody id="resourceTableBody">${renderTableRows()}</tbody>
                             </table>
                         </div>
@@ -1573,10 +1667,40 @@
             if (currentFilter !== 'All') filtered = filtered.filter(r => r.type === currentFilter);
             if (searchQuery) { const q = searchQuery.toLowerCase(); filtered = filtered.filter(r => r.title.toLowerCase().includes(q)); }
             if (filtered.length === 0) return '<tr><td colspan="3" style="text-align:center;color:var(--slate-500);padding:2rem;">No resources found</td></tr>';
+
+            // Sort the filtered results
+            filtered = [...filtered].sort((a, b) => {
+                let aVal, bVal;
+                if (sortColumn === 'title') {
+                    aVal = a.title.toLowerCase();
+                    bVal = b.title.toLowerCase();
+                } else if (sortColumn === 'type') {
+                    aVal = a.type.toLowerCase();
+                    bVal = b.type.toLowerCase();
+                } else {
+                    aVal = a.date ? new Date(a.date) : new Date(0);
+                    bVal = b.date ? new Date(b.date) : new Date(0);
+                }
+                if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+                if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
             return filtered.map(r => {
                 const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '—';
                 return `<tr class="resource-row ${r.id === selectedResourceId ? 'selected' : ''}" onclick="selectResource(${r.id}, this)"><td>${r.title}</td><td>${r.type}</td><td>${dateStr}</td></tr>`;
             }).join('');
+        }
+
+        function handleSort(column) {
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
+            // Re-render the explore view to update headers and table
+            document.getElementById('modalBody').innerHTML = renderExplore();
         }
 
         function handleFilter(type, btn) {
