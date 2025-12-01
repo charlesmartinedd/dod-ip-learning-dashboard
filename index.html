@@ -1614,6 +1614,7 @@
                         ${r.videoLength ? `<div class="detail-meta-row"><span class="meta-label">Duration</span><span class="meta-value">${r.videoLength}</span></div>` : ''}
                     </div>
                     <div class="detail-audience"><span class="meta-label">Audience</span><p>${r.audience}</p></div>
+                    ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="margin-top: 1rem;">View Resource →</a>` : ''}
                 </div>
             `;
         }
