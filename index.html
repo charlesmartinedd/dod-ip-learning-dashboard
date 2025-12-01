@@ -1648,7 +1648,7 @@
                             <table class="resource-table">
                                 <thead><tr>
                                     <th onclick="handleSort('title')" class="${sortColumn === 'title' ? 'sorted' : ''}">Title <span class="sort-indicator">${sortColumn === 'title' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</span></th>
-                                    <th onclick="handleSort('type')" class="${sortColumn === 'type' ? 'sorted' : ''}">Type <span class="sort-indicator">${sortColumn === 'type' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</span></th>
+                                    <th onclick="${currentFilter === 'All' ? "handleSort('type')" : ''}" class="${sortColumn === 'type' ? 'sorted' : ''}" style="${currentFilter !== 'All' ? 'cursor: default; opacity: 0.5;' : ''}">Type <span class="sort-indicator">${currentFilter === 'All' && sortColumn === 'type' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</span></th>
                                     <th onclick="handleSort('date')" class="${sortColumn === 'date' ? 'sorted' : ''}">Date <span class="sort-indicator">${sortColumn === 'date' ? (sortDirection === 'asc' ? '▲' : '▼') : ''}</span></th>
                                 </tr></thead>
                                 <tbody id="resourceTableBody">${renderTableRows()}</tbody>
@@ -1705,16 +1705,13 @@
 
         function handleFilter(type, btn) {
             currentFilter = type;
-            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById('resourceTableBody').innerHTML = renderTableRows();
-            if (selectedResourceId) {
-                const r = RESOURCES.find(res => res.id === selectedResourceId);
-                if (type !== 'All' && r.type !== type) {
-                    selectedResourceId = null;
-                    document.getElementById('detailPanel').innerHTML = '<div class="detail-placeholder">Select a resource to view details</div>';
-                }
+            // Reset sort to date if currently sorted by type and filtering to specific type
+            if (type !== 'All' && sortColumn === 'type') {
+                sortColumn = 'date';
+                sortDirection = 'desc';
             }
+            // Re-render full explore view to update header styling
+            document.getElementById('modalBody').innerHTML = renderExploreResources();
         }
 
         function handleSearch(query) {
