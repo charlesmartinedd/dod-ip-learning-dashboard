@@ -1198,6 +1198,7 @@
             <button class="btn primary" onclick="openModal('explore')">Explore Resources</button>
             <button class="btn" onclick="openModal('analytics')">View Analytics</button>
             <button class="btn" onclick="openModal('coverage')">Coverage Report</button>
+            <button class="btn" onclick="openModal('nextsteps')">Next Steps</button>
         </div>
         <div class="footer-stats">66 Resources &bull; 5 Categories</div>
     </main>
@@ -1526,6 +1527,10 @@
                     body.innerHTML = renderCoverageReport();
                     animateCoverageElements();
                     break;
+                case 'nextsteps':
+                    title.textContent = 'Next Steps';
+                    body.innerHTML = renderNextSteps();
+                    break;
             }
         }
 
@@ -1796,6 +1801,19 @@
                         <h4>Bottom Line</h4>
                         <p>Strong foundation with diverse formats and recent growth. Requires targeted improvements in AI/MOSA coverage, interactivity, and content currency to meet DoD strategic needs.</p>
                     </div>
+                </div>
+            `;
+        }
+
+        function renderNextSteps() {
+            return `
+                <div class="coverage-content" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                    <p style="font-size: 1rem; line-height: 1.8; color: var(--navy-900); margin-bottom: 1.5rem;">
+                        The Department's Office of Small Business Programs, DAU (OUSD(A&S)), and the OUSD(R&E)/IP Cadre have partnered to create a survey designed to better understand your needs and improve support. This survey assesses prior knowledge about IP to inform the need for resources and training. The results will help identify training and resource needs prioritized for future courses, workshops, podcasts, webinars, and blogs. We have a vested interest in your professional development—we want to hear from you!
+                    </p>
+                    <a href="https://forms.office.com/pages/responsepage.aspx?id=RL4hHDUkv0m8H8ujFxhwWIuBFaDXnZBIm6WcfQrwSs5UQUdaRlJKM05SNDNSQVpLV1ZKTDVNNTdBQy4u&route=shorturl" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="display: inline-flex; margin-top: 1rem;">
+                        Take the Survey →
+                    </a>
                 </div>
             `;
         }
