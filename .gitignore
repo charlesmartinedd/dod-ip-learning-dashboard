@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Validation artifacts
+validation-output/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local environment
+.env
+.env.local
