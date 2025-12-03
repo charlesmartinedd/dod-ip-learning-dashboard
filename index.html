@@ -733,12 +733,24 @@
             margin-bottom: 1.5rem;
             border-bottom: 1px solid var(--slate-200);
             padding-bottom: 0.75rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+
+        .analytics-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .analytics-tabs::-webkit-scrollbar-thumb {
+            background: var(--slate-300);
+            border-radius: 2px;
         }
 
         .analytics-tabs button {
             background: none;
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.875rem;
             font-size: 0.8125rem;
             color: var(--slate-500);
             cursor: pointer;
@@ -746,6 +758,8 @@
             transition: all 0.2s;
             font-family: inherit;
             font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .analytics-tabs button.active {
@@ -755,6 +769,568 @@
 
         .analytics-tabs button:hover:not(.active) {
             background: var(--slate-100);
+        }
+
+        /* Quality Score Tab */
+        .quality-overview {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .quality-score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid;
+        }
+
+        .quality-score-circle.good { border-color: #10b981; background: #ecfdf5; }
+        .quality-score-circle.moderate { border-color: #f59e0b; background: #fffbeb; }
+        .quality-score-circle.poor { border-color: #ef4444; background: #fef2f2; }
+
+        .quality-score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy-900);
+            line-height: 1;
+        }
+
+        .quality-score-label {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .quality-dimensions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .quality-dimension {
+            background: var(--slate-50);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .dimension-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .dimension-name {
+            font-weight: 600;
+            color: var(--navy-900);
+        }
+
+        .dimension-value {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .dimension-value.good { color: #10b981; }
+        .dimension-value.moderate { color: #f59e0b; }
+        .dimension-value.poor { color: #ef4444; }
+
+        .dimension-bar {
+            height: 8px;
+            background: var(--slate-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .dimension-bar-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 4px;
+            transition: width 0.6s ease-out;
+        }
+
+        .dimension-bar-fill.animate {
+            width: var(--target-width);
+        }
+
+        .dimension-desc {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+        }
+
+        .quality-insights {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .insight-title {
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: 0.75rem;
+        }
+
+        .insight-list {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .insight-list li {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .insight-good { color: #059669; }
+        .insight-warning { color: #d97706; }
+
+        /* Topics Tab */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic-card {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .topic-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .topic-card.gap {
+            border-color: #fcd34d;
+            background: #fffbeb;
+        }
+
+        .topic-name {
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .topic-count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-bar {
+            height: 6px;
+            background: var(--slate-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .topic-bar-fill {
+            height: 100%;
+            width: 0;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.6s ease-out;
+        }
+
+        .topic-bar-fill.animate {
+            width: var(--target-width);
+        }
+
+        .topic-gap-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #f59e0b;
+            color: white;
+            font-size: 0.625rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .topic-insights {
+            background: var(--slate-50);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .topic-summary {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-stat {
+            text-align: center;
+        }
+
+        .topic-stat.warning .topic-stat-value {
+            color: #d97706;
+        }
+
+        .topic-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #059669;
+            display: block;
+        }
+
+        .topic-stat-label {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+        }
+
+        .gap-callout {
+            background: #fef3c7;
+            border-left: 3px solid #f59e0b;
+            padding: 0.75rem 1rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.875rem;
+        }
+
+        .gap-action {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            margin-top: 0.25rem;
+        }
+
+        /* Organization Tab */
+        .org-overview {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .org-donut {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .org-donut-center {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .org-donut-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--navy-900);
+        }
+
+        .org-donut-label {
+            font-size: 0.6875rem;
+            color: var(--slate-500);
+        }
+
+        .org-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .org-row {
+            display: grid;
+            grid-template-columns: 130px 1fr 80px;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .org-row:hover {
+            background: var(--slate-100);
+        }
+
+        .org-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--navy-900);
+        }
+
+        .org-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .org-track {
+            height: 8px;
+            background: var(--slate-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .org-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 4px;
+            transition: width 0.6s ease-out;
+        }
+
+        .org-fill.animate {
+            width: var(--target-width);
+        }
+
+        .org-count {
+            font-size: 0.8125rem;
+            color: var(--slate-600);
+            text-align: right;
+        }
+
+        .org-insight {
+            background: var(--slate-50);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--slate-600);
+        }
+
+        /* Cross-Tab Heatmap */
+        .crosstab-container {
+            overflow: hidden;
+        }
+
+        .crosstab-scroll {
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        .heatmap-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8125rem;
+            min-width: 400px;
+        }
+
+        .heatmap-table th, .heatmap-table td {
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--slate-200);
+        }
+
+        .heatmap-table th {
+            background: var(--slate-100);
+            font-weight: 600;
+            color: var(--navy-900);
+        }
+
+        .heatmap-table .type-label {
+            text-align: left;
+            font-weight: 500;
+            background: var(--slate-50);
+        }
+
+        .heatmap-cell {
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+            z-index: 1;
+            position: relative;
+        }
+
+        .heat-0 { background: #f8fafc; color: #94a3b8; }
+        .heat-1 { background: #dbeafe; color: #1e40af; }
+        .heat-2 { background: #93c5fd; color: #1e3a8a; }
+        .heat-3 { background: #60a5fa; color: white; }
+        .heat-4 { background: #3b82f6; color: white; }
+        .heat-5 { background: #1d4ed8; color: white; }
+
+        .row-total, .col-total {
+            font-weight: 600;
+            background: var(--slate-100);
+        }
+
+        .grand-total {
+            font-weight: 700;
+            background: var(--navy-700);
+            color: white;
+        }
+
+        .heatmap-legend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            margin-bottom: 1rem;
+        }
+
+        .legend-scale {
+            display: flex;
+            gap: 2px;
+        }
+
+        .legend-cell {
+            width: 20px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .crosstab-insight {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
+            text-align: center;
+        }
+
+        /* Resource List Panel */
+        .resource-list-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            max-width: 90vw;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+        }
+
+        .resource-list-panel.active {
+            right: 0;
+        }
+
+        .resource-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--slate-200);
+            background: var(--slate-50);
+        }
+
+        .resource-list-header h3 {
+            margin: 0;
+            font-size: 1.125rem;
+            color: var(--navy-900);
+        }
+
+        .resource-list-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--slate-400);
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .resource-list-close:hover {
+            background: var(--slate-200);
+            color: var(--navy-900);
+        }
+
+        .resource-list-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 1.5rem;
+        }
+
+        .resource-list-count {
+            font-size: 0.875rem;
+            color: var(--slate-500);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .resource-list-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .resource-list-item {
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .resource-list-item:hover {
+            border-color: var(--accent);
+            background: white;
+            transform: translateX(4px);
+        }
+
+        .resource-list-type {
+            display: inline-block;
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            margin-bottom: 0.375rem;
+        }
+
+        .resource-list-type.video { background: #dcfce7; color: #166534; }
+        .resource-list-type.document { background: #fef3c7; color: #92400e; }
+        .resource-list-type.webinar { background: #fce7f3; color: #9d174d; }
+        .resource-list-type.training { background: #dbeafe; color: #1e40af; }
+        .resource-list-type.website { background: #f3e8ff; color: #6b21a8; }
+
+        .resource-list-title {
+            font-weight: 500;
+            color: var(--navy-900);
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        .resource-list-date {
+            font-size: 0.75rem;
+            color: var(--slate-400);
+            margin-top: 0.25rem;
+        }
+
+        .no-resources {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--slate-400);
         }
 
         /* Stat Cards */
@@ -1938,6 +2514,15 @@
         </div>
     </div>
 
+    <!-- Resource List Panel for Analytics Drilldowns -->
+    <div class="resource-list-panel" id="resourceListPanel">
+        <div class="resource-list-header">
+            <h3 id="resourceListTitle">Resources</h3>
+            <button class="resource-list-close" onclick="closeResourceListPanel()">&times;</button>
+        </div>
+        <div class="resource-list-body" id="resourceListBody"></div>
+    </div>
+
     <script>
         // Video Intro State
         let videoClickCount = 0;
@@ -2866,6 +3451,115 @@
             }).length;
         });
 
+        // Topic classification
+        const TOPIC_KEYWORDS = {
+            'Fundamentals': ['foundational', 'basic', 'introduction', 'fundamentals', 'overview', 'primer', 'essential'],
+            'IP Strategy': ['strategy', 'strategic', 'planning', 'management', 'assessment'],
+            'Data Rights': ['data rights', 'licensing', 'markings', 'technical data', 'rights in', 'license rights'],
+            'SBIR/STTR': ['sbir', 'sttr', 'small business', 'innovation research'],
+            'MOSA': ['mosa', 'modular open systems', 'open architecture', 'open systems'],
+            'Product Support': ['product support', 'sustainment', 'lifecycle', 'life cycle', 'maintenance', 'organic'],
+            'AI/Emerging Tech': ['artificial intelligence', ' ai ', 'emerging', 'machine learning', 'autonomous'],
+            'Contracting/FAR': ['contracting', 'far ', 'dfars', 'contract', 'clause', 'solicitation'],
+            'Policy/Guidance': ['policy', 'guidance', 'dodi', 'directive', 'instruction', 'regulation', 'memo']
+        };
+
+        function classifyResourceTopics(resource) {
+            const text = (resource.title + ' ' + resource.description + ' ' + resource.audience).toLowerCase();
+            const topics = [];
+            Object.entries(TOPIC_KEYWORDS).forEach(([topic, keywords]) => {
+                if (keywords.some(kw => text.includes(kw))) {
+                    topics.push(topic);
+                }
+            });
+            return topics.length > 0 ? topics : ['General'];
+        }
+
+        const TOPIC_COUNTS = {};
+        Object.keys(TOPIC_KEYWORDS).forEach(topic => TOPIC_COUNTS[topic] = 0);
+        TOPIC_COUNTS['General'] = 0;
+
+        RESOURCES.forEach(r => {
+            const topics = classifyResourceTopics(r);
+            topics.forEach(t => TOPIC_COUNTS[t] = (TOPIC_COUNTS[t] || 0) + 1);
+        });
+
+        // Organization extraction and counts
+        function extractOrganization(resource) {
+            const text = (resource.title + ' ' + resource.description).toLowerCase();
+            if (text.includes('dau') || text.includes('defense acquisition university')) return 'DAU';
+            if (text.includes('ip cadre') || text.includes('intellectual property cadre')) return 'IP Cadre';
+            if (text.includes('ousd') || text.includes('under secretary of defense')) return 'OUSD(A&S)';
+            if (text.includes('dpap') || text.includes('defense procurement')) return 'DPAP';
+            if (text.includes('dla') || text.includes('defense logistics agency')) return 'DLA';
+            if (text.includes('sbir') || text.includes('sttr')) return 'SBIR/STTR Office';
+            if (text.includes('ncma') || text.includes('national contract management')) return 'NCMA';
+            if (text.includes('air force') || text.includes('aflcmc')) return 'Air Force';
+            if (text.includes('navy') || text.includes('navsea') || text.includes('navair')) return 'Navy';
+            if (text.includes('army') || text.includes('amc')) return 'Army';
+            if (resource.url && resource.url.includes('dau.')) return 'DAU';
+            if (resource.url && resource.url.includes('acq.osd.mil')) return 'OUSD(A&S)';
+            return 'Other DoD';
+        }
+
+        const ORG_COUNTS = {};
+        RESOURCES.forEach(r => {
+            const org = extractOrganization(r);
+            ORG_COUNTS[org] = (ORG_COUNTS[org] || 0) + 1;
+        });
+
+        // Quality dimension calculation
+        function calculateQualityDimensions() {
+            // Completeness: resources with all metadata (date, description, url)
+            const complete = RESOURCES.filter(r => r.date && r.description && r.url).length;
+            const completeness = Math.round((complete / RESOURCES.length) * 100);
+
+            // Currency: resources from 2024-2025
+            const recent = RESOURCES.filter(r => {
+                if (!r.date) return false;
+                const year = parseInt(r.date.split('-')[0]);
+                return year >= 2024;
+            }).length;
+            const currency = Math.round((recent / RESOURCES.length) * 100);
+
+            // Diversity: coverage of all types (out of 5 main types)
+            const mainTypes = ['Video', 'Document', 'Webinar', 'Training', 'Website'];
+            const typesPresent = mainTypes.filter(t => TYPE_COUNTS[t] > 0).length;
+            const diversity = Math.round((typesPresent / mainTypes.length) * 100);
+
+            // Coverage: average of audience and topic coverage
+            const audiencesCovered = Object.values(audienceCounts).filter(c => c > 0).length;
+            const topicsCovered = Object.values(TOPIC_COUNTS).filter(c => c > 2).length; // at least 3 resources
+            const audienceCoverage = Math.round((audiencesCovered / Object.keys(AUDIENCE_KEYWORDS).length) * 100);
+            const topicCoverage = Math.round((topicsCovered / Object.keys(TOPIC_KEYWORDS).length) * 100);
+            const coverage = Math.round((audienceCoverage + topicCoverage) / 2);
+
+            // Overall weighted score
+            const overall = Math.round(
+                completeness * 0.25 + currency * 0.25 + diversity * 0.20 + coverage * 0.30
+            );
+
+            return { completeness, currency, diversity, coverage, overall };
+        }
+
+        const QUALITY_DIMENSIONS = calculateQualityDimensions();
+
+        // Cross-tabulation: Type x Year matrix
+        const CROSS_TAB = {};
+        const YEARS_LIST = Object.keys(YEAR_DATA).sort();
+        Object.keys(TYPE_COUNTS).forEach(type => {
+            CROSS_TAB[type] = {};
+            YEARS_LIST.forEach(year => CROSS_TAB[type][year] = 0);
+        });
+        RESOURCES.forEach(r => {
+            if (r.date && r.type) {
+                const year = r.date.split('-')[0];
+                if (CROSS_TAB[r.type] && CROSS_TAB[r.type][year] !== undefined) {
+                    CROSS_TAB[r.type][year]++;
+                }
+            }
+        });
+
         // Find newest and oldest
         const datedResources = RESOURCES.filter(r => r.date).sort((a, b) => new Date(b.date) - new Date(a.date));
         const newest = datedResources[0];
@@ -3125,16 +3819,14 @@
                             <button onclick="showAnalyticsTab('type', this)">By Type</button>
                             <button onclick="showAnalyticsTab('timeline', this)">Timeline</button>
                             <button onclick="showAnalyticsTab('audience', this)">Audience</button>
+                            <button onclick="showAnalyticsTab('quality', this)">Quality</button>
+                            <button onclick="showAnalyticsTab('topics', this)">Topics</button>
+                            <button onclick="showAnalyticsTab('organization', this)">Organization</button>
+                            <button onclick="showAnalyticsTab('crosstab', this)">Cross-Tab</button>
                         </div>
                         <div class="export-options">
-                            <button class="export-btn" onclick="exportToCSV()" title="Export all resources to CSV">
-                                <span>&#8595;</span> CSV
-                            </button>
-                            <button class="export-btn" onclick="exportAnalyticsToCSV()" title="Export analytics summary">
-                                <span>&#8595;</span> Analytics
-                            </button>
-                            <button class="export-btn" onclick="exportToJSON()" title="Export full data as JSON">
-                                <span>&#8595;</span> JSON
+                            <button class="export-btn" onclick="exportAnalyticsToCSV()" title="Export analytics summary to CSV">
+                                <span>&#8595;</span> Export Analytics
                             </button>
                         </div>
                     </div>
@@ -3304,6 +3996,182 @@
                     <div class="insight-callout"><strong>Insight:</strong> ${lowest[0][0]} and ${lowest[1][0]} stakeholders have the least dedicated coverage (${Math.round(lowest[0][1]/total*100)}% and ${Math.round(lowest[1][1]/total*100)}% of resources respectively).</div>
                 `;
                 setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
+            } else if (tab === 'quality') {
+                const q = QUALITY_DIMENSIONS;
+                const dimensions = [
+                    { name: 'Completeness', value: q.completeness, desc: 'Resources with complete metadata (date, description, URL)', color: '#2563eb' },
+                    { name: 'Currency', value: q.currency, desc: 'Resources published in 2024-2025', color: '#10b981' },
+                    { name: 'Diversity', value: q.diversity, desc: 'Coverage across resource types', color: '#f59e0b' },
+                    { name: 'Coverage', value: q.coverage, desc: 'Audience and topic breadth', color: '#8b5cf6' }
+                ];
+                const getScoreClass = (v) => v >= 70 ? 'good' : v >= 50 ? 'moderate' : 'poor';
+                container.innerHTML = `
+                    <div class="quality-overview">
+                        <div class="quality-score-circle ${getScoreClass(q.overall)}">
+                            <div class="quality-score-value">${q.overall}</div>
+                            <div class="quality-score-label">Overall</div>
+                        </div>
+                    </div>
+                    <div class="quality-dimensions">
+                        ${dimensions.map(d => `
+                            <div class="quality-dimension">
+                                <div class="dimension-header">
+                                    <span class="dimension-name">${d.name}</span>
+                                    <span class="dimension-value ${getScoreClass(d.value)}">${d.value}%</span>
+                                </div>
+                                <div class="dimension-bar">
+                                    <div class="dimension-bar-fill" style="--target-width: ${d.value}%; background: ${d.color};"></div>
+                                </div>
+                                <div class="dimension-desc">${d.desc}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="quality-insights">
+                        <div class="insight-title">Quality Insights</div>
+                        <ul class="insight-list">
+                            ${q.completeness < 60 ? '<li class="insight-warning">Metadata completeness needs attention - many resources lack dates</li>' : '<li class="insight-good">Good metadata coverage across resources</li>'}
+                            ${q.currency < 50 ? '<li class="insight-warning">Content refresh needed - majority is pre-2024</li>' : '<li class="insight-good">Strong proportion of recent content</li>'}
+                            ${q.coverage < 70 ? '<li class="insight-warning">Some audiences/topics underserved</li>' : '<li class="insight-good">Broad coverage across audiences and topics</li>'}
+                        </ul>
+                    </div>
+                `;
+                setTimeout(() => document.querySelectorAll('.dimension-bar-fill').forEach(b => b.classList.add('animate')), 50);
+            } else if (tab === 'topics') {
+                const topics = Object.entries(TOPIC_COUNTS).filter(([t]) => t !== 'General').sort((a, b) => b[1] - a[1]);
+                const max = Math.max(...topics.map(t => t[1]));
+                const gapThreshold = 5;
+                const gaps = topics.filter(([, count]) => count < gapThreshold);
+                container.innerHTML = `
+                    <div class="topics-grid">
+                        ${topics.map(([topic, count]) => {
+                            const isGap = count < gapThreshold;
+                            return `
+                                <div class="topic-card ${isGap ? 'gap' : ''}" onclick="showTopicResources('${topic}')">
+                                    <div class="topic-name">${topic}</div>
+                                    <div class="topic-count">${count}</div>
+                                    <div class="topic-bar">
+                                        <div class="topic-bar-fill" style="--target-width: ${count/max*100}%;"></div>
+                                    </div>
+                                    ${isGap ? '<div class="topic-gap-badge">Gap</div>' : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="topic-insights">
+                        <div class="insight-title">Topic Analysis</div>
+                        <div class="topic-summary">
+                            <div class="topic-stat">
+                                <span class="topic-stat-value">${topics.filter(([,c]) => c >= gapThreshold).length}</span>
+                                <span class="topic-stat-label">Well-covered</span>
+                            </div>
+                            <div class="topic-stat warning">
+                                <span class="topic-stat-value">${gaps.length}</span>
+                                <span class="topic-stat-label">Gaps (&lt;${gapThreshold})</span>
+                            </div>
+                        </div>
+                        ${gaps.length > 0 ? `
+                            <div class="gap-callout">
+                                <strong>Priority gaps:</strong> ${gaps.map(([t]) => t).join(', ')}
+                                <div class="gap-action">Consider developing content for these areas</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                setTimeout(() => document.querySelectorAll('.topic-bar-fill').forEach(b => b.classList.add('animate')), 50);
+            } else if (tab === 'organization') {
+                const orgs = Object.entries(ORG_COUNTS).sort((a, b) => b[1] - a[1]);
+                const max = Math.max(...orgs.map(o => o[1]));
+                const colors = ['#2563eb', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#64748b'];
+                let cumPercent = 0;
+                const gradientStops = orgs.map(([org, count], i) => {
+                    const percent = (count / RESOURCES.length) * 100;
+                    const start = cumPercent;
+                    cumPercent += percent;
+                    return `${colors[i % colors.length]} ${start}% ${cumPercent}%`;
+                }).join(', ');
+                container.innerHTML = `
+                    <div class="org-overview">
+                        <div class="org-donut" style="background: conic-gradient(${gradientStops})">
+                            <div class="org-donut-center">
+                                <div class="org-donut-value">${orgs.length}</div>
+                                <div class="org-donut-label">Sources</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="org-bars">
+                        ${orgs.map(([org, count], i) => `
+                            <div class="org-row" onclick="showOrgResources('${org}')">
+                                <div class="org-label">
+                                    <span class="org-dot" style="background: ${colors[i % colors.length]}"></span>
+                                    ${org}
+                                </div>
+                                <div class="org-track">
+                                    <div class="org-fill" style="--target-width: ${count/max*100}%; background: ${colors[i % colors.length]}"></div>
+                                </div>
+                                <div class="org-count">${count} (${Math.round(count/RESOURCES.length*100)}%)</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="org-insight">
+                        <strong>Source Distribution:</strong> ${orgs[0][0]} leads with ${orgs[0][1]} resources (${Math.round(orgs[0][1]/RESOURCES.length*100)}%).
+                        ${orgs.length > 5 ? ` Content spans ${orgs.length} distinct organizational sources.` : ''}
+                    </div>
+                `;
+                setTimeout(() => document.querySelectorAll('.org-fill').forEach(b => b.classList.add('animate')), 50);
+            } else if (tab === 'crosstab') {
+                const types = Object.keys(TYPE_COUNTS).sort();
+                const years = YEARS_LIST;
+                const maxCell = Math.max(...types.flatMap(t => years.map(y => CROSS_TAB[t]?.[y] || 0)));
+                const getHeatClass = (v) => v === 0 ? 'heat-0' : v <= 2 ? 'heat-1' : v <= 4 ? 'heat-2' : v <= 6 ? 'heat-3' : v <= 10 ? 'heat-4' : 'heat-5';
+                container.innerHTML = `
+                    <div class="crosstab-container">
+                        <div class="crosstab-scroll">
+                            <table class="heatmap-table">
+                                <thead>
+                                    <tr>
+                                        <th>Type / Year</th>
+                                        ${years.map(y => `<th>${y}</th>`).join('')}
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${types.map(type => `
+                                        <tr>
+                                            <td class="type-label">${type}</td>
+                                            ${years.map(year => {
+                                                const val = CROSS_TAB[type]?.[year] || 0;
+                                                return `<td class="heatmap-cell ${getHeatClass(val)}" onclick="showCrossTabResources('${type}', '${year}')" title="${type} - ${year}: ${val}">${val || ''}</td>`;
+                                            }).join('')}
+                                            <td class="row-total">${TYPE_COUNTS[type] || 0}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        ${years.map(y => `<td class="col-total">${YEAR_DATA[y] || 0}</td>`).join('')}
+                                        <td class="grand-total">${RESOURCES.length}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="heatmap-legend">
+                            <span>Fewer</span>
+                            <div class="legend-scale">
+                                <div class="legend-cell heat-0"></div>
+                                <div class="legend-cell heat-1"></div>
+                                <div class="legend-cell heat-2"></div>
+                                <div class="legend-cell heat-3"></div>
+                                <div class="legend-cell heat-4"></div>
+                                <div class="legend-cell heat-5"></div>
+                            </div>
+                            <span>More</span>
+                        </div>
+                        <div class="crosstab-insight">
+                            Click any cell to see matching resources. This matrix shows content distribution across types and publication years.
+                        </div>
+                    </div>
+                `;
             }
         }
 
@@ -3621,6 +4489,54 @@
             document.getElementById('detailOverlay').classList.remove('active');
         }
 
+        // Resource list panel for drilldowns
+        function showResourceListPanel(title, resources) {
+            const panel = document.getElementById('resourceListPanel');
+            const titleEl = document.getElementById('resourceListTitle');
+            const bodyEl = document.getElementById('resourceListBody');
+
+            titleEl.textContent = title;
+            if (resources.length === 0) {
+                bodyEl.innerHTML = '<div class="no-resources">No resources match this criteria.</div>';
+            } else {
+                bodyEl.innerHTML = `
+                    <div class="resource-list-count">${resources.length} resource${resources.length !== 1 ? 's' : ''}</div>
+                    <div class="resource-list-items">
+                        ${resources.map(r => `
+                            <div class="resource-list-item" onclick="selectResource(${r.id})">
+                                <div class="resource-list-type ${r.type.toLowerCase()}">${r.type}</div>
+                                <div class="resource-list-title">${r.title}</div>
+                                ${r.date ? `<div class="resource-list-date">${r.date}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            panel.classList.add('active');
+        }
+
+        function closeResourceListPanel() {
+            document.getElementById('resourceListPanel').classList.remove('active');
+        }
+
+        function showTopicResources(topic) {
+            const resources = RESOURCES.filter(r => {
+                const topics = classifyResourceTopics(r);
+                return topics.includes(topic);
+            });
+            showResourceListPanel(`Topic: ${topic}`, resources);
+        }
+
+        function showOrgResources(org) {
+            const resources = RESOURCES.filter(r => extractOrganization(r) === org);
+            showResourceListPanel(`Source: ${org}`, resources);
+        }
+
+        function showCrossTabResources(type, year) {
+            const resources = RESOURCES.filter(r => r.type === type && r.date && r.date.startsWith(year));
+            showResourceListPanel(`${type} - ${year}`, resources);
+        }
+
         // Initialize Executive Summary Cards (compact)
         function initStatsCards() {
             const statsContainer = document.getElementById('statsCards');
@@ -3762,23 +4678,6 @@
 
         // ========== EXPORT FUNCTIONALITY ==========
 
-        function exportToCSV() {
-            const headers = ['ID', 'Title', 'Type', 'Organization', 'Date', 'URL', 'Summary', 'Audience'];
-            const rows = RESOURCES.map(r => [
-                r.id,
-                `"${(r.title || '').replace(/"/g, '""')}"`,
-                r.type,
-                r.organization,
-                r.date || '',
-                r.url,
-                `"${(r.summary || '').replace(/"/g, '""')}"`,
-                `"${(r.audience || '').replace(/"/g, '""')}"`
-            ]);
-
-            const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-            downloadFile(csvContent, 'DoD_IP_Resources.csv', 'text/csv');
-        }
-
         function exportAnalyticsToCSV() {
             // Resource type counts
             const typeCounts = {};
@@ -3812,33 +4711,6 @@
             });
 
             downloadFile(csvContent, 'DoD_IP_Analytics.csv', 'text/csv');
-        }
-
-        function exportToJSON() {
-            const exportData = {
-                exportDate: new Date().toISOString(),
-                totalResources: RESOURCES.length,
-                resources: RESOURCES,
-                analytics: {
-                    byType: {},
-                    byYear: {},
-                    byOrganization: {}
-                }
-            };
-
-            RESOURCES.forEach(r => {
-                exportData.analytics.byType[r.type] = (exportData.analytics.byType[r.type] || 0) + 1;
-                if (r.date) {
-                    const year = r.date.split('-')[0];
-                    exportData.analytics.byYear[year] = (exportData.analytics.byYear[year] || 0) + 1;
-                }
-                if (r.organization) {
-                    exportData.analytics.byOrganization[r.organization] = (exportData.analytics.byOrganization[r.organization] || 0) + 1;
-                }
-            });
-
-            const jsonContent = JSON.stringify(exportData, null, 2);
-            downloadFile(jsonContent, 'DoD_IP_Resources.json', 'application/json');
         }
 
         function downloadFile(content, filename, mimeType) {
