@@ -1662,6 +1662,16 @@
         </div>
     </div>
 
+    <!-- Detail Modal for Strengths/Gaps/Actions -->
+    <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+        <div class="detail-modal" onclick="event.stopPropagation()">
+            <button class="detail-close" onclick="closeDetail()">&times;</button>
+            <h3 class="detail-title" id="detailTitle">Title</h3>
+            <div class="detail-body" id="detailBody"></div>
+            <button class="detail-back" onclick="closeDetail()">← Back to List</button>
+        </div>
+    </div>
+
     <script>
         // Video Intro State
         let videoClickCount = 0;
@@ -2970,12 +2980,12 @@
                             <div class="bar-row">
                                 <div class="bar-label">${name}</div>
                                 <div class="bar-track">
-                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${count/max*100}%">${count} (${Math.round(count/66*100)}%)</div>
+                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${count/max*100}%">${count} (${Math.round(count/total*100)}%)</div>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="insight-callout"><strong>Insight:</strong> ${types[0][0]} and ${types[1][0]} account for ${Math.round(topTwo/66*100)}% of the collection.</div>
+                    <div class="insight-callout"><strong>Insight:</strong> ${types[0][0]} and ${types[1][0]} account for ${Math.round(topTwo/total*100)}% of the collection.</div>
                 `;
                 setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
             } else if (tab === 'timeline') {
@@ -2994,7 +3004,7 @@
                         `).join('')}
                     </div>
                     <div class="insight-callout"><strong>2025 represents the most active year</strong> for IP resource development, with ${YEAR_DATA['2025'] || 0} new additions year-to-date.</div>
-                    <div class="chart-note">* ${datedCount} of 66 resources (${Math.round(datedCount/66*100)}%) have publication dates. 28 resources lack date metadata.</div>
+                    <div class="chart-note">* ${datedCount} of 66 resources (${Math.round(datedCount/total*100)}%) have publication dates. 28 resources lack date metadata.</div>
                 `;
                 setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
             } else if (tab === 'audience') {
@@ -3007,7 +3017,7 @@
                             <div class="bar-row">
                                 <div class="bar-label">${role}</div>
                                 <div class="bar-track">
-                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${count/max*100}%">${count} (${Math.round(count/66*100)}%)</div>
+                                    <div class="bar-fill ${i === 0 ? 'highlight' : ''}" style="--target-width: ${count/max*100}%">${count} (${Math.round(count/total*100)}%)</div>
                                 </div>
                             </div>
                         `).join('')}
@@ -3100,33 +3110,33 @@
                 title.textContent = 'Collection Strengths';
                 body.innerHTML = `
                     <div class="drilldown-grid">
-                        <div class="drilldown-item strength"><div class="drilldown-item-title">Robust Foundational Content</div><div class="drilldown-item-desc">Strong entry points for new personnel entering the IP field.</div></div>
-                        <div class="drilldown-item strength"><div class="drilldown-item-title">Strong Video Representation</div><div class="drilldown-item-desc">34% video content enables visual demonstration of complex concepts.</div></div>
-                        <div class="drilldown-item strength"><div class="drilldown-item-title">DAU Credential Alignment</div><div class="drilldown-item-desc">Comprehensive coverage with workforce development pathways.</div></div>
-                        <div class="drilldown-item strength"><div class="drilldown-item-title">Active 2025 Development</div><div class="drilldown-item-desc">${YEAR_DATA['2025'] || 0} new resources demonstrate sustained commitment.</div></div>
-                        <div class="drilldown-item strength"><div class="drilldown-item-title">Format Diversity</div><div class="drilldown-item-desc">Balance of videos, documents, webinars, and courses.</div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-1')"><div class="drilldown-item-title">Robust Foundational Content</div><div class="drilldown-item-desc">Strong entry points for new personnel entering the IP field. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-2')"><div class="drilldown-item-title">Strong Video Representation</div><div class="drilldown-item-desc">20% video content enables visual demonstration of complex concepts. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-3')"><div class="drilldown-item-title">DAU Credential Alignment</div><div class="drilldown-item-desc">Comprehensive coverage with workforce development pathways. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-4')"><div class="drilldown-item-title">Active 2025 Development</div><div class="drilldown-item-desc">${YEAR_DATA['2025'] || 0} new resources demonstrate sustained commitment. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-5')"><div class="drilldown-item-title">Format Diversity</div><div class="drilldown-item-desc">Balance of videos, documents, webinars, and courses. <em>Click for details →</em></div></div>
                     </div>
                 `;
             } else if (type === 'gaps') {
                 title.textContent = 'Strategic Gaps';
                 body.innerHTML = `
                     <div class="drilldown-grid">
-                        <div class="drilldown-item gap-high"><span class="gap-badge high">High</span><div class="drilldown-item-title">AI/Emerging Tech Coverage</div><div class="drilldown-item-desc">Only 3 resources address AI, ML, and advancing technologies.</div></div>
-                        <div class="drilldown-item gap-high"><span class="gap-badge high">High</span><div class="drilldown-item-title">Limited MOSA Content</div><div class="drilldown-item-desc">Only 4 resources support architectural transformation.</div></div>
-                        <div class="drilldown-item gap-medium"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Metadata Quality</div><div class="drilldown-item-desc">28 resources (42%) lack publication dates.</div></div>
-                        <div class="drilldown-item gap-medium"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Limited Currency</div><div class="drilldown-item-desc">63% of content is pre-2024, affecting policy alignment.</div></div>
-                        <div class="drilldown-item gap-medium"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Audience Gaps</div><div class="drilldown-item-desc">Engineers and Small Business have lowest coverage.</div></div>
-                        <div class="drilldown-item gap-low"><span class="gap-badge low">Low</span><div class="drilldown-item-title">Interactive Learning</div><div class="drilldown-item-desc">Only 4 hands-on learning opportunities.</div></div>
+                        <div class="drilldown-item gap-high" onclick="openDetail('gap-1')"><span class="gap-badge high">High</span><div class="drilldown-item-title">AI/Emerging Tech Coverage</div><div class="drilldown-item-desc">Only 3 resources address AI, ML, and advancing technologies. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item gap-high" onclick="openDetail('gap-2')"><span class="gap-badge high">High</span><div class="drilldown-item-title">Limited MOSA Content</div><div class="drilldown-item-desc">Only 4 resources support architectural transformation. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-3')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Metadata Quality</div><div class="drilldown-item-desc">28 resources (42%) lack publication dates. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-4')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Limited Currency</div><div class="drilldown-item-desc">63% of content is pre-2024, affecting policy alignment. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-5')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Audience Gaps</div><div class="drilldown-item-desc">Engineers and Small Business have lowest coverage. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item gap-low" onclick="openDetail('gap-6')"><span class="gap-badge low">Low</span><div class="drilldown-item-title">Interactive Learning</div><div class="drilldown-item-desc">Only 4 hands-on learning opportunities. <em>Click for details →</em></div></div>
                     </div>
                 `;
             } else if (type === 'actions') {
                 title.textContent = 'Recommended Actions';
                 body.innerHTML = `
                     <div class="drilldown-grid">
-                        <div class="drilldown-item action"><span class="action-number">1</span><div class="drilldown-item-title">Expand AI & MOSA Materials</div><div class="drilldown-item-desc">Urgently develop content for DoD strategic priorities. Timeline: Now</div></div>
-                        <div class="drilldown-item action"><span class="action-number">2</span><div class="drilldown-item-title">Update Content & Metadata</div><div class="drilldown-item-desc">Refresh older materials and complete missing dates. Timeline: Q1</div></div>
-                        <div class="drilldown-item action"><span class="action-number">3</span><div class="drilldown-item-title">Increase Interactive Learning</div><div class="drilldown-item-desc">Add case studies and simulations. Timeline: Q2</div></div>
-                        <div class="drilldown-item action"><span class="action-number">4</span><div class="drilldown-item-title">Address Audience Gaps</div><div class="drilldown-item-desc">Create content for Engineers and Small Business. Timeline: Q2</div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-1')"><span class="action-number">1</span><div class="drilldown-item-title">Expand AI & MOSA Materials</div><div class="drilldown-item-desc">Urgently develop content for DoD strategic priorities. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-2')"><span class="action-number">2</span><div class="drilldown-item-title">Update Content & Metadata</div><div class="drilldown-item-desc">Refresh older materials and complete missing dates. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-3')"><span class="action-number">3</span><div class="drilldown-item-title">Increase Interactive Learning</div><div class="drilldown-item-desc">Add case studies and simulations. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-4')"><span class="action-number">4</span><div class="drilldown-item-title">Address Audience Gaps</div><div class="drilldown-item-desc">Create content for Engineers and Small Business. <em>Click for details →</em></div></div>
                     </div>
                 `;
             }
@@ -3138,6 +3148,197 @@
             document.getElementById('drilldownOverlay').classList.remove('active');
         }
 
+
+        // Detail Content for Strengths, Gaps, and Actions
+        const DETAIL_CONTENT = {
+            // ========== STRENGTHS ==========
+            'strength-1': {
+                title: 'Robust Foundational Content',
+                paragraphs: [
+                    'The collection provides an exceptionally strong foundation for professionals new to intellectual property in defense acquisition. The Foundational IP Credential (CACQ 008A) offers a comprehensive 19-hour curriculum covering IP fundamentals, data rights, licensing, and strategy development. This is complemented by a structured series of ACQ courses (0710-0760) that progressively build expertise from basic concepts to advanced applications.',
+                    'These foundational resources create clear learning pathways aligned with DoD workforce development requirements. Professionals can start with introductory materials like the IP Guidebook and FAQ resources, then progress through formal DAU certification programs. This structured approach ensures acquisition personnel develop consistent, standardized knowledge of IP and data rights requirements across the Department.'
+                ],
+                resources: [1, 2, 3, 52, 11]
+            },
+            'strength-2': {
+                title: 'Strong Video Representation',
+                paragraphs: [
+                    'Video content comprises 13 resources (20% of the collection), providing visual demonstrations of complex IP concepts that would be difficult to convey through text alone. These videos range from 6-15 minutes, making them accessible for busy acquisition professionals who need quick refreshers or introductions to specific topics. The video format is particularly effective for explaining procedural content like data markings validation and IP strategy development.',
+                    'The variety of video topics covers the full spectrum of IP issues, from foundational overviews to specialized areas like SBIR/STTR data rights and supply chain considerations. This visual learning modality complements the text-based training courses and documents, ensuring diverse learning styles are accommodated and complex concepts like licensing schemes and DFARS clauses are clearly communicated.'
+                ],
+                resources: [16, 14, 17, 18, 19]
+            },
+            'strength-3': {
+                title: 'DAU Credential Alignment',
+                paragraphs: [
+                    'The collection is tightly integrated with Defense Acquisition University certification pathways, particularly the Foundational IP Credential (CACQ 008A). This credential program aggregates multiple courses into a cohesive learning journey that provides Continuous Learning Points (CLPs) upon completion. The 10% incentive CLP bonus motivates completion and recognizes the comprehensive nature of the credential.',
+                    'This alignment ensures that IP and Data Rights training contributes directly to career progression within the acquisition workforce. Professionals can confidently invest time in these resources knowing they support both immediate job performance and long-term professional development goals mandated by DoD policy. The credential structure also ensures knowledge is validated through capstone exercises.'
+                ],
+                resources: [1, 10, 2, 3, 5]
+            },
+            'strength-4': {
+                title: 'Active 2025 Development',
+                paragraphs: [
+                    'With 14 new resources added in 2025 representing 22% of the total collection, the IP resource library demonstrates sustained commitment to currency and relevance. These recent additions address evolving policy requirements, updated DFARS clauses, and emerging topics in defense acquisition. The pace of development indicates active curation and responsiveness to workforce needs.',
+                    'This momentum is particularly important given the rapidly changing IP landscape driven by AI adoption, digital engineering initiatives, and supply chain security concerns. New 2025 content includes updated video explainers, refreshed webinars, and current guidance documents that reflect the latest DoD acquisition policies and industry best practices.'
+                ],
+                resources: [6, 10, 11, 12, 14]
+            },
+            'strength-5': {
+                title: 'Format Diversity',
+                paragraphs: [
+                    'The collection spans six distinct format types: Training courses, Videos, Documents, Websites, Webinars, and Other resources. This diversity accommodates different learning preferences, time constraints, and use cases. Training courses provide structured certification paths, videos offer quick visual explanations, documents serve as reference materials, and websites provide up-to-date FAQs and guidance.',
+                    'This format variety also supports different stages of the learning journey. Someone new to IP might start with a short overview video, then progress to formal online training, and later reference documents or webinars for specific situations. The combination of synchronous (webinars), asynchronous (training, videos), and reference (documents, websites) formats creates a comprehensive learning ecosystem.'
+                ],
+                resources: [1, 16, 52, 12, 15]
+            },
+
+            // ========== GAPS ==========
+            'gap-1': {
+                title: 'AI/Emerging Tech Coverage',
+                priority: 'High',
+                paragraphs: [
+                    'Only 3 resources in the collection specifically address intellectual property considerations for artificial intelligence, machine learning, and other emerging technologies. Given the DoD\'s accelerating adoption of AI across acquisition programs and the unique IP challenges these technologies present (training data rights, model weights, algorithmic transparency), this represents a critical gap that affects program execution today.',
+                    'The IP implications of AI are fundamentally different from traditional software and technical data. Issues like data provenance, model licensing, vendor lock-in for AI services, and rights to derivative models require new frameworks that the current collection does not adequately address. Programs implementing AI capabilities are navigating these issues with limited official guidance.'
+                ],
+                resources: [52, 1, 8]
+            },
+            'gap-2': {
+                title: 'Limited MOSA Content',
+                priority: 'High',
+                paragraphs: [
+                    'Despite Modular Open Systems Approach (MOSA) being a statutory requirement and cornerstone of acquisition reform, only 4 resources explicitly address MOSA-related IP and data rights considerations. The intersection of open architecture requirements and contractor IP protection is a persistent challenge for program offices, yet dedicated guidance is sparse.',
+                    'MOSA implementation requires careful negotiation of interface specifications, data rights for modular components, and licensing strategies that balance openness with industry incentives. Program managers need specific guidance on structuring RFPs, evaluating proposals, and managing IP across modular system boundaries. This gap directly impacts the success of major acquisition programs.'
+                ],
+                resources: [8, 5, 52]
+            },
+            'gap-3': {
+                title: 'Metadata Quality',
+                priority: 'Medium',
+                paragraphs: [
+                    'Approximately 28 resources (42% of the collection) lack publication dates, making it difficult to assess content currency and applicability. In a field where policy and regulation change frequently—with DFARS clauses, NDAA provisions, and DoD instructions regularly updated—knowing when content was produced is essential for determining relevance.',
+                    'This metadata gap undermines the collection\'s utility as a trusted reference source. Acquisition professionals must independently verify whether guidance reflects current policy, adding friction to their workflow. Completing date metadata would significantly improve user confidence and enable better filtering and prioritization of resources.'
+                ],
+                resources: [13, 15]
+            },
+            'gap-4': {
+                title: 'Limited Currency',
+                priority: 'Medium',
+                paragraphs: [
+                    'Of the resources with publication dates, 63% were published before 2024. While foundational IP concepts remain stable, the policy landscape has evolved significantly with new NDAA provisions, updated DFARS clauses, and changing acquisition priorities. Pre-2024 content may not reflect current requirements or best practices.',
+                    'Specific areas where currency matters most include: data rights clause updates, valuation methodologies, and integration with digital engineering initiatives. Resources from 2019-2022 may reference superseded guidance or miss important policy developments. A systematic review to flag or update aging content would improve collection reliability.'
+                ],
+                resources: [8, 9, 16]
+            },
+            'gap-5': {
+                title: 'Audience Gaps',
+                priority: 'Medium',
+                paragraphs: [
+                    'Analysis of audience coverage reveals that Engineers and Small Business professionals have the lowest dedicated resource counts. While many resources target "all acquisition professionals," these two audiences have unique IP needs that generic content may not adequately address. Engineers need technical depth on data markings and software licensing; small businesses need SBIR/STTR-specific guidance.',
+                    'Small business contractors, in particular, face distinct IP challenges around protecting their innovations while meeting government access requirements. SBIR/STTR data rights have their own regulatory framework that differs from standard acquisition. Expanding audience-specific content would improve relevance for these underserved stakeholder groups.'
+                ],
+                resources: [17, 18, 8]
+            },
+            'gap-6': {
+                title: 'Interactive Learning',
+                priority: 'Low',
+                paragraphs: [
+                    'The collection includes only 4 truly interactive learning experiences (primarily the capstone exercise and workshops). Most content is consumptive—videos to watch, documents to read, slides to review. Interactive formats like scenario simulations, decision trees, and case study exercises that let learners apply concepts are largely absent.',
+                    'Research on adult learning effectiveness shows that interactive application significantly improves retention and transfer to job performance. Given the complexity and context-dependence of IP decisions, scenario-based learning where professionals navigate realistic acquisition situations would substantially enhance workforce capability development.'
+                ],
+                resources: [10, 15]
+            },
+
+            // ========== ACTIONS ==========
+            'action-1': {
+                title: 'Expand AI & MOSA Materials',
+                paragraphs: [
+                    'Develop 5-10 new resources specifically addressing AI intellectual property and MOSA data rights. Priority topics should include: AI model licensing frameworks, training data rights requirements, interface specification data rights for modular systems, and IP strategies for digital engineering environments. Content should include both policy guidance and practical implementation examples.',
+                    'Partner with OUSD(R&E) IP Cadre and leading programs already navigating these challenges to develop case studies and lessons learned. Consider formats that support rapid updates as AI policy evolves—perhaps modular video segments or living web documents rather than static courses. Timeline: Begin development immediately given operational urgency.'
+                ],
+                resources: [52, 8, 1]
+            },
+            'action-2': {
+                title: 'Update Content & Metadata',
+                paragraphs: [
+                    'Conduct a systematic audit of all resources to: (1) Complete missing publication dates through research or best estimates, (2) Flag content published before 2022 for relevance review, and (3) Update or retire resources that no longer reflect current policy. Prioritize resources that address DFARS clauses, as these change most frequently.',
+                    'Establish a currency maintenance process going forward, with annual reviews of all resources and triggered updates when significant policy changes occur (e.g., new NDAA provisions). Consider adding "Last Reviewed" dates alongside publication dates to increase user confidence. Timeline: Complete metadata audit in Q1, content updates in Q2.'
+                ],
+                resources: [8, 9, 13]
+            },
+            'action-3': {
+                title: 'Increase Interactive Learning',
+                paragraphs: [
+                    'Develop 3-5 scenario-based simulations where learners navigate realistic IP decisions in acquisition contexts. Scenarios should cover: IP strategy development for a new program, data rights negotiation with a sole-source contractor, validation of contractor data markings, and SBIR transition IP planning. Include decision points with feedback explaining consequences.',
+                    'Also develop 5-10 case studies drawn from real (anonymized) program experiences, highlighting both successful IP strategies and cautionary tales. Case studies should include discussion questions suitable for team workshops. Consider partnering with programs willing to share lessons learned. Timeline: Develop first simulation and 3 case studies by Q2.'
+                ],
+                resources: [10, 15, 5]
+            },
+            'action-4': {
+                title: 'Address Audience Gaps',
+                paragraphs: [
+                    'Create dedicated content tracks for Engineers and Small Business audiences. For Engineers: develop technical deep-dives on data markings, software licensing categories, and interface specification IP. Include practical examples with code and technical data scenarios. For Small Business: develop an "IP Survival Guide" covering SBIR/STTR rights, negotiation strategies, and protection mechanisms.',
+                    'Consider developing an "IP Essentials for Engineers" quick-reference card and short video series, plus a "Small Business IP Checklist" covering proposal through contract execution. Engage with engineering professional organizations and small business associations to understand specific needs. Timeline: Audience research in Q1, content development in Q2.'
+                ],
+                resources: [17, 18, 13]
+            }
+        };
+
+        function openDetail(key) {
+            const content = DETAIL_CONTENT[key];
+            if (!content) return;
+
+            const titleEl = document.getElementById('detailTitle');
+            const bodyEl = document.getElementById('detailBody');
+
+            titleEl.textContent = content.title;
+
+            // Build body content
+            let bodyHTML = '';
+
+            // Add priority badge if it's a gap
+            if (content.priority) {
+                const priorityClass = content.priority.toLowerCase();
+                bodyHTML += `<span class="gap-badge ${priorityClass}" style="margin-bottom: 1rem; display: inline-block;">${content.priority} Priority</span>`;
+            }
+
+            // Add paragraphs
+            content.paragraphs.forEach(para => {
+                bodyHTML += `<p class="detail-paragraph">${para}</p>`;
+            });
+
+            // Add resource links
+            if (content.resources && content.resources.length > 0) {
+                bodyHTML += `
+                    <div class="detail-resources">
+                        <div class="detail-resources-title">Referenced Resources</div>
+                        <div class="detail-resource-list">
+                `;
+                content.resources.forEach(id => {
+                    const resource = RESOURCES.find(r => r.id === id);
+                    if (resource) {
+                        bodyHTML += `
+                            <a href="${resource.url}" target="_blank" rel="noopener" class="detail-resource-link">
+                                <span class="detail-resource-type">${resource.type}</span>
+                                ${resource.title}
+                            </a>
+                        `;
+                    }
+                });
+                bodyHTML += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            bodyEl.innerHTML = bodyHTML;
+            document.getElementById('detailOverlay').classList.add('active');
+        }
+
+        function closeDetail(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('detail-back') && !event.target.classList.contains('detail-close')) return;
+            document.getElementById('detailOverlay').classList.remove('active');
+        }
 
         // Initialize Executive Summary Cards (compact)
         function initStatsCards() {
