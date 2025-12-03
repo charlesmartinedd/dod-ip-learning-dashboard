@@ -194,10 +194,10 @@
             transition: width 0.6s ease;
         }
 
-        /* Carousel Section */
+        /* Carousel Section - 4 Card Grid */
         .carousel-section {
             margin: 2rem 0;
-            max-width: 560px;
+            max-width: 900px;
         }
 
         .carousel-section h2 {
@@ -213,41 +213,54 @@
             position: relative;
         }
 
+        .carousel-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
         .carousel-card {
             background: white;
             border: 1px solid var(--slate-200);
-            border-radius: 12px;
-            padding: 1.5rem 3rem;
+            border-radius: 10px;
+            padding: 1.25rem 1rem;
             text-align: center;
             text-decoration: none;
-            display: block;
-            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s ease;
         }
 
         .carousel-card:hover {
             border-color: var(--accent);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
         .carousel-type {
-            font-size: 0.6875rem;
+            font-size: 0.625rem;
             font-weight: 600;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             margin-bottom: 0.5rem;
         }
 
         .carousel-title {
-            font-size: 1rem;
+            font-size: 0.875rem;
             font-weight: 600;
             color: var(--navy-900);
-            line-height: 1.4;
+            line-height: 1.35;
             margin-bottom: 0.75rem;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .carousel-link {
-            font-size: 0.8125rem;
+            font-size: 0.75rem;
             color: var(--accent);
             font-weight: 500;
         }
@@ -256,10 +269,15 @@
             text-decoration: underline;
         }
 
+        .carousel-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
         .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             background: white;
             border: 1px solid var(--slate-200);
             border-radius: 50%;
@@ -269,25 +287,20 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 0.875rem;
+            font-size: 1rem;
             color: var(--slate-500);
             transition: all 0.2s;
-            z-index: 2;
         }
 
         .carousel-nav:hover {
             background: var(--slate-100);
             color: var(--navy-900);
+            border-color: var(--slate-300);
         }
-
-        .carousel-nav.prev { left: -16px; }
-        .carousel-nav.next { right: -16px; }
 
         .carousel-dots {
             display: flex;
-            justify-content: center;
             gap: 0.5rem;
-            margin-top: 1rem;
         }
 
         .carousel-dot {
@@ -309,13 +322,15 @@
             .stat-card { min-width: 110px; padding: 0.875rem 1rem; }
             .stat-card .stat-value { font-size: 1.5rem; }
             .carousel-section { max-width: 100%; }
+            .carousel-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             .stats-cards { flex-wrap: wrap; }
             .stat-card { min-width: calc(50% - 0.5rem); flex: none; }
-            .carousel-nav { display: none; }
-            .carousel-card { padding: 1.25rem 1.5rem; }
+            .carousel-grid { grid-template-columns: 1fr; }
+            .carousel-card { padding: 1rem; }
+            .analytics-overview-grid { grid-template-columns: 1fr; }
         }
 
         /* Modal */
@@ -986,8 +1001,76 @@
         .analytics-overview-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
+            gap: 1.5rem;
             margin-bottom: 1.5rem;
+        }
+
+        .analytics-overview-grid > * {
+            min-width: 0; /* Prevent overflow */
+        }
+
+        /* Content Freshness Section */
+        .freshness-section {
+            background: white;
+            border: 1px solid var(--slate-200);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .freshness-title {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-500);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .freshness-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .freshness-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .freshness-label {
+            font-size: 0.75rem;
+            color: var(--navy-700);
+            width: 70px;
+            flex-shrink: 0;
+        }
+
+        .freshness-bar {
+            flex: 1;
+            height: 12px;
+            background: var(--slate-100);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .freshness-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.6s ease-out;
+        }
+
+        .freshness-bar-fill.current { background: var(--green); }
+        .freshness-bar-fill.recent { background: var(--accent); }
+        .freshness-bar-fill.aging { background: var(--yellow); }
+        .freshness-bar-fill.legacy { background: var(--red); }
+        .freshness-bar-fill.undated { background: var(--slate-400); }
+
+        .freshness-count {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            width: 50px;
+            text-align: right;
         }
 
         @media (max-width: 768px) {
@@ -2781,7 +2864,19 @@
                 const maxCount = Math.max(...types.map(t => t[1]));
                 const total = RESOURCES.length;
 
-                // Calculate donut chart gradient
+                // Calculate content freshness
+                let current = 0, recent = 0, aging = 0, legacy = 0, undated = 0;
+                RESOURCES.forEach(r => {
+                    if (!r.date) { undated++; return; }
+                    const year = new Date(r.date).getFullYear();
+                    if (year >= 2024) current++;
+                    else if (year >= 2022) recent++;
+                    else if (year >= 2020) aging++;
+                    else legacy++;
+                });
+                const maxFresh = Math.max(current, recent, aging, legacy, undated);
+
+                // Type colors
                 const typeColors = {
                     'Training': '#2563eb',
                     'Video': '#10b981',
@@ -2799,10 +2894,11 @@
                 }).join(', ');
 
                 container.innerHTML = `
-                    <div class="stat-grid">
+                    <div class="stat-grid" style="grid-template-columns: repeat(4, 1fr);">
                         <div class="stat-card"><div class="stat-number" data-value="${total}">0</div><div class="stat-label">Resources</div></div>
-                        <div class="stat-card"><div class="stat-number" data-value="${Object.keys(TYPE_COUNTS).length}">0</div><div class="stat-label">Categories</div></div>
-                        <div class="stat-card"><div class="stat-number accent" data-value="${Math.round(datedCount/total*100)}">0</div><div class="stat-label">% Dated</div></div>
+                        <div class="stat-card"><div class="stat-number" data-value="${Object.keys(TYPE_COUNTS).length}">0</div><div class="stat-label">Types</div></div>
+                        <div class="stat-card"><div class="stat-number" data-value="${Math.round(datedCount/total*100)}">0</div><div class="stat-label">% Dated</div></div>
+                        <div class="stat-card"><div class="stat-number accent" data-value="${Math.round(current/total*100)}">0</div><div class="stat-label">% Current</div></div>
                     </div>
                     <div class="analytics-overview-grid">
                         <div class="donut-chart-container">
@@ -2822,29 +2918,35 @@
                                 `).join('')}
                             </div>
                         </div>
-                        <div class="format-dist">
-                            <div class="format-dist-title">Format Distribution</div>
-                            <div class="format-bars">
-                                ${types.map(([type, count], i) => `
-                                    <div class="format-bar">
-                                        <div class="format-bar-fill" style="height: 0; background: ${typeColors[type] || '#64748b'}" data-height="${count/maxCount*50}px"></div>
-                                        <div class="format-bar-count">${count}</div>
-                                        <div class="format-bar-label">${type.substring(0,3)}</div>
-                                    </div>
-                                `).join('')}
+                        <div class="freshness-section">
+                            <div class="freshness-title">Content Freshness</div>
+                            <div class="freshness-bars">
+                                <div class="freshness-row">
+                                    <span class="freshness-label">Current</span>
+                                    <div class="freshness-bar"><div class="freshness-bar-fill current" style="width: 0" data-width="${current/maxFresh*100}%"></div></div>
+                                    <span class="freshness-count">${current} (${Math.round(current/total*100)}%)</span>
+                                </div>
+                                <div class="freshness-row">
+                                    <span class="freshness-label">Recent</span>
+                                    <div class="freshness-bar"><div class="freshness-bar-fill recent" style="width: 0" data-width="${recent/maxFresh*100}%"></div></div>
+                                    <span class="freshness-count">${recent} (${Math.round(recent/total*100)}%)</span>
+                                </div>
+                                <div class="freshness-row">
+                                    <span class="freshness-label">Aging</span>
+                                    <div class="freshness-bar"><div class="freshness-bar-fill aging" style="width: 0" data-width="${aging/maxFresh*100}%"></div></div>
+                                    <span class="freshness-count">${aging} (${Math.round(aging/total*100)}%)</span>
+                                </div>
+                                <div class="freshness-row">
+                                    <span class="freshness-label">Legacy</span>
+                                    <div class="freshness-bar"><div class="freshness-bar-fill legacy" style="width: 0" data-width="${legacy/maxFresh*100}%"></div></div>
+                                    <span class="freshness-count">${legacy} (${Math.round(legacy/total*100)}%)</span>
+                                </div>
+                                <div class="freshness-row">
+                                    <span class="freshness-label">Undated</span>
+                                    <div class="freshness-bar"><div class="freshness-bar-fill undated" style="width: 0" data-width="${undated/maxFresh*100}%"></div></div>
+                                    <span class="freshness-count">${undated} (${Math.round(undated/total*100)}%)</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="resource-highlights">
-                        <div class="highlight-card">
-                            <div class="highlight-card-title">Newest Resource</div>
-                            <div class="highlight-card-value">${new Date(newest.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
-                            <div class="highlight-card-sub">${newest.title.substring(0,35)}...</div>
-                        </div>
-                        <div class="highlight-card">
-                            <div class="highlight-card-title">Oldest Resource</div>
-                            <div class="highlight-card-value">${new Date(oldest.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
-                            <div class="highlight-card-sub">${oldest.title.substring(0,35)}...</div>
                         </div>
                     </div>
                     <div class="momentum-section">
@@ -2855,7 +2957,7 @@
                 `;
                 setTimeout(() => {
                     document.querySelectorAll('.stat-number').forEach(el => animateNumber(el, parseInt(el.dataset.value)));
-                    document.querySelectorAll('.format-bar-fill').forEach(el => { el.style.height = el.dataset.height; });
+                    document.querySelectorAll('.freshness-bar-fill').forEach(el => { el.style.width = el.dataset.width; });
                     document.querySelectorAll('.momentum-fill').forEach(el => { el.style.width = el.dataset.width; });
                 }, 100);
             } else if (tab === 'type') {
@@ -2916,66 +3018,45 @@
             }
         }
 
-        // Coverage Report
+        // Coverage Report - Simplified with clearer visual hierarchy
         function renderCoverageReport() {
             const scoreClass = healthScore >= 70 ? 'good' : healthScore >= 50 ? 'moderate' : 'poor';
             return `
-                <div class="coverage-content">
-                    <div class="health-section">
-                        <div class="health-header">
-                            <div class="health-title">Collection Health Score</div>
-                            <div class="health-score ${scoreClass}" data-value="${healthScore}">0</div>
+                <div class="coverage-content" style="padding: 1.5rem;">
+                    <div class="health-section" style="margin-bottom: 2rem;">
+                        <div class="health-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <div class="health-title" style="font-size: 1rem; font-weight: 600; color: var(--navy-900);">Collection Health Score</div>
+                            <div class="health-score ${scoreClass}" data-value="${healthScore}" style="font-size: 2rem; font-weight: 700;">0</div>
                         </div>
-                        <div class="health-bar"><div class="health-fill ${scoreClass}" style="width: 0" data-width="${healthScore}%"></div></div>
-                        <div class="health-desc">Strong foundation with key gaps in emerging technology coverage and content currency.</div>
-                    </div>
-
-                    <div class="summary-cards">
-                        <div class="summary-card strengths" onclick="openDrilldown('strengths')">
-                            <div class="summary-card-icon">✓</div>
-                            <div class="summary-card-count">5</div>
-                            <div class="summary-card-label">Strengths</div>
-                            <div class="summary-card-action">View Details →</div>
-                        </div>
-                        <div class="summary-card gaps" onclick="openDrilldown('gaps')">
-                            <div class="summary-card-icon">⚠</div>
-                            <div class="summary-card-count">6</div>
-                            <div class="summary-card-label">Gaps Identified</div>
-                            <div class="summary-card-action">View Details →</div>
-                        </div>
-                        <div class="summary-card actions" onclick="openDrilldown('actions')">
-                            <div class="summary-card-icon">→</div>
-                            <div class="summary-card-count">4</div>
-                            <div class="summary-card-label">Actions</div>
-                            <div class="summary-card-action">View Details →</div>
+                        <div class="health-bar" style="height: 12px; background: var(--slate-200); border-radius: 6px; overflow: hidden;">
+                            <div class="health-fill ${scoreClass}" style="width: 0; height: 100%; border-radius: 6px;" data-width="${healthScore}%"></div>
                         </div>
                     </div>
 
-                    <div class="priority-section">
-                        <div class="priority-title">Gap Priority Breakdown</div>
-                        <div class="priority-row">
-                            <div class="priority-dot high"></div>
-                            <div class="priority-label">High</div>
-                            <div class="priority-bar"><div class="priority-bar-fill high" style="width: 0" data-width="33%"></div></div>
-                            <div class="priority-count">2 gaps</div>
+                    <div class="summary-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem;">
+                        <div class="summary-card strengths" onclick="openDrilldown('strengths')" style="cursor: pointer; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.2s;">
+                            <div class="summary-card-icon" style="font-size: 1.5rem; margin-bottom: 0.5rem;">✓</div>
+                            <div class="summary-card-count" style="font-size: 2rem; font-weight: 700; color: #059669;">5</div>
+                            <div class="summary-card-label" style="font-size: 0.875rem; color: #065f46; font-weight: 500;">Strengths</div>
+                            <div class="summary-card-action" style="font-size: 0.75rem; color: #10b981; margin-top: 0.75rem;">View Details →</div>
                         </div>
-                        <div class="priority-row">
-                            <div class="priority-dot medium"></div>
-                            <div class="priority-label">Medium</div>
-                            <div class="priority-bar"><div class="priority-bar-fill medium" style="width: 0" data-width="50%"></div></div>
-                            <div class="priority-count">3 gaps</div>
+                        <div class="summary-card gaps" onclick="openDrilldown('gaps')" style="cursor: pointer; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.2s;">
+                            <div class="summary-card-icon" style="font-size: 1.5rem; margin-bottom: 0.5rem;">⚠</div>
+                            <div class="summary-card-count" style="font-size: 2rem; font-weight: 700; color: #d97706;">6</div>
+                            <div class="summary-card-label" style="font-size: 0.875rem; color: #92400e; font-weight: 500;">Gaps Identified</div>
+                            <div class="summary-card-action" style="font-size: 0.75rem; color: #f59e0b; margin-top: 0.75rem;">View Details →</div>
                         </div>
-                        <div class="priority-row">
-                            <div class="priority-dot low"></div>
-                            <div class="priority-label">Low</div>
-                            <div class="priority-bar"><div class="priority-bar-fill low" style="width: 0" data-width="17%"></div></div>
-                            <div class="priority-count">1 gap</div>
+                        <div class="summary-card actions" onclick="openDrilldown('actions')" style="cursor: pointer; background: #dbeafe; border: 1px solid #93c5fd; border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.2s;">
+                            <div class="summary-card-icon" style="font-size: 1.5rem; margin-bottom: 0.5rem;">→</div>
+                            <div class="summary-card-count" style="font-size: 2rem; font-weight: 700; color: #2563eb;">4</div>
+                            <div class="summary-card-label" style="font-size: 0.875rem; color: #1e40af; font-weight: 500;">Actions</div>
+                            <div class="summary-card-action" style="font-size: 0.75rem; color: #3b82f6; margin-top: 0.75rem;">View Details →</div>
                         </div>
                     </div>
 
-                    <div class="bottom-line">
-                        <h4>Bottom Line</h4>
-                        <p>Strong foundation with diverse formats and recent growth. Requires targeted improvements in AI/MOSA coverage, interactivity, and content currency to meet DoD strategic needs.</p>
+                    <div class="bottom-line" style="background: var(--slate-100); border-radius: 10px; padding: 1.25rem;">
+                        <h4 style="font-size: 0.875rem; font-weight: 600; color: var(--navy-900); margin-bottom: 0.5rem;">Bottom Line</h4>
+                        <p style="font-size: 0.9375rem; color: var(--navy-700); line-height: 1.6; margin: 0;">Strong foundation with diverse formats and recent growth. Requires targeted improvements in AI/MOSA coverage, interactivity, and content currency to meet DoD strategic needs.</p>
                     </div>
                 </div>
             `;
@@ -2983,11 +3064,18 @@
 
         function renderNextSteps() {
             return `
-                <div class="coverage-content" style="text-align: center; max-width: 600px; margin: 0 auto;">
-                    <p style="font-size: 1rem; line-height: 1.8; color: var(--navy-900); margin-bottom: 1.5rem;">
-                        The Department's Office of Small Business Programs, DAU (OUSD(A&S)), and the OUSD(R&E)/IP Cadre have partnered to create a survey designed to better understand your needs and improve support. This survey assesses prior knowledge about IP to inform the need for resources and training. The results will help identify training and resource needs prioritized for future courses, workshops, podcasts, webinars, and blogs. We have a vested interest in your professional development—we want to hear from you!
+                <div class="coverage-content" style="text-align: left; max-width: 600px; margin: 0; padding: 1.5rem;">
+                    <h3 style="font-size: 1.125rem; color: var(--navy-900); margin-bottom: 1rem; font-weight: 600;">Help Shape the Future of IP Resources</h3>
+                    <p style="font-size: 1rem; line-height: 1.8; color: var(--navy-700); margin-bottom: 1.5rem;">
+                        The Department's Office of Small Business Programs, DAU (OUSD(A&S)), and the OUSD(R&E)/IP Cadre have partnered to create a survey designed to better understand your needs and improve support.
                     </p>
-                    <a href="https://forms.office.com/pages/responsepage.aspx?id=RL4hHDUkv0m8H8ujFxhwWIuBFaDXnZBIm6WcfQrwSs5UQUdaRlJKM05SNDNSQVpLV1ZKTDVNNTdBQy4u&route=shorturl" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="display: inline-flex; margin-top: 1rem;">
+                    <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--slate-500); margin-bottom: 1.5rem;">
+                        This survey assesses prior knowledge about IP to inform the need for resources and training. The results will help identify training and resource needs prioritized for future courses, workshops, podcasts, webinars, and blogs.
+                    </p>
+                    <p style="font-size: 1rem; font-weight: 500; color: var(--navy-900); margin-bottom: 1.5rem;">
+                        We have a vested interest in your professional development—we want to hear from you!
+                    </p>
+                    <a href="https://forms.office.com/pages/responsepage.aspx?id=RL4hHDUkv0m8H8ujFxhwWIuBFaDXnZBIm6WcfQrwSs5UQUdaRlJKM05SNDNSQVpLV1ZKTDVNNTdBQy4u&route=shorturl" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="display: inline-flex;">
                         Take the Survey →
                     </a>
                 </div>
@@ -3094,10 +3182,24 @@
             `;
         }
 
-        // Initialize Featured Resources Carousel
-        let currentSlide = 0;
+        // Initialize Featured Resources Carousel - 4-card grid with pages
+        let currentPage = 0;
         let autoRotateInterval = null;
-        const featuredIds = [1, 52, 16, 12];
+
+        // Page 1: Hand-picked essentials
+        // Pages 2-4: Auto-selected newest/best from each type
+        const featuredIds = [
+            // Page 1 - Essentials (hand-picked)
+            1, 52, 16, 12,
+            // Page 2 - Recent highlights
+            3, 4, 5, 6,
+            // Page 3 - More resources
+            7, 8, 9, 10,
+            // Page 4 - Additional resources
+            11, 13, 14, 15
+        ];
+
+        const totalPages = Math.ceil(featuredIds.length / 4);
 
         function initCarousel() {
             const container = document.getElementById('carouselContainer');
@@ -3112,43 +3214,53 @@
 
         function renderCarousel() {
             const container = document.getElementById('carouselContainer');
-            const resource = RESOURCES.find(r => r.id === featuredIds[currentSlide]);
-            if (!resource) return;
+            const startIdx = currentPage * 4;
+            const pageIds = featuredIds.slice(startIdx, startIdx + 4);
+
+            const cardsHTML = pageIds.map(id => {
+                const resource = RESOURCES.find(r => r.id === id);
+                if (!resource) return '';
+                return `
+                    <a href="${resource.url}" target="_blank" rel="noopener" class="carousel-card">
+                        <div class="carousel-type">${resource.type}</div>
+                        <div class="carousel-title">${resource.title}</div>
+                        <div class="carousel-link">View →</div>
+                    </a>
+                `;
+            }).join('');
 
             container.innerHTML = `
-                <button class="carousel-nav prev" onclick="prevSlide()">‹</button>
-                <a href="${resource.url}" target="_blank" rel="noopener" class="carousel-card">
-                    <div class="carousel-type">${resource.type}</div>
-                    <div class="carousel-title">${resource.title}</div>
-                    <div class="carousel-link">View Resource →</div>
-                </a>
-                <button class="carousel-nav next" onclick="nextSlide()">›</button>
-                <div class="carousel-dots">
-                    ${featuredIds.map((_, i) => `
-                        <button class="carousel-dot ${i === currentSlide ? 'active' : ''}" onclick="goToSlide(${i})"></button>
-                    `).join('')}
+                <div class="carousel-grid">${cardsHTML}</div>
+                <div class="carousel-footer">
+                    <button class="carousel-nav" onclick="prevPage()">‹</button>
+                    <div class="carousel-dots">
+                        ${Array.from({length: totalPages}, (_, i) => `
+                            <button class="carousel-dot ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})"></button>
+                        `).join('')}
+                    </div>
+                    <button class="carousel-nav" onclick="nextPage()">›</button>
                 </div>
             `;
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % featuredIds.length;
+        function nextPage() {
+            currentPage = (currentPage + 1) % totalPages;
             renderCarousel();
         }
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + featuredIds.length) % featuredIds.length;
+        function prevPage() {
+            currentPage = (currentPage - 1 + totalPages) % totalPages;
             renderCarousel();
         }
 
-        function goToSlide(index) {
-            currentSlide = index;
+        function goToPage(index) {
+            currentPage = index;
             renderCarousel();
         }
 
         function startAutoRotate() {
             stopAutoRotate();
-            autoRotateInterval = setInterval(nextSlide, 5000);
+            autoRotateInterval = setInterval(nextPage, 8000);
         }
 
         function stopAutoRotate() {
