@@ -1453,6 +1453,13 @@
             padding: 1rem;
             border-radius: 8px;
             border-left: 3px solid;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .drilldown-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .drilldown-item.strength {
@@ -1460,9 +1467,19 @@
             border-color: var(--green);
         }
 
+        .drilldown-item.strength:hover {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-color: #059669;
+        }
+
         .drilldown-item.gap-high {
             background: #fef2f2;
             border-color: var(--red);
+        }
+
+        .drilldown-item.gap-high:hover {
+            background: #fee2e2;
+            border-color: #b91c1c;
         }
 
         .drilldown-item.gap-medium {
@@ -1470,14 +1487,29 @@
             border-color: var(--yellow);
         }
 
+        .drilldown-item.gap-medium:hover {
+            background: #fef3c7;
+            border-color: #d97706;
+        }
+
         .drilldown-item.gap-low {
             background: #eff6ff;
             border-color: var(--accent);
         }
 
+        .drilldown-item.gap-low:hover {
+            background: #dbeafe;
+            border-color: #1d4ed8;
+        }
+
         .drilldown-item.action {
             background: var(--slate-100);
             border-color: var(--navy-700);
+        }
+
+        .drilldown-item.action:hover {
+            background: var(--slate-200);
+            border-color: var(--navy-900);
         }
 
         .drilldown-item-title {
