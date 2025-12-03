@@ -1663,7 +1663,7 @@
     </div>
 
     <!-- Detail Modal for Strengths/Gaps/Actions -->
-    <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+    <div class="detail-overlay" id="detailOverlay" onclick="closeDetail()">
         <div class="detail-modal" onclick="event.stopPropagation()">
             <button class="detail-close" onclick="closeDetail()">&times;</button>
             <h3 class="detail-title" id="detailTitle">Title</h3>
@@ -2854,25 +2854,25 @@
             return `
                 <div class="analytics-content">
                     <div class="analytics-tabs">
-                        <button class="active" onclick="showAnalyticsTab('overview')">Overview</button>
-                        <button onclick="showAnalyticsTab('type')">By Type</button>
-                        <button onclick="showAnalyticsTab('timeline')">Timeline</button>
-                        <button onclick="showAnalyticsTab('audience')">Audience</button>
+                        <button class="active" onclick="showAnalyticsTab('overview', this)">Overview</button>
+                        <button onclick="showAnalyticsTab('type', this)">By Type</button>
+                        <button onclick="showAnalyticsTab('timeline', this)">Timeline</button>
+                        <button onclick="showAnalyticsTab('audience', this)">Audience</button>
                     </div>
                     <div id="analyticsContent"></div>
                 </div>
             `;
         }
 
-        function showAnalyticsTab(tab) {
+        function showAnalyticsTab(tab, btn) {
             document.querySelectorAll('.analytics-tabs button').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+            if (btn) btn.classList.add('active');
             const container = document.getElementById('analyticsContent');
+            const total = RESOURCES.length;
 
             if (tab === 'overview') {
                 const types = Object.entries(TYPE_COUNTS).sort((a, b) => b[1] - a[1]);
                 const maxCount = Math.max(...types.map(t => t[1]));
-                const total = RESOURCES.length;
 
                 // Calculate content freshness
                 let current = 0, recent = 0, aging = 0, legacy = 0, undated = 0;
@@ -3004,7 +3004,7 @@
                         `).join('')}
                     </div>
                     <div class="insight-callout"><strong>2025 represents the most active year</strong> for IP resource development, with ${YEAR_DATA['2025'] || 0} new additions year-to-date.</div>
-                    <div class="chart-note">* ${datedCount} of 66 resources (${Math.round(datedCount/total*100)}%) have publication dates. 28 resources lack date metadata.</div>
+                    <div class="chart-note">* ${datedCount} of ${total} resources (${Math.round(datedCount/total*100)}%) have publication dates. 28 resources lack date metadata.</div>
                 `;
                 setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
             } else if (tab === 'audience') {
@@ -3022,7 +3022,7 @@
                             </div>
                         `).join('')}
                     </div>
-                    <div class="insight-callout"><strong>Insight:</strong> ${lowest[0][0]} and ${lowest[1][0]} stakeholders have the least dedicated coverage (${Math.round(lowest[0][1]/66*100)}% and ${Math.round(lowest[1][1]/66*100)}% of resources respectively).</div>
+                    <div class="insight-callout"><strong>Insight:</strong> ${lowest[0][0]} and ${lowest[1][0]} stakeholders have the least dedicated coverage (${Math.round(lowest[0][1]/total*100)}% and ${Math.round(lowest[1][1]/total*100)}% of resources respectively).</div>
                 `;
                 setTimeout(() => document.querySelectorAll('.bar-fill').forEach(b => b.classList.add('animate')), 50);
             }
@@ -3109,34 +3109,37 @@
             if (type === 'strengths') {
                 title.textContent = 'Collection Strengths';
                 body.innerHTML = `
+                    <p class="drilldown-instruction">Click any item below for detailed analysis and resource references.</p>
                     <div class="drilldown-grid">
-                        <div class="drilldown-item strength" onclick="openDetail('strength-1')"><div class="drilldown-item-title">Robust Foundational Content</div><div class="drilldown-item-desc">Strong entry points for new personnel entering the IP field. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item strength" onclick="openDetail('strength-2')"><div class="drilldown-item-title">Strong Video Representation</div><div class="drilldown-item-desc">20% video content enables visual demonstration of complex concepts. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item strength" onclick="openDetail('strength-3')"><div class="drilldown-item-title">DAU Credential Alignment</div><div class="drilldown-item-desc">Comprehensive coverage with workforce development pathways. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item strength" onclick="openDetail('strength-4')"><div class="drilldown-item-title">Active 2025 Development</div><div class="drilldown-item-desc">${YEAR_DATA['2025'] || 0} new resources demonstrate sustained commitment. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item strength" onclick="openDetail('strength-5')"><div class="drilldown-item-title">Format Diversity</div><div class="drilldown-item-desc">Balance of videos, documents, webinars, and courses. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-1')"><div class="drilldown-item-title">Robust Foundational Content</div><div class="drilldown-item-desc">Strong entry points for new personnel entering the IP field. </div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-2')"><div class="drilldown-item-title">Strong Video Representation</div><div class="drilldown-item-desc">20% video content enables visual demonstration of complex concepts. </div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-3')"><div class="drilldown-item-title">DAU Credential Alignment</div><div class="drilldown-item-desc">Comprehensive coverage with workforce development pathways. </div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-4')"><div class="drilldown-item-title">Active 2025 Development</div><div class="drilldown-item-desc">${YEAR_DATA['2025'] || 0} new resources demonstrate sustained commitment. </div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-5')"><div class="drilldown-item-title">Format Diversity</div><div class="drilldown-item-desc">Balance of videos, documents, webinars, and courses. </div></div>
                     </div>
                 `;
             } else if (type === 'gaps') {
                 title.textContent = 'Strategic Gaps';
                 body.innerHTML = `
+                    <p class="drilldown-instruction">Click any item below for detailed analysis and resource references.</p>
                     <div class="drilldown-grid">
-                        <div class="drilldown-item gap-high" onclick="openDetail('gap-1')"><span class="gap-badge high">High</span><div class="drilldown-item-title">AI/Emerging Tech Coverage</div><div class="drilldown-item-desc">Only 3 resources address AI, ML, and advancing technologies. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item gap-high" onclick="openDetail('gap-2')"><span class="gap-badge high">High</span><div class="drilldown-item-title">Limited MOSA Content</div><div class="drilldown-item-desc">Only 4 resources support architectural transformation. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-3')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Metadata Quality</div><div class="drilldown-item-desc">28 resources (42%) lack publication dates. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-4')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Limited Currency</div><div class="drilldown-item-desc">63% of content is pre-2024, affecting policy alignment. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-5')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Audience Gaps</div><div class="drilldown-item-desc">Engineers and Small Business have lowest coverage. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item gap-low" onclick="openDetail('gap-6')"><span class="gap-badge low">Low</span><div class="drilldown-item-title">Interactive Learning</div><div class="drilldown-item-desc">Only 4 hands-on learning opportunities. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item gap-high" onclick="openDetail('gap-1')"><span class="gap-badge high">High</span><div class="drilldown-item-title">AI/Emerging Tech Coverage</div><div class="drilldown-item-desc">Only 3 resources address AI, ML, and advancing technologies. </div></div>
+                        <div class="drilldown-item gap-high" onclick="openDetail('gap-2')"><span class="gap-badge high">High</span><div class="drilldown-item-title">Limited MOSA Content</div><div class="drilldown-item-desc">Only 4 resources support architectural transformation. </div></div>
+                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-3')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Metadata Quality</div><div class="drilldown-item-desc">28 resources (42%) lack publication dates. </div></div>
+                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-4')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Limited Currency</div><div class="drilldown-item-desc">63% of content is pre-2024, affecting policy alignment. </div></div>
+                        <div class="drilldown-item gap-medium" onclick="openDetail('gap-5')"><span class="gap-badge medium">Medium</span><div class="drilldown-item-title">Audience Gaps</div><div class="drilldown-item-desc">Engineers and Small Business have lowest coverage. </div></div>
+                        <div class="drilldown-item gap-low" onclick="openDetail('gap-6')"><span class="gap-badge low">Low</span><div class="drilldown-item-title">Interactive Learning</div><div class="drilldown-item-desc">Only 4 hands-on learning opportunities. </div></div>
                     </div>
                 `;
             } else if (type === 'actions') {
                 title.textContent = 'Recommended Actions';
                 body.innerHTML = `
+                    <p class="drilldown-instruction">Click any item below for detailed analysis and resource references.</p>
                     <div class="drilldown-grid">
-                        <div class="drilldown-item action" onclick="openDetail('action-1')"><span class="action-number">1</span><div class="drilldown-item-title">Expand AI & MOSA Materials</div><div class="drilldown-item-desc">Urgently develop content for DoD strategic priorities. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item action" onclick="openDetail('action-2')"><span class="action-number">2</span><div class="drilldown-item-title">Update Content & Metadata</div><div class="drilldown-item-desc">Refresh older materials and complete missing dates. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item action" onclick="openDetail('action-3')"><span class="action-number">3</span><div class="drilldown-item-title">Increase Interactive Learning</div><div class="drilldown-item-desc">Add case studies and simulations. <em>Click for details →</em></div></div>
-                        <div class="drilldown-item action" onclick="openDetail('action-4')"><span class="action-number">4</span><div class="drilldown-item-title">Address Audience Gaps</div><div class="drilldown-item-desc">Create content for Engineers and Small Business. <em>Click for details →</em></div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-1')"><span class="action-number">1</span><div class="drilldown-item-title">Expand AI & MOSA Materials</div><div class="drilldown-item-desc">Urgently develop content for DoD strategic priorities. </div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-2')"><span class="action-number">2</span><div class="drilldown-item-title">Update Content & Metadata</div><div class="drilldown-item-desc">Refresh older materials and complete missing dates. </div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-3')"><span class="action-number">3</span><div class="drilldown-item-title">Increase Interactive Learning</div><div class="drilldown-item-desc">Add case studies and simulations. </div></div>
+                        <div class="drilldown-item action" onclick="openDetail('action-4')"><span class="action-number">4</span><div class="drilldown-item-title">Address Audience Gaps</div><div class="drilldown-item-desc">Create content for Engineers and Small Business. </div></div>
                     </div>
                 `;
             }
@@ -3335,8 +3338,7 @@
             document.getElementById('detailOverlay').classList.add('active');
         }
 
-        function closeDetail(event) {
-            if (event && event.target !== event.currentTarget && !event.target.classList.contains('detail-back') && !event.target.classList.contains('detail-close')) return;
+        function closeDetail() {
             document.getElementById('detailOverlay').classList.remove('active');
         }
 
