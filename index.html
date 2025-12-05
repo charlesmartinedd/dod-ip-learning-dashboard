@@ -194,15 +194,23 @@
 
         .stat-icons {
             display: flex;
-            gap: 6px;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.75rem;
             justify-content: center;
             margin-top: 0.5rem;
             color: var(--slate-400);
+            font-size: 0.625rem;
+        }
+
+        .stat-icons .type-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
         }
 
         .stat-icons svg {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
         }
 
         .stat-card .health-bar {
@@ -4802,7 +4810,7 @@
                     <div class="stat-value">${Object.keys(typeCounts).length}</div>
                     <div class="stat-label">Types</div>
                     <div class="stat-icons">
-                        ${Object.keys(TYPE_ICONS).map(type => getTypeIcon(type)).join('')}
+                        ${Object.keys(TYPE_ICONS).map(type => `<span class="type-item">${getTypeIcon(type)} ${type === 'Other' ? 'Resources' : type}</span>`).join('')}
                     </div>
                 </div>
                 <div class="stat-card">
