@@ -61,16 +61,16 @@
             justify-content: center;
             min-height: 100vh;
             text-align: left;
-            padding: 4rem 8rem;
+            padding: 2.5rem 6rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--navy-900);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.03em;
             line-height: 1.1;
             max-width: 700px;
@@ -80,7 +80,7 @@
             font-size: 1.0625rem;
             color: var(--slate-500);
             max-width: 540px;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
             line-height: 1.7;
         }
 
@@ -88,7 +88,7 @@
             display: flex;
             flex-direction: row;
             gap: 1rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
 
         .btn {
@@ -113,10 +113,25 @@
         .btn.primary { background: var(--accent); }
         .btn.primary:hover { background: #1d4ed8; }
 
+        /* Visited button state (session-based) */
+        .btn.visited {
+            background: var(--navy-500);
+            opacity: 0.85;
+        }
+        .btn.visited:hover {
+            background: var(--navy-700);
+        }
+        .btn.primary.visited {
+            background: #3b82f6;
+        }
+        .btn.primary.visited:hover {
+            background: var(--accent);
+        }
+
         .footer-stats {
             position: absolute;
-            bottom: 2rem;
-            left: 8rem;
+            bottom: 1.5rem;
+            left: 6rem;
             font-size: 0.8125rem;
             color: var(--slate-500);
             letter-spacing: 0.05em;
@@ -127,14 +142,14 @@
         .stats-cards {
             display: flex;
             gap: 1.25rem;
-            margin: 2rem 0;
+            margin: 1rem 0;
             flex-wrap: wrap;
         }
 
         .stat-card {
             background: white;
             border-radius: 12px;
-            padding: 1rem 1.25rem;
+            padding: 0.75rem 1rem;
             min-width: 130px;
             flex: 1;
             text-align: center;
@@ -196,7 +211,7 @@
 
         /* Carousel Section - 4 Card Grid */
         .carousel-section {
-            margin: 2rem 0;
+            margin: 1rem 0;
             max-width: 900px;
         }
 
@@ -223,7 +238,7 @@
             background: white;
             border: 1px solid var(--slate-200);
             border-radius: 10px;
-            padding: 1.25rem 1rem;
+            padding: 1rem 0.75rem;
             text-align: center;
             text-decoration: none;
             display: flex;
@@ -1331,6 +1346,61 @@
             text-align: center;
             padding: 3rem 1rem;
             color: var(--slate-400);
+        }
+
+        .resource-list-item.selected {
+            background: white;
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+        }
+
+        #resourcePreview {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--accent-subtle);
+            display: none;
+        }
+
+        #resourcePreview:has(.preview-content) {
+            display: block;
+        }
+
+        #resourcePreview h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--navy-900);
+        }
+
+        #resourcePreview p {
+            font-size: 0.8125rem;
+            color: var(--slate-600);
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .open-resource-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .open-resource-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .no-url {
+            font-size: 0.8125rem;
+            color: var(--slate-400);
+            font-style: italic;
         }
 
         /* Stat Cards */
@@ -2475,7 +2545,7 @@
 
         <!-- Featured Resources Carousel -->
         <div class="carousel-section">
-            <h2>Start Here</h2>
+            <h2>Featured Resources</h2>
             <div class="carousel-container" id="carouselContainer"></div>
         </div>
 
@@ -3658,8 +3728,33 @@
             requestAnimationFrame(update);
         }
 
+        // Session-based visited button tracking
+        function markModalVisited(modalType) {
+            const visited = JSON.parse(sessionStorage.getItem('visitedModals') || '[]');
+            if (!visited.includes(modalType)) {
+                visited.push(modalType);
+                sessionStorage.setItem('visitedModals', JSON.stringify(visited));
+            }
+            updateVisitedButtons();
+        }
+
+        function updateVisitedButtons() {
+            const visited = JSON.parse(sessionStorage.getItem('visitedModals') || '[]');
+            document.querySelectorAll('.buttons .btn').forEach(btn => {
+                const onclick = btn.getAttribute('onclick');
+                const match = onclick?.match(/openModal\('(\w+)'\)/);
+                if (match && visited.includes(match[1])) {
+                    btn.classList.add('visited');
+                }
+            });
+        }
+
+        // Update visited buttons on page load
+        document.addEventListener('DOMContentLoaded', updateVisitedButtons);
+
         // Modal functions
         function openModal(type) {
+            markModalVisited(type);
             const overlay = document.getElementById('modalOverlay');
             const title = document.getElementById('modalTitle');
             const body = document.getElementById('modalBody');
@@ -4503,13 +4598,14 @@
                     <div class="resource-list-count">${resources.length} resource${resources.length !== 1 ? 's' : ''}</div>
                     <div class="resource-list-items">
                         ${resources.map(r => `
-                            <div class="resource-list-item" onclick="selectResource(${r.id})">
+                            <div class="resource-list-item" onclick="showResourcePreview(${r.id}, this)">
                                 <div class="resource-list-type ${r.type.toLowerCase()}">${r.type}</div>
                                 <div class="resource-list-title">${r.title}</div>
                                 ${r.date ? `<div class="resource-list-date">${r.date}</div>` : ''}
                             </div>
                         `).join('')}
                     </div>
+                    <div id="resourcePreview"></div>
                 `;
             }
             panel.classList.add('active');
@@ -4517,6 +4613,28 @@
 
         function closeResourceListPanel() {
             document.getElementById('resourceListPanel').classList.remove('active');
+        }
+
+        function showResourcePreview(id, element) {
+            const r = RESOURCES.find(res => res.id === id);
+            if (!r) return;
+
+            // Highlight selected item
+            document.querySelectorAll('.resource-list-item').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // Show preview
+            const preview = document.getElementById('resourcePreview');
+            if (preview) {
+                const desc = r.description ? (r.description.length > 150 ? r.description.substring(0, 150) + '...' : r.description) : 'No description available.';
+                preview.innerHTML = `
+                    <div class="preview-content">
+                        <h4>${r.title}</h4>
+                        <p>${desc}</p>
+                        ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="open-resource-btn">Open Resource &rarr;</a>` : '<span class="no-url">No URL available</span>'}
+                    </div>
+                `;
+            }
         }
 
         function showTopicResources(topic) {
@@ -4572,10 +4690,6 @@
                 <div class="stat-card">
                     <div class="stat-value">${latestDateFormatted}</div>
                     <div class="stat-label">Latest</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">${healthScore}%</div>
-                    <div class="stat-label">Quality</div>
                 </div>
             `;
         }
