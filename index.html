@@ -192,7 +192,18 @@
             margin-bottom: 0.75rem;
         }
 
-        
+        .stat-icons {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 0.5rem;
+            color: var(--slate-400);
+        }
+
+        .stat-icons svg {
+            width: 12px;
+            height: 12px;
+        }
 
         .stat-card .health-bar {
             height: 8px;
@@ -695,6 +706,12 @@
         .open-resource-btn:hover {
             background: #1d4ed8;
             transform: translateY(-1px);
+        }
+
+        .open-resource-btn svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
         }
 
         .replay-video-btn {
@@ -3997,7 +4014,7 @@
                         ${r.videoLength ? `<div class="detail-meta-row"><span class="meta-label">Duration</span><span class="meta-value">${r.videoLength}</span></div>` : ''}
                     </div>
                     <div class="detail-audience"><span class="meta-label">Audience</span><p>${r.audience}</p></div>
-                    ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="margin-top: 1rem;">View Resource →</a>` : ''}
+                    ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="margin-top: 1rem;">${getTypeIcon(r.type)} View Resource →</a>` : ''}
                 </div>
             `;
         }
@@ -4729,7 +4746,7 @@
                     <div class="preview-content">
                         <h4>${r.title}</h4>
                         <p>${desc}</p>
-                        ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="open-resource-btn">Open Resource &rarr;</a>` : '<span class="no-url">No URL available</span>'}
+                        ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="open-resource-btn">${getTypeIcon(r.type)} Open Resource &rarr;</a>` : '<span class="no-url">No URL available</span>'}
                     </div>
                 `;
             }
@@ -4784,6 +4801,9 @@
                 <div class="stat-card">
                     <div class="stat-value">${Object.keys(typeCounts).length}</div>
                     <div class="stat-label">Types</div>
+                    <div class="stat-icons">
+                        ${Object.keys(TYPE_ICONS).map(type => getTypeIcon(type)).join('')}
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value">${latestDateFormatted}</div>
