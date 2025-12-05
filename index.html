@@ -3901,8 +3901,8 @@
                         <div class="table-controls">
                             <input type="text" class="search-box" placeholder="Search resources..." oninput="handleSearch(this.value)">
                             <div class="filter-pills">
-                                <button class="filter-pill active" onclick="handleFilter('All', this)">All <span class="count">${RESOURCES.length}</span></button>
-                                ${types.map(([type, count]) => `<button class="filter-pill" onclick="handleFilter('${type}', this)">${getTypeIcon(type)} ${type} <span class="count">${count}</span></button>`).join('')}
+                                <button class="filter-pill ${currentFilter === 'All' ? 'active' : ''}" onclick="handleFilter('All', this)">All <span class="count">${RESOURCES.length}</span></button>
+                                ${types.map(([type, count]) => `<button class="filter-pill ${currentFilter === type ? 'active' : ''}" onclick="handleFilter('${type}', this)">${getTypeIcon(type)} ${type} <span class="count">${count}</span></button>`).join('')}
                             </div>
                             <div class="filter-header" id="filterHeader">Showing: <strong>${currentFilter}</strong> (${currentFilter === 'All' ? RESOURCES.length : RESOURCES.filter(r => r.type === currentFilter).length} resources)</div>
                         </div>
