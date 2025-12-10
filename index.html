@@ -2599,6 +2599,133 @@
             transform: translateX(-50%) scale(1.05);
             box-shadow: 0 4px 20px rgba(255,255,255,0.3);
         }
+
+        /* Meeting Recap Overlay */
+        .meeting-recap-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .meeting-recap-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .meeting-recap-overlay.dismissed {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .meeting-recap-content {
+            max-width: 800px;
+            padding: 3rem;
+            color: white;
+            text-align: center;
+        }
+        .meeting-recap-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+        }
+        .meeting-recap-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            line-height: 1.2;
+        }
+        .meeting-recap-summary {
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .meeting-recap-decisions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .decision-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 1.25rem 1rem;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        .decision-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .decision-card h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+        .decision-card p {
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.5;
+        }
+        .meeting-recap-partners {
+            margin-bottom: 2rem;
+        }
+        .meeting-recap-partners h5 {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.75rem;
+        }
+        .partner-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .partner-tag {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+        }
+        .meeting-recap-cta {
+            background: white;
+            color: var(--navy-900);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .meeting-recap-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(255,255,255,0.3);
+        }
+        @media (max-width: 768px) {
+            .meeting-recap-content { padding: 2rem 1.5rem; }
+            .meeting-recap-title { font-size: 1.5rem; }
+            .meeting-recap-decisions { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -2606,6 +2733,43 @@
         <video id="introVideo" autoplay muted loop playsinline>
             <source src="intro.mp4" type="video/mp4">
         </video>
+</div>
+    <!-- Meeting Recap Overlay -->
+    <div class="meeting-recap-overlay" id="meetingRecapOverlay">
+        <div class="meeting-recap-content">
+            <span class="meeting-recap-badge">OSBP IP Training Initiative</span>
+            <h2 class="meeting-recap-title">Strategic Context</h2>
+            <p class="meeting-recap-summary">
+                Extensive IP training resources already exist across DAU, IP Cadre, and R&E.
+                The primary challenge is <strong>resource discoverability</strong> and accessibility for small businesses.
+                The recommended approach: create short-form content and simplified access points rather than developing new training materials.
+            </p>
+            <div class="meeting-recap-decisions">
+                <div class="decision-card">
+                    <h4>Focus on Discovery</h4>
+                    <p>Resources exist but are scattered — creating unified access points is the priority.</p>
+                </div>
+                <div class="decision-card">
+                    <h4>Target Small Business</h4>
+                    <p>DAU access is too cumbersome; need "click and access" simplicity for industry.</p>
+                </div>
+                <div class="decision-card">
+                    <h4>Short-Form Content</h4>
+                    <p>LinkedIn posts and quick guides to drive traffic to existing comprehensive training.</p>
+                </div>
+            </div>
+            <div class="meeting-recap-partners">
+                <h5>Collaboration Partners</h5>
+                <div class="partner-tags">
+                    <span class="partner-tag">DAU</span>
+                    <span class="partner-tag">IP Cadre</span>
+                    <span class="partner-tag">USPTO</span>
+                    <span class="partner-tag">APEX Accelerators</span>
+                    <span class="partner-tag">Small Business Technology Council</span>
+                </div>
+            </div>
+            <button class="meeting-recap-cta" onclick="dismissMeetingRecap()">Explore the Resources &rarr;</button>
+        </div>
     </div>
 
     <canvas id="particles"></canvas>
@@ -2735,6 +2899,18 @@
             videoOverlay.classList.add('dismissed');
             clickHint.remove();
 
+            setTimeout(() => {
+                videoOverlay.remove();
+                // Show meeting recap overlay
+                document.getElementById('meetingRecapOverlay').classList.add('active');
+            }, 700);
+}
+
+        function dismissMeetingRecap() {
+            const recapOverlay = document.getElementById('meetingRecapOverlay');
+            recapOverlay.classList.remove('active');
+            recapOverlay.classList.add('dismissed');
+
             if (!particlesInitialized) {
                 particlesInitialized = true;
                 initParticles();
@@ -2742,9 +2918,9 @@
             }
 
             setTimeout(() => {
-                videoOverlay.remove();
+                recapOverlay.remove();
                 document.getElementById('replayVideoBtn').classList.add('visible');
-            }, 700);
+            }, 500);
         }
 
         // Video error handler - auto dismiss if video fails
@@ -2989,7 +3165,7 @@
     "title": "WSM 022 Intellectual Property Rights for FAR-Based Contracts",
     "summary": "This workshop introduces fundamental aspects of intellectual property and data rights in US Government contracts. Attendees explore pre- and post-award strategies and apply knowledge through case studies. Teams can use the workshop to develop program-specific IP strategies.",
     "description": "Workshop attendees will be introduced to the fundamental aspects of intellectual property and data rights inherent in US Government contracts, along with the considerations for developing an IPDR Strategy. Building upon the base knowledge, an in-depth examination into the pre- and post-award strategy and management will be explored. Attendees will apply knowledge gained to a major case study to clarify and reinforce concepts discussed. Alternatively, attendees from a specific Program Office or program team can use the workshop to develop an IPDR Strategy specific to their program.",
-    "type": "Other",
+    "type": "Document",
     "organization": "DAU",
     "audience": "Acquisition team members serving in defense systems acquisition mission area:\r\nPrimarily for contracting officers, logicians, project engineers, and program managers and is particularly beneficial when a multi-disciplined project team can attend together.\r\nIdeally suited for acquisition team members with more than 5 years of experience, who are approaching a major procurement or are currently working on a major program.",
     "date": "2024-10-09",
@@ -3049,7 +3225,7 @@
     "title": "WSM 022 Intellectual Property Rights",
     "summary": "This workshop session covers fundamental aspects of IP and data rights in FAR-based contracts. Topics include pre- and post-award strategies, management considerations, and practical case studies. The training reinforces key concepts for acquisition professionals.",
     "description": "Part of the WSM 022 Intellectual Property Rights workshop series. This session introduces fundamental aspects of IP and data rights in FAR-based contracts, including pre- and post-award strategies, management considerations, and case studies to reinforce key concepts.",
-    "type": "Other",
+    "type": "Video",
     "organization": "DAU",
     "audience": "Program Managers, Contracting Officers, IP Attorneys, and acquisition professionals involved in developing IP and Data Rights strategies.",
     "date": "2021-12-10",
@@ -3457,7 +3633,7 @@
     "title": "IP Materials",
     "summary": "This page hosts presentation materials from the DoD Intellectual Property Forum. Topics include IP valuation, MOSA, specially negotiated license rights, and DFARS updates. The materials serve as a resource hub for government and industry stakeholders.",
     "description": "DEPARTMENT OF DEFENSE (DOD) INTELLECTUAL PROPERTY (IP) FORUM. This page hosts presentation materials from the Department of Defense Intellectual Property (IP) Forum, which focused on advancing DoD acquisitions through effective IP evaluation and strategies. The forum featured sessions on topics such as IP valuation, Modular Open Systems Approach (MOSA), specially negotiated license rights, DFARS regulatory updates, and lessons learned from the Section 801 IP Pilot Program. It served as a resource hub for government and industry stakeholders to access detailed briefs, case studies, and technical insights.",
-    "type": "Other",
+    "type": "Website",
     "organization": "DAU",
     "audience": "The materials are intended for DoD acquisition professionals, industry partners, and academia, including program managers, contracting officers, IP attorneys, engineers, and policy makers involved in intellectual property and data rights.",
     "date": "2023-12-01",
@@ -4428,19 +4604,32 @@
 
         function renderNextSteps() {
             return `
-                <div class="coverage-content" style="text-align: left; max-width: 600px; margin: 0; padding: 1.5rem;">
+                <div class="coverage-content" style="text-align: left; max-width: 650px; margin: 0; padding: 1.5rem;">
                     <h3 style="font-size: 1.125rem; color: var(--navy-900); margin-bottom: 1rem; font-weight: 600;">Help Shape the Future of IP Resources</h3>
                     <p style="font-size: 1rem; line-height: 1.8; color: var(--navy-700); margin-bottom: 1.5rem;">
-                        The Department's Office of Small Business Programs, DAU (OUSD(A&S)), and the OUSD(R&E)/IP Cadre have partnered to create a survey designed to better understand your needs and improve support.
+                        The Department's Office of Small Business Programs, DAU (OUSD(A&amp;S)), and the OUSD(R&amp;E)/IP Cadre have partnered to create a survey designed to better understand your needs and improve support.
                     </p>
-                    <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--slate-500); margin-bottom: 1.5rem;">
-                        This survey assesses prior knowledge about IP to inform the need for resources and training. The results will help identify training and resource needs prioritized for future courses, workshops, podcasts, webinars, and blogs.
-                    </p>
+
+                    <div style="display: grid; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="background: var(--slate-100); border-radius: 8px; padding: 1rem; border-left: 3px solid var(--accent);">
+                            <h4 style="font-size: 0.875rem; font-weight: 600; color: var(--navy-900); margin-bottom: 0.25rem;">Stakeholder Survey</h4>
+                            <p style="font-size: 0.8125rem; color: var(--slate-500); margin: 0;">Your input shapes future training priorities for courses, workshops, and webinars.</p>
+                        </div>
+                        <div style="background: var(--slate-100); border-radius: 8px; padding: 1rem; border-left: 3px solid var(--green);">
+                            <h4 style="font-size: 0.875rem; font-weight: 600; color: var(--navy-900); margin-bottom: 0.25rem;">Resource Consolidation</h4>
+                            <p style="font-size: 0.8125rem; color: var(--slate-500); margin: 0;">Creating unified access to existing materials across DAU, IP Cadre, and R&amp;E.</p>
+                        </div>
+                        <div style="background: var(--slate-100); border-radius: 8px; padding: 1rem; border-left: 3px solid var(--yellow);">
+                            <h4 style="font-size: 0.875rem; font-weight: 600; color: var(--navy-900); margin-bottom: 0.25rem;">New Content Development</h4>
+                            <p style="font-size: 0.8125rem; color: var(--slate-500); margin: 0;">Scenario-based training and quick guides for emerging topics like AI and MOSA.</p>
+                        </div>
+                    </div>
+
                     <p style="font-size: 1rem; font-weight: 500; color: var(--navy-900); margin-bottom: 1.5rem;">
                         We have a vested interest in your professional development - we want to hear from you!
                     </p>
-                    <a href="https://forms.office.com/pages/responsepage.aspx?id=RL4hHDUkv0m8H8ujFxhwWIuBFaDXnZBIm6WcfQrwSs5UQUdaRlJKM05SNDNSQVpLV1ZKTDVNNTdBQy4u&route=shorturl" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="display: inline-flex;">
-                        Take the Survey →
+                    <a href="https://forms.office.com/pages/responsepage.aspx?id=RL4hHDUkv0m8H8ujFxhwWIuBFaDXnZBIm6WcfQrwSs5UQUdaRlJKM05SNDNSQVpLV1ZKTDVNNTdBQy4u&amp;route=shorturl" target="_blank" rel="noopener noreferrer" class="open-resource-btn" style="display: inline-flex;">
+                        Take the Survey &rarr;
                     </a>
                 </div>
             `;
