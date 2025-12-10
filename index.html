@@ -2721,6 +2721,15 @@
             transform: scale(1.05);
             box-shadow: 0 4px 20px rgba(255,255,255,0.3);
         }
+        /* Hide main content until meeting recap is dismissed */
+        .hero {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hero.visible {
+            opacity: 1;
+        }
+
         @media (max-width: 768px) {
             .meeting-recap-content { padding: 2rem 1.5rem; }
             .meeting-recap-title { font-size: 1.5rem; }
@@ -2797,7 +2806,7 @@
             <div class="carousel-container" id="carouselContainer"></div>
         </div>
 
-        <div class="footer-stats">65 Resources &bull; 5 Types</div>
+        <div class="footer-stats">64 Resources &bull; 5 Types</div>
     </main>
 
     <button class="replay-video-btn" id="replayVideoBtn" onclick="replayIntroVideo()">▶ Replay Intro</button>
@@ -2907,6 +2916,8 @@
 }
 
         function dismissMeetingRecap() {
+            // Show the main content
+            document.querySelector('.hero').classList.add('visible');
             const recapOverlay = document.getElementById('meetingRecapOverlay');
             recapOverlay.classList.remove('active');
             recapOverlay.classList.add('dismissed');
