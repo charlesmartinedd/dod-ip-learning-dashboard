@@ -4042,8 +4042,8 @@
         let currentFilter = 'All';
         let searchQuery = '';
         let selectedResourceId = null;
-        let sortColumn = 'date';
-        let sortDirection = 'desc';
+        let sortColumn = 'title';
+        let sortDirection = 'asc';
 
         // Particles
         const canvas = document.getElementById('particles');
@@ -4258,13 +4258,18 @@
 
         function handleFilter(type, btn) {
             currentFilter = type;
-            // Reset sort to date if currently sorted by type and filtering to specific type
+            // Reset sort to title if currently sorted by type and filtering to specific type
             if (type !== 'All' && sortColumn === 'type') {
-                sortColumn = 'date';
-                sortDirection = 'desc';
+                sortColumn = 'title';
+                sortDirection = 'asc';
             }
             // Re-render full explore view to update header styling
             document.getElementById('modalBody').innerHTML = renderExploreResources();
+            // Auto-select first resource after filter applied
+            setTimeout(() => {
+                const firstRow = document.querySelector('.resource-row');
+                if (firstRow) firstRow.click();
+            }, 50);
         }
 
         function handleSearch(query) {
