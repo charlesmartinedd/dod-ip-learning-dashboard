@@ -408,3 +408,31 @@ generateTopicsPDF();
 generateOrganizationPDF();
 generateCrossTabPDF();
 console.log('All PDFs generated in reports/ folder');
+
+// Trim PDFs to single page (pdfkit sometimes adds extra pages)
+const { PDFDocument } = require('pdf-lib');
+async function trimAllPDFs() {
+    console.log('Trimming PDFs to single page...');
+    const files = fs.readdirSync(reportsDir).filter(f => f.endsWith('.pdf'));
+
+    // Wait a moment for files to finish writing
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    for (const file of files) {
+        const filepath = path.join(reportsDir, file);
+        const pdfBytes = fs.readFileSync(filepath);
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+
+        const pageCount = pdfDoc.getPageCount();
+        if (pageCount > 1) {
+            for (let i = pageCount - 1; i > 0; i--) {
+                pdfDoc.removePage(i);
+            }
+            const newPdfBytes = await pdfDoc.save();
+            fs.writeFileSync(filepath, newPdfBytes);
+            console.log(`  ${file}: trimmed to 1 page`);
+        }
+    }
+    console.log('Done!');
+}
+trimAllPDFs();
