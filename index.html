@@ -1491,6 +1491,10 @@
             overflow-y: auto;
         }
 
+        .inline-resource-list #resourcePreview {
+            margin-bottom: 1rem;
+        }
+
         /* Stat Cards */
         .stat-grid {
             display: grid;
@@ -4949,10 +4953,11 @@
             const activeTab = document.querySelector('.analytics-tabs button.active');
             previousAnalyticsTab = activeTab ? activeTab.textContent : 'Overview';
 
-            // Build resource list HTML
+            // Build resource list HTML - preview ABOVE the list so it's visible
             const resourceHTML = resources.length === 0
                 ? '<div class="no-resources">No resources match this criteria.</div>'
-                : `<div class="resource-list-count">${resources.length} resource${resources.length !== 1 ? 's' : ''}</div>
+                : `<div id="resourcePreview"></div>
+                   <div class="resource-list-count">${resources.length} resource${resources.length !== 1 ? 's' : ''}</div>
                    <div class="resource-list-items">
                        ${resources.map(r => `
                            <div class="resource-list-item" onclick="showResourcePreview(${r.id}, this)">
@@ -4961,8 +4966,7 @@
                                <div class="resource-list-date ${!r.date ? 'no-date' : ''}">${r.date || 'No date'}</div>
                            </div>
                        `).join('')}
-                   </div>
-                   <div id="resourcePreview"></div>`;
+                   </div>`;
 
             // Replace analytics content with resource list
             container.innerHTML = `
