@@ -1454,6 +1454,43 @@
             font-style: italic;
         }
 
+        /* Inline Resource List (for Analytics drilldowns) */
+        .inline-resource-list {
+            padding: 0.5rem 0;
+        }
+
+        .back-to-analytics {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .back-to-analytics:hover {
+            text-decoration: underline;
+        }
+
+        .inline-resource-list .inline-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy-900);
+            margin-bottom: 1rem;
+        }
+
+        .inline-resource-list .resource-list-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
         /* Stat Cards */
         .stat-grid {
             display: grid;
@@ -2854,6 +2891,10 @@
         // Video Intro State
         let videoClickCount = 0;
         let particlesInitialized = false;
+
+        // Analytics drilldown state
+        let previousAnalyticsContent = null;
+        let previousAnalyticsTab = null;
 
         const videoOverlay = document.getElementById('videoOverlay');
         const introVideo = document.getElementById('introVideo');
@@ -4898,35 +4939,51 @@
             document.getElementById('detailOverlay').classList.remove('active');
         }
 
-        // Resource list panel for drilldowns
+        // Resource list - inline replacement for analytics drilldowns
         function showResourceListPanel(title, resources) {
-            const panel = document.getElementById('resourceListPanel');
-            const titleEl = document.getElementById('resourceListTitle');
-            const bodyEl = document.getElementById('resourceListBody');
+            const container = document.getElementById('analyticsContent');
+            if (!container) return;
 
-            // Scroll modal to top so resource panel is visible
-            const modalBody = document.querySelector('.modal-body');
-            if (modalBody) modalBody.scrollTop = 0;
+            // Store current content and active tab for back navigation
+            previousAnalyticsContent = container.innerHTML;
+            const activeTab = document.querySelector('.analytics-tabs button.active');
+            previousAnalyticsTab = activeTab ? activeTab.textContent : 'Overview';
 
-            titleEl.textContent = title;
-            if (resources.length === 0) {
-                bodyEl.innerHTML = '<div class="no-resources">No resources match this criteria.</div>';
-            } else {
-                bodyEl.innerHTML = `
-                    <div class="resource-list-count">${resources.length} resource${resources.length !== 1 ? 's' : ''}</div>
-                    <div class="resource-list-items">
-                        ${resources.map(r => `
-                            <div class="resource-list-item" onclick="showResourcePreview(${r.id}, this)">
-                                <div class="resource-list-type ${r.type.toLowerCase()}">${getTypeIcon(r.type)} ${r.type}</div>
-                                <div class="resource-list-title">${r.title}</div>
-                                <div class="resource-list-date ${!r.date ? 'no-date' : ''}">${r.date || 'No date'}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div id="resourcePreview"></div>
-                `;
+            // Build resource list HTML
+            const resourceHTML = resources.length === 0
+                ? '<div class="no-resources">No resources match this criteria.</div>'
+                : `<div class="resource-list-count">${resources.length} resource${resources.length !== 1 ? 's' : ''}</div>
+                   <div class="resource-list-items">
+                       ${resources.map(r => `
+                           <div class="resource-list-item" onclick="showResourcePreview(${r.id}, this)">
+                               <div class="resource-list-type ${r.type.toLowerCase()}">${getTypeIcon(r.type)} ${r.type}</div>
+                               <div class="resource-list-title">${r.title}</div>
+                               <div class="resource-list-date ${!r.date ? 'no-date' : ''}">${r.date || 'No date'}</div>
+                           </div>
+                       `).join('')}
+                   </div>
+                   <div id="resourcePreview"></div>`;
+
+            // Replace analytics content with resource list
+            container.innerHTML = `
+                <div class="inline-resource-list">
+                    <button class="back-to-analytics" onclick="restoreAnalyticsContent()">&larr; Back</button>
+                    <h3 class="inline-title">${title}</h3>
+                    ${resourceHTML}
+                </div>
+            `;
+        }
+
+        function restoreAnalyticsContent() {
+            const container = document.getElementById('analyticsContent');
+            if (container && previousAnalyticsContent) {
+                container.innerHTML = previousAnalyticsContent;
+                previousAnalyticsContent = null;
+                // Re-animate bars if needed
+                setTimeout(() => {
+                    document.querySelectorAll('.bar-fill, .topic-bar-fill, .dimension-bar-fill').forEach(b => b.classList.add('animate'));
+                }, 50);
             }
-            panel.classList.add('active');
         }
 
         function closeResourceListPanel() {
