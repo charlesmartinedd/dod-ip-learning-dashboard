@@ -5009,6 +5009,8 @@
                         ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="open-resource-btn">${getTypeIcon(r.type)} Open Resource &rarr;</a>` : '<span class="no-url">No URL available</span>'}
                     </div>
                 `;
+                // Explicitly show the preview (fallback for browsers without :has() support)
+                preview.style.display = 'block';
             }
         }
 
