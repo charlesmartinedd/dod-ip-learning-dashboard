@@ -2995,6 +2995,49 @@
         function replayIntroVideo() {
             document.getElementById('replayVideoBtn').classList.remove('visible');
 
+            // Recreate meeting recap overlay if it was removed
+            if (!document.getElementById('meetingRecapOverlay')) {
+                const recapHTML = `
+                    <div class="meeting-recap-overlay" id="meetingRecapOverlay">
+                        <div class="meeting-recap-content">
+                            <span class="meeting-recap-badge">OSBP IP Training Initiative</span>
+                            <h2 class="meeting-recap-title">Strategic Context</h2>
+                            <p class="meeting-recap-summary">
+                                Extensive IP training resources already exist across DAU, IP Cadre, and R&E.
+                                The primary challenge is <strong>resource discoverability</strong> and accessibility for small businesses.
+                                The recommended approach: create short-form content and simplified access points rather than developing new training materials.
+                            </p>
+                            <div class="meeting-recap-decisions">
+                                <div class="decision-card">
+                                    <h4>Focus on Discovery</h4>
+                                    <p>Resources exist but are scattered — creating unified access points is the priority.</p>
+                                </div>
+                                <div class="decision-card">
+                                    <h4>Target Small Business</h4>
+                                    <p>DAU access is too cumbersome; need "click and access" simplicity for industry.</p>
+                                </div>
+                                <div class="decision-card">
+                                    <h4>Short-Form Content</h4>
+                                    <p>LinkedIn posts and quick guides to drive traffic to existing comprehensive training.</p>
+                                </div>
+                            </div>
+                            <div class="meeting-recap-partners">
+                                <h5>Collaboration Partners</h5>
+                                <div class="partner-tags">
+                                    <span class="partner-tag">DAU</span>
+                                    <span class="partner-tag">IP Cadre</span>
+                                    <span class="partner-tag">USPTO</span>
+                                    <span class="partner-tag">APEX Accelerators</span>
+                                    <span class="partner-tag">Small Business Technology Council</span>
+                                </div>
+                            </div>
+                            <button class="meeting-recap-cta" onclick="dismissMeetingRecap()">Explore the Resources &rarr;</button>
+                        </div>
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('afterbegin', recapHTML);
+            }
+
             const overlay = document.createElement('div');
             overlay.className = 'video-overlay';
             overlay.id = 'videoOverlay';
