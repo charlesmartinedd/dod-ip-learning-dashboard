@@ -2969,7 +2969,8 @@
                 overlay.classList.add('dismissed');
                 setTimeout(() => {
                     overlay.remove();
-                    document.getElementById('replayVideoBtn').classList.add('visible');
+                    // Show meeting recap overlay (same as original intro flow)
+                    document.getElementById('meetingRecapOverlay').classList.add('active');
                 }, 700);
             };
 
@@ -2989,7 +2990,8 @@
                     overlay.classList.add('dismissed');
                     setTimeout(() => {
                         overlay.remove();
-                        document.getElementById('replayVideoBtn').classList.add('visible');
+                        // Show meeting recap overlay (same as original intro flow)
+                        document.getElementById('meetingRecapOverlay').classList.add('active');
                     }, 700);
                 }
             });
@@ -4901,6 +4903,10 @@
             const panel = document.getElementById('resourceListPanel');
             const titleEl = document.getElementById('resourceListTitle');
             const bodyEl = document.getElementById('resourceListBody');
+
+            // Scroll modal to top so resource panel is visible
+            const modalBody = document.querySelector('.modal-body');
+            if (modalBody) modalBody.scrollTop = 0;
 
             titleEl.textContent = title;
             if (resources.length === 0) {
