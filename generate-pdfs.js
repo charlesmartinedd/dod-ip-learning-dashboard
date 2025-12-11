@@ -4,6 +4,7 @@
  */
 
 const PDFDocument = require('pdfkit');
+const { PDFDocument: PDFLib } = require('pdf-lib');
 const fs = require('fs');
 const path = require('path');
 
@@ -77,7 +78,7 @@ function sectionHeader(doc, text) {
     doc.fillColor(COLORS.navy)
        .fontSize(14)
        .font('Helvetica-Bold')
-       .text(text);
+       .text(text, 50);  // Explicitly set x to left margin
     doc.moveDown(0.3);
 }
 
@@ -287,33 +288,7 @@ function generateAudiencePDF() {
     console.log('Generated: analytics-audience.pdf');
 }
 
-// 5. Quality PDF
-function generateQualityPDF() {
-    const doc = new PDFDocument({ size: 'LETTER', margin: 50, autoFirstPage: false });
-    doc.addPage();
-    doc.pipe(fs.createWriteStream(path.join(reportsDir, 'analytics-quality.pdf')));
-
-    addHeader(doc, 'Quality');
-
-    sectionHeader(doc, 'Quality Assessment');
-    const completeness = Math.round((resources.filter(r => r.description && r.date && r.url).length / analytics.total) * 100);
-    const currency = Math.round(((analytics.yearCounts['2024'] || 0) + (analytics.yearCounts['2025'] || 0)) / analytics.total * 100);
-    const diversity = Math.round(Object.keys(analytics.typeCounts).length / 5 * 100);
-
-    const qualityRows = [
-        ['Completeness', completeness + '%', 'Resources with full metadata'],
-        ['Currency', currency + '%', 'Resources from 2024-2025'],
-        ['Type Diversity', diversity + '%', 'Variety of resource formats'],
-        ['Overall Score', Math.round((completeness + currency + diversity) / 3) + '%', 'Average of all metrics']
-    ];
-    drawTable(doc, ['Metric', 'Score', 'Description'], qualityRows, { colWidths: [150, 100, 250] });
-
-    addFooter(doc);
-    doc.end();
-    console.log('Generated: analytics-quality.pdf');
-}
-
-// 6. Topics PDF
+// 5. Topics PDF
 function generateTopicsPDF() {
     const doc = new PDFDocument({ size: 'LETTER', margin: 50, autoFirstPage: false });
     doc.addPage();
@@ -336,7 +311,7 @@ function generateTopicsPDF() {
     console.log('Generated: analytics-topics.pdf');
 }
 
-// 7. Organization PDF
+// 6. Organization PDF
 function generateOrganizationPDF() {
     const doc = new PDFDocument({ size: 'LETTER', margin: 50, autoFirstPage: false });
     doc.addPage();
@@ -359,7 +334,7 @@ function generateOrganizationPDF() {
     console.log('Generated: analytics-organization.pdf');
 }
 
-// 8. Cross-Tab PDF
+// 7. Cross-Tab PDF
 function generateCrossTabPDF() {
     const doc = new PDFDocument({ size: 'LETTER', margin: 50, layout: 'landscape', autoFirstPage: false });
     doc.addPage();
@@ -403,14 +378,12 @@ generateOverviewPDF();
 generateByTypePDF();
 generateTimelinePDF();
 generateAudiencePDF();
-generateQualityPDF();
 generateTopicsPDF();
 generateOrganizationPDF();
 generateCrossTabPDF();
 console.log('All PDFs generated in reports/ folder');
 
 // Trim PDFs to single page (pdfkit sometimes adds extra pages)
-const { PDFDocument } = require('pdf-lib');
 async function trimAllPDFs() {
     console.log('Trimming PDFs to single page...');
     const files = fs.readdirSync(reportsDir).filter(f => f.endsWith('.pdf'));
@@ -421,7 +394,7 @@ async function trimAllPDFs() {
     for (const file of files) {
         const filepath = path.join(reportsDir, file);
         const pdfBytes = fs.readFileSync(filepath);
-        const pdfDoc = await PDFDocument.load(pdfBytes);
+        const pdfDoc = await PDFLib.load(pdfBytes);
 
         const pageCount = pdfDoc.getPageCount();
         if (pageCount > 1) {
