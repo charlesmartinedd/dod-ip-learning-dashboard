@@ -4266,7 +4266,7 @@
                             <button onclick="showAnalyticsTab('crosstab', this)">Cross-Tab</button>
                         </div>
                         <div class="export-options">
-                            <button class="export-btn" onclick="exportAnalyticsToCSV()" title="Export analytics summary to CSV">
+                            <button class="export-btn" onclick="exportAnalyticsPDF()" title="Export analytics report as PDF">
                                 <span>&#8595;</span> Export Analytics
                             </button>
                         </div>
@@ -5176,51 +5176,31 @@
 
         // ========== EXPORT FUNCTIONALITY ==========
 
-        function exportAnalyticsToCSV() {
-            // Resource type counts
-            const typeCounts = {};
-            RESOURCES.forEach(r => { typeCounts[r.type] = (typeCounts[r.type] || 0) + 1; });
+        function exportAnalyticsPDF() {
+            // Map active tab to PDF filename
+            const tabToPDF = {
+                'overview': 'analytics-overview.pdf',
+                'type': 'analytics-by-type.pdf',
+                'timeline': 'analytics-timeline.pdf',
+                'audience': 'analytics-audience.pdf',
+                'quality': 'analytics-quality.pdf',
+                'topics': 'analytics-topics.pdf',
+                'organization': 'analytics-organization.pdf',
+                'crosstab': 'analytics-cross-tab.pdf'
+            };
 
-            // Date distribution
-            const yearCounts = {};
-            RESOURCES.forEach(r => {
-                if (r.date) {
-                    const year = r.date.split('-')[0];
-                    yearCounts[year] = (yearCounts[year] || 0) + 1;
-                } else {
-                    yearCounts['No Date'] = (yearCounts['No Date'] || 0) + 1;
-                }
-            });
+            // Determine active tab from button text or default to overview
+            const activeBtn = document.querySelector('.analytics-tabs button.active');
+            let activeTab = 'overview';
+            if (activeBtn) {
+                const text = activeBtn.textContent.toLowerCase().trim();
+                if (text === 'by type') activeTab = 'type';
+                else if (text === 'cross-tab') activeTab = 'crosstab';
+                else activeTab = text;
+            }
 
-            let csvContent = 'DoD IP Learning Resources - Analytics Export\n';
-            csvContent += `Generated: ${new Date().toLocaleDateString()}\n\n`;
-            csvContent += 'SUMMARY METRICS\n';
-            csvContent += `Total Resources,${RESOURCES.length}\n`;
-            csvContent += `Resource Types,${Object.keys(typeCounts).length}\n\n`;
-            csvContent += 'RESOURCES BY TYPE\n';
-            csvContent += 'Type,Count\n';
-            Object.entries(typeCounts).sort((a,b) => b[1] - a[1]).forEach(([type, count]) => {
-                csvContent += `${type},${count}\n`;
-            });
-            csvContent += '\nRESOURCES BY YEAR\n';
-            csvContent += 'Year,Count\n';
-            Object.entries(yearCounts).sort((a,b) => b[0].localeCompare(a[0])).forEach(([year, count]) => {
-                csvContent += `${year},${count}\n`;
-            });
-
-            downloadFile(csvContent, 'DoD_IP_Analytics.csv', 'text/csv');
-        }
-
-        function downloadFile(content, filename, mimeType) {
-            const blob = new Blob([content], { type: mimeType });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            const pdfFile = tabToPDF[activeTab] || 'analytics-overview.pdf';
+            window.open('reports/' + pdfFile, '_blank');
         }
     </script>
 </body>
