@@ -4754,7 +4754,7 @@
                 const dimensions = [
                     { name: 'Completeness', value: q.completeness, desc: 'Resources with complete metadata (date, description, URL)', color: '#2563eb' },
                     { name: 'Currency', value: q.currency, desc: 'Resources published in 2024-2025', color: '#10b981' },
-                    { name: 'Diversity', value: q.diversity, desc: 'Coverage across resource types', color: '#f59e0b' },
+                    { name: 'Variety', value: q.diversity, desc: 'Coverage across resource types', color: '#f59e0b' },
                     { name: 'Coverage', value: q.coverage, desc: 'Audience and topic breadth', color: '#8b5cf6' }
                 ];
                 const getScoreClass = (v) => v >= 70 ? 'good' : v >= 50 ? 'moderate' : 'poor';
@@ -5024,11 +5024,11 @@
                 body.innerHTML = `
                     <p class="drilldown-instruction">Click any item below for detailed analysis and resource references.</p>
                     <div class="drilldown-grid">
-                        <div class="drilldown-item strength" onclick="openDetail('strength-1')"><div class="drilldown-item-title">Robust Foundational Content</div><div class="drilldown-item-desc">Strong entry points for new personnel entering the IP field. </div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-1')"><div class="drilldown-item-title">Foundational Content</div><div class="drilldown-item-desc">Entry points for new personnel entering the IP field. </div></div>
                         <div class="drilldown-item strength" onclick="openDetail('strength-2')"><div class="drilldown-item-title">Strong Video Representation</div><div class="drilldown-item-desc">20% video content enables visual demonstration of complex concepts. </div></div>
                         <div class="drilldown-item strength" onclick="openDetail('strength-3')"><div class="drilldown-item-title">DAU Credential Alignment</div><div class="drilldown-item-desc">Comprehensive coverage with workforce development pathways. </div></div>
                         <div class="drilldown-item strength" onclick="openDetail('strength-4')"><div class="drilldown-item-title">Active 2025 Development</div><div class="drilldown-item-desc">${YEAR_DATA['2025'] || 0} new resources demonstrate sustained commitment. </div></div>
-                        <div class="drilldown-item strength" onclick="openDetail('strength-5')"><div class="drilldown-item-title">Format Diversity</div><div class="drilldown-item-desc">Balance of videos, documents, webinars, and courses. </div></div>
+                        <div class="drilldown-item strength" onclick="openDetail('strength-5')"><div class="drilldown-item-title">Format Variety</div><div class="drilldown-item-desc">Balance of videos, documents, webinars, and courses. </div></div>
                     </div>
                 `;
             } else if (type === 'gaps') {
@@ -5069,7 +5069,7 @@
         const DETAIL_CONTENT = {
             // ========== STRENGTHS ==========
             'strength-1': {
-                title: 'Robust Foundational Content',
+                title: 'Foundational Content',
                 paragraphs: [
                     'The collection provides an exceptionally strong foundation for professionals new to intellectual property in defense acquisition. The Foundational IP Credential (CACQ 008A) offers a comprehensive 19-hour curriculum covering IP fundamentals, data rights, licensing, and strategy development. This is complemented by a structured series of ACQ courses (0710-0760) that progressively build expertise from basic concepts to advanced applications.',
                     'These foundational resources create clear learning pathways aligned with DoD workforce development requirements. Professionals can start with introductory materials like the IP Guidebook and FAQ resources, then progress through formal DAU certification programs. This structured approach ensures acquisition personnel develop consistent, standardized knowledge of IP and data rights requirements across the Department.'
@@ -5101,9 +5101,9 @@
                 resources: [6, 10, 11, 12, 14]
             },
             'strength-5': {
-                title: 'Format Diversity',
+                title: 'Format Variety',
                 paragraphs: [
-                    'The collection spans six distinct format types: Training courses, Videos, Documents, Websites, Webinars, and Other resources. This diversity accommodates different learning preferences, time constraints, and use cases. Training courses provide structured certification paths, videos offer quick visual explanations, documents serve as reference materials, and websites provide up-to-date FAQs and guidance.',
+                    'The collection spans six distinct format types: Training courses, Videos, Documents, Websites, Webinars, and Other resources. This variety accommodates different learning preferences, time constraints, and use cases. Training courses provide structured certification paths, videos offer quick visual explanations, documents serve as reference materials, and websites provide up-to-date FAQs and guidance.',
                     'This format variety also supports different stages of the learning journey. Someone new to IP might start with a short overview video, then progress to formal online training, and later reference documents or webinars for specific situations. The combination of synchronous (webinars), asynchronous (training, videos), and reference (documents, websites) formats creates a comprehensive learning ecosystem.'
                 ],
                 resources: [1, 16, 52, 12, 15]
