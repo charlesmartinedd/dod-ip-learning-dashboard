@@ -35,7 +35,7 @@ function populatePage1() {
     document.getElementById('overallScore').textContent = qualityScores.overall;
     document.getElementById('compScore').textContent = qualityScores.completeness;
     document.getElementById('currScore').textContent = qualityScores.currency;
-    document.getElementById('divScore').textContent = qualityScores.diversity;
+    document.getElementById('divScore').textContent = qualityScores.variety;
     document.getElementById('covScore').textContent = qualityScores.coverage;
 
     // Strengths

@@ -159,7 +159,7 @@
   "qualityScores": {
     "completeness": 55,
     "currency": 37,
-    "diversity": 100,
+    "variety": 100,
     "coverage": 100,
     "overall": 70
   },

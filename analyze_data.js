@@ -344,7 +344,7 @@ emergingTopics.forEach(topic => {
 const qualityScores = {
   completeness: 0,
   currency: 0,
-  diversity: 0,
+  variety: 0,
   coverage: 0,
   overall: 0,
 };
@@ -358,7 +358,7 @@ qualityScores.completeness = Math.round((itemsWithFullMetadata / metrics.totalRe
 // Currency (recent content)
 qualityScores.currency = currencyPercent;
 
-// Diversity (format variety)
+// Variety (format variety)
 const formatCount = [
   metrics.videoCount > 0 ? 1 : 0,
   metrics.documentCount > 0 ? 1 : 0,
@@ -366,7 +366,7 @@ const formatCount = [
   metrics.trainingCount > 0 ? 1 : 0,
   metrics.websiteCount > 0 ? 1 : 0,
 ].reduce((sum, val) => sum + val, 0);
-qualityScores.diversity = Math.round((formatCount / 5) * 100);
+qualityScores.variety = Math.round((formatCount / 5) * 100);
 
 // Coverage (audience reach)
 const audiencesWithGoodCoverage = audienceList.filter(aud => audiences[aud] >= 10).length;
@@ -376,7 +376,7 @@ qualityScores.coverage = Math.round((audiencesWithGoodCoverage / audienceList.le
 qualityScores.overall = Math.round(
   (qualityScores.completeness * 0.25) +
   (qualityScores.currency * 0.30) +
-  (qualityScores.diversity * 0.20) +
+  (qualityScores.variety * 0.20) +
   (qualityScores.coverage * 0.25)
 );
 
@@ -422,7 +422,7 @@ console.log(`🎤 Webinars: ${metrics.webinarCount}`);
 console.log(`\n🎯 Quality Score: ${qualityScores.overall}/100`);
 console.log(`   - Completeness: ${qualityScores.completeness}/100`);
 console.log(`   - Currency: ${qualityScores.currency}/100`);
-console.log(`   - Diversity: ${qualityScores.diversity}/100`);
+console.log(`   - Variety: ${qualityScores.variety}/100`);
 console.log(`   - Coverage: ${qualityScores.coverage}/100`);
 console.log(`\n⚠️  Identified Gaps: ${gaps.length}`);
 gaps.forEach((gap, idx) => {

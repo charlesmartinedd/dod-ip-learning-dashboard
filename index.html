@@ -4245,10 +4245,10 @@
             }).length;
             const currency = Math.round((recent / RESOURCES.length) * 100);
 
-            // Diversity: coverage of all types (out of 5 main types)
+            // Variety: coverage of all types (out of 5 main types)
             const mainTypes = ['Video', 'Document', 'Webinar', 'Training', 'Website'];
             const typesPresent = mainTypes.filter(t => TYPE_COUNTS[t] > 0).length;
-            const diversity = Math.round((typesPresent / mainTypes.length) * 100);
+            const variety = Math.round((typesPresent / mainTypes.length) * 100);
 
             // Coverage: average of audience and topic coverage
             const audiencesCovered = Object.values(audienceCounts).filter(c => c > 0).length;
@@ -4259,10 +4259,10 @@
 
             // Overall weighted score
             const overall = Math.round(
-                completeness * 0.25 + currency * 0.25 + diversity * 0.20 + coverage * 0.30
+                completeness * 0.25 + currency * 0.25 + variety * 0.20 + coverage * 0.30
             );
 
-            return { completeness, currency, diversity, coverage, overall };
+            return { completeness, currency, variety, coverage, overall };
         }
 
         const QUALITY_DIMENSIONS = calculateQualityDimensions();
@@ -4754,7 +4754,7 @@
                 const dimensions = [
                     { name: 'Completeness', value: q.completeness, desc: 'Resources with complete metadata (date, description, URL)', color: '#2563eb' },
                     { name: 'Currency', value: q.currency, desc: 'Resources published in 2024-2025', color: '#10b981' },
-                    { name: 'Variety', value: q.diversity, desc: 'Coverage across resource types', color: '#f59e0b' },
+                    { name: 'Variety', value: q.variety, desc: 'Coverage across resource types', color: '#f59e0b' },
                     { name: 'Coverage', value: q.coverage, desc: 'Audience and topic breadth', color: '#8b5cf6' }
                 ];
                 const getScoreClass = (v) => v >= 70 ? 'good' : v >= 50 ? 'moderate' : 'poor';

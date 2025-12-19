@@ -42,7 +42,7 @@ Executive-level dashboard and reporting system for Department of Defense Intelle
 ### Quality Score: 70/100
 - **Completeness:** 55/100 (metadata quality)
 - **Currency:** 37/100 (recent content 2024-2025)
-- **Diversity:** 100/100 (format variety)
+- **Variety:** 100/100 (format variety)
 - **Coverage:** 100/100 (audience reach)
 
 ### Identified Gaps (6 Strategic Areas)

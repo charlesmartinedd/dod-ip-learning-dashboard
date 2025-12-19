@@ -220,7 +220,7 @@ function renderQualityRadar() {
             labels: [
                 'Completeness',
                 'Currency',
-                'Diversity',
+                'Variety',
                 'Coverage'
             ],
             datasets: [{
@@ -228,7 +228,7 @@ function renderQualityRadar() {
                 data: [
                     qualityScores.completeness,
                     qualityScores.currency,
-                    qualityScores.diversity,
+                    qualityScores.variety,
                     qualityScores.coverage
                 ],
                 backgroundColor: 'rgba(0, 113, 188, 0.2)',
